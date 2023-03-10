@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Extensions.Mailing": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:62196;http://localhost:62201"
+    }
+  }
+}

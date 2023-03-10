@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	<TargetFramework>netstandard2.1</TargetFramework>
+	<Nullable>enable</Nullable>
+	<RootNamespace>Zord.Extensions.Mailing</RootNamespace>
+	<AssemblyName>Zord.Extensions.Mailing</AssemblyName>
+	<Title>Zord.Extensions.Mailing</Title>
+	<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	<Authors>minhvu</Authors>
+	<Description>Mail package services using STMP, MailKit, Graph.</Description>
+	<Summary>Mail package services using STMP, MailKit, Graph.</Summary>
+	<Version>2.0.0</Version>
+	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	<PackageReleaseNotes></PackageReleaseNotes>
+  </PropertyGroup>
+
+  <ItemGroup>
+	<PackageReference Include="Azure.Identity" Version="1.8.2" />
+	<PackageReference Include="MailKit" Version="3.6.0" />
+	<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0" />
+	<PackageReference Include="Microsoft.Extensions.Options" Version="7.0.1" />
+	<PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="7.0.0" />
+	<PackageReference Include="Microsoft.Graph" Version="5.1.0" />
+	<PackageReference Include="MimeKit" Version="3.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj" />
+  </ItemGroup>
+
+</Project>
