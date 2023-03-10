@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Net.Mail;
+using System.Threading;
 using System.Threading.Tasks;
 using Zord.Core.Mailing;
 
@@ -18,7 +19,7 @@ namespace Zord.Extensions.Mailing
             _logger = logger;
         }
 
-        public async Task SendAsync(Sender sender, Core.Mailing.MailMessage mail)
+        public async Task SendAsync(Sender sender, Core.Mailing.MailMessage mail, CancellationToken cancellationToken = default)
         {
             var message = new System.Net.Mail.MailMessage
             {

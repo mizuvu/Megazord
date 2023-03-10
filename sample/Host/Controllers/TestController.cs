@@ -8,15 +8,12 @@ namespace Host.Controllers
     public class TestController : ControllerBase
     {
         private readonly ILogger<TestController> _logger;
-        private readonly IGraphMailService _graphMailService;
         private readonly ISmtpMailService _smtpMailService;
 
         public TestController(ILogger<TestController> logger,
-            IGraphMailService graphMailService,
             ISmtpMailService smtpMailService)
         {
             _logger = logger;
-            _graphMailService = graphMailService;
             _smtpMailService = smtpMailService;
         }
 
@@ -37,13 +34,13 @@ namespace Host.Controllers
             //message.CcRecipients.Add("minhvu.box@gmail.com");
 
             //message.BccRecipients.Add("kidkylin@gmail.com");
-            /*
+
             message.Attachments.Add(new MailAttachment
             {
                 FileName = "pexels-pixabay-268533.jpg",
                 FileToBytes = byteArray
             });
-            */
+
             var sender = new Sender
             {
                 Address = "minhvd@aswatson.com",

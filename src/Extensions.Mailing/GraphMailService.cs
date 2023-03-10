@@ -4,6 +4,7 @@ using Microsoft.Graph.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Zord.Core.Mailing;
 
@@ -21,7 +22,7 @@ namespace Zord.Extensions.Mailing
             _logger = logger;
         }
 
-        public async Task SendAsync(Sender sender, MailMessage mail)
+        public async Task SendAsync(Sender sender, MailMessage mail, CancellationToken cancellationToken = default)
         {
             // Define a simple e-mail message.
             var message = new Message
@@ -51,7 +52,7 @@ namespace Zord.Extensions.Mailing
             };
 
             // Send mail as the given user. 
-            await _graphServiceClient.Users[sender.Address].SendMail.PostAsync(request);
+            await _graphServiceClient.Users[sender.Address].SendMail.PostAsync(request, cancellationToken: cancellationToken);
 
 #if DEBUG
             _logger.LogInformation("----- Mail to <{email}> [{subject}] succeeded.",

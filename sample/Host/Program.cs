@@ -4,13 +4,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+/*
 builder.Services.AddGraphMail(opt =>
 {
     opt.ClientSecret = "";
     opt.ClientId = "";
     opt.TenantId = "";
 });
-
+*/
 builder.Services.AddSmtpMail(builder.Configuration);
 
 builder.Services.AddControllers();

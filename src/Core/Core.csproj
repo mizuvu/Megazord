@@ -10,7 +10,7 @@
 	<Authors>minhvu</Authors>
 	<Description>Zord Core package.</Description>
 	<Summary>Zord Core package.</Summary>
-	<Version>1.0.3</Version>
+	<Version>1.0.4</Version>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
