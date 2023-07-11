@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+	<ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+	<RootNamespace>Zord.Extensions.Caching</RootNamespace>
+	<AssemblyName>Zord.Extensions.Caching</AssemblyName>
+	<Title>Zord.Extensions.Caching</Title>
+	<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	<Authors>minhvu</Authors>
+	<Description>Cache package services using Memory, Distributed, Redis.</Description>
+	<Summary>Cache package services using Memory, Distributed, Redis.</Summary>
+	<Version>1.2.5</Version>
+	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+	<PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="7.0.0" />
+	<PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="7.0.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Extensions\Extensions.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+	<Using Include="Zord.Extensions.Caching" />
+  </ItemGroup>
+
+</Project>

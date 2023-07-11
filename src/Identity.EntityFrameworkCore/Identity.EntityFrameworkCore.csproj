@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	<RootNamespace>Zord.Identity.EntityFrameworkCore</RootNamespace>
+	<AssemblyName>Zord.Identity.EntityFrameworkCore</AssemblyName>
+	<Title>Zord.Identity.EntityFrameworkCore</Title>
+	<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	<Authors>minhvu</Authors>
+	<Description>Identity module provider that uses Entity Framework Core.</Description>
+	<Summary>Identity module provider that uses Entity Framework Core.</Summary>
+	<Version>1.0.0</Version>
+	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+	<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.9" />
+	<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.9" />
+	<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.9" />
+	<PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.9" />
+	<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Identity\Identity.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+	<ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	<RootNamespace>Zord.Extensions.Logging</RootNamespace>
+	<AssemblyName>Zord.Extensions.Logging</AssemblyName>
+	<Title>Zord.Extensions.Logging</Title>
+	<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	<Authors>minhvu</Authors>
+	<Description>Zord Logging using Serilog.</Description>
+	<Summary>Zord Logging using Serilog.</Summary>
+	<Version>1.2.5</Version>
+	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	<PackageReleaseNotes></PackageReleaseNotes>
+  </PropertyGroup>
+
+  <ItemGroup>
+	<PackageReference Include="Serilog" Version="3.0.1" />
+	<PackageReference Include="Serilog.AspNetCore" Version="7.0.0" />
+	<PackageReference Include="Serilog.Enrichers.Environment" Version="2.2.0" />
+	<PackageReference Include="Serilog.Expressions" Version="3.4.1" />
+	<PackageReference Include="Serilog.Sinks.Async" Version="1.5.0" />
+	<PackageReference Include="Serilog.Sinks.Console" Version="4.1.0" />
+	<PackageReference Include="Serilog.Sinks.Seq" Version="5.2.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Extensions\Extensions.csproj" />
+  </ItemGroup>
+
+</Project>

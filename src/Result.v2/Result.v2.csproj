@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	<TargetFramework>netstandard2.0</TargetFramework>
+	<RootNamespace>Zord.Result</RootNamespace>
+	<AssemblyName>Zord.Result</AssemblyName>
+	<Title>Zord.Result</Title>
+	<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	<Authors>minhvu</Authors>
+	<Description>Package contains result models version 2 for services.</Description>
+	<Summary>Package contains result models version 2 for services.</Summary>
+	<Version>2.0.5.8</Version>
+	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+</Project>

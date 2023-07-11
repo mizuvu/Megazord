@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	<RootNamespace>Zord.EntityFrameworkCore.Extensions</RootNamespace>
+	<AssemblyName>Zord.EntityFrameworkCore.Extensions</AssemblyName>
+	<Title>Zord.EntityFrameworkCore.Extensions</Title>
+	<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	<Authors>minhvu</Authors>
+	<Description>Extensions for Entity Framework Core.</Description>
+	<Summary>Extensions for Entity Framework Core.</Summary>
+	<Version>1.0.0</Version>
+	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EntityFrameworkCore\EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\Result.v2\Result.v2.csproj" />
+  </ItemGroup>
+
+</Project>

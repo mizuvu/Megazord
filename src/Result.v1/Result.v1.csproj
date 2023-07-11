@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+	<RootNamespace>Zord.Result</RootNamespace>
+	<AssemblyName>Zord.Result</AssemblyName>
+	<Title>Zord.Result</Title>
+	<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	<Authors>minhvu</Authors>
+	<Description>Package contains reusable models pattern for services.</Description>
+	<Summary>Package contains reusable models pattern for services.</Summary>
+	<Version>1.1.7</Version>
+	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+</Project>

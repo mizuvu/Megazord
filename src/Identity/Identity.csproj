@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	<TargetFramework>netstandard2.1</TargetFramework>
+    <Nullable>enable</Nullable>
+	<RootNamespace>Zord.Identity</RootNamespace>
+	<AssemblyName>Zord.Identity</AssemblyName>
+	<Title>Zord.Identity</Title>
+	<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	<Authors>minhvu</Authors>
+	<Description>Identity module package.</Description>
+	<Summary>Identity module package.</Summary>
+	<Version>1.0.0</Version>
+	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj" />
+    <ProjectReference Include="..\Result.v2\Result.v2.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Mapster" Version="7.3.0" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.9" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\DomainActiveDirectory\DomainActiveDirectory.csproj" />
+    <ProjectReference Include="..\..\src\EntityFrameworkCore.Cache\EntityFrameworkCore.Cache.csproj" />
+    <ProjectReference Include="..\..\src\EntityFrameworkCore\EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\..\src\Extensions.Caching\Extensions.Caching.csproj" />
+    <ProjectReference Include="..\..\src\Extensions.Documents\Extensions.Documents.csproj" />
+    <ProjectReference Include="..\..\src\Extensions.EventBus.RabbitMQ\Extensions.EventBus.RabbitMQ.csproj" />
+    <ProjectReference Include="..\..\src\Extensions.Logging\Extensions.Logging.csproj" />
+    <ProjectReference Include="..\..\src\Extensions.SmtpMail\Extensions.SmtpMail.csproj" />
+    <ProjectReference Include="..\..\src\Extensions\Extensions.csproj" />
+    <ProjectReference Include="..\..\src\Identity.EntityFrameworkCore\Identity.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\..\src\Result.v2\Result.v2.csproj" />
+  </ItemGroup>
+
+</Project>

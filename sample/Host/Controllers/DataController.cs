@@ -1,0 +1,50 @@
+﻿using Host.Data;
+using Microsoft.AspNetCore.Mvc;
+using Zord.EntityFrameworkCore;
+
+namespace Host.Controllers
+{
+    [Route("[controller]")]
+    [ApiController]
+    public class DataController : ControllerBase
+    {
+        private readonly IUnitOfWork<AlphaDbContext> _unitOfWork;
+        private readonly IRepository<RetailLocation, AlphaDbContext> _locationRepo;
+
+        public DataController(
+            IUnitOfWork<AlphaDbContext> unitOfWork,
+            IRepository<RetailLocation, AlphaDbContext> locationRepo)
+        {
+            _unitOfWork = unitOfWork;
+            _locationRepo = locationRepo;
+        }
+
+        [HttpGet("locations")]
+        public async Task<IActionResult> GetAsync(CancellationToken cancellationToken)
+        {
+            var data = await _unitOfWork.Repository<RetailLocation>().GetAllAsync(cancellationToken);
+            return Ok(data);
+        }
+
+        [HttpGet("locations/{id}")]
+        public async Task<IActionResult> GetAsync(string id, CancellationToken cancellationToken)
+        {
+            var data = await _unitOfWork.Repository<RetailLocation>().GetByKeyAsync(id, cancellationToken);
+            return Ok(data);
+        }
+
+        [HttpPut("locations")]
+        public async Task<IActionResult> PutAsync(CancellationToken cancellationToken)
+        {
+            var data = await _unitOfWork.Repository<RetailLocation>().GetByKeyAsync("111", cancellationToken);
+            data!.Name = "---111";
+
+            var data2 = await _locationRepo.GetByKeyAsync("222", cancellationToken);
+            data2!.Name = "----222";
+
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
+
+            return Ok();
+        }
+    }
+}
