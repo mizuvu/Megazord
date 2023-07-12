@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-using Zord.DomainActiveDirectory.Dtos;
-using Zord.Result;
+﻿using Zord.DomainActiveDirectory.Dtos;
 
 namespace Zord.DomainActiveDirectory.Interfaces
 {

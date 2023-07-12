@@ -1,20 +1,21 @@
-﻿using Novell.Directory.Ldap;
+﻿using Microsoft.Extensions.Options;
+using Novell.Directory.Ldap;
 using System.DirectoryServices;
 using System.Runtime.Versioning;
-using Zord.DomainActiveDirectory.Configurations;
 using Zord.DomainActiveDirectory.Dtos;
 using Zord.DomainActiveDirectory.Interfaces;
+using Zord.DomainActiveDirectory.Options;
 
 namespace Zord.DomainActiveDirectory.Services;
 
 [SupportedOSPlatform("windows")]
 public class LDAPService : IActiveDirectoryService
 {
-    private readonly LdapConfiguration _settings;
+    private readonly LdapOptions _options;
 
-    public LDAPService(LdapConfiguration settings)
+    public LDAPService(IOptions<LdapOptions> options)
     {
-        _settings = settings;
+        _options = options.Value;
     }
 
     [SupportedOSPlatform("windows")]
@@ -32,10 +33,10 @@ public class LDAPService : IActiveDirectoryService
             var ldapConn = new LdapConnection() { SecureSocketLayer = false };
 
             // create socket connect to server
-            ldapConn.Connect(_settings.IpServer, _settings.Port);
+            ldapConn.Connect(_options.Address, _options.Port);
 
-            // bind user dm & password
-            ldapConn.Bind(userName + _settings.DomainUser, password);
+            // bind domain user with domain name (username@domain.com) & password
+            ldapConn.Bind(userName + "@" + _options.Name, password);
 
             result = Result.Result.Success();
         }
@@ -49,8 +50,8 @@ public class LDAPService : IActiveDirectoryService
 
     public IResult ChangePasswordAsync(string userName, string oldPassword, string newPassword)
     {
-        var sPath = _settings.Connection; //This is if your domain was my.domain.com
-        var de = new DirectoryEntry(sPath, _settings.UserName, _settings.Password, AuthenticationTypes.Secure);
+        var sPath = _options.Connection; // This is if your domain was my.domain.com
+        var de = new DirectoryEntry(sPath, _options.UserName, _options.Password, AuthenticationTypes.Secure);
         var ds = new DirectorySearcher(de);
         string qry = string.Format("(&(objectCategory=person)(objectClass=user)(sAMAccountName={0}))", userName);
         ds.Filter = qry;

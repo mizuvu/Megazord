@@ -1,10 +1,9 @@
 ﻿using Host.Identity.Authorization;
 using Zord.Identity;
-using Zord.Identity.EntityFrameworkCore.Abstractions;
 
 namespace Host.Identity
 {
-    public class CustomApplicationClaim : IClaimProvider
+    public class CustomApplicationClaim
     {
         public string Permission => AppClaimType.Permission;
 
@@ -40,7 +39,7 @@ namespace Host.Identity
                 Type = s.Type,
                 Value = s.Value,
             });
-            
+
             return Task.FromResult(dto);
         }
 

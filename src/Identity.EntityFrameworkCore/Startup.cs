@@ -9,7 +9,10 @@ namespace Zord.Identity.EntityFrameworkCore;
 
 public static class Startup
 {
-    public static IServiceCollection AddIdentityData<TContext>(this IServiceCollection services, IConfiguration config)
+    /// <summary>
+    /// Config Identity data
+    /// </summary>
+    public static IServiceCollection AddIdentityData<TContext>(this IServiceCollection services, IConfiguration config, string? migrationsAssembly = "")
         where TContext : IdentityDbContext
     {
         if (config.GetValue<bool>("UseInMemoryDatabase"))
@@ -22,9 +25,17 @@ public static class Startup
         {
             var connectionString = config.GetConnectionString("DefaultConnection");
 
-            services.AddDbContext<TContext>(opt =>
-                opt.UseSqlServer(connectionString,
-                    m => m.MigrationsAssembly("Alpha.Migrator")));
+            if (string.IsNullOrEmpty(migrationsAssembly))
+            {
+                services.AddDbContext<TContext>(opt => opt.UseSqlServer(connectionString));
+            }
+            else
+            {
+                services.AddDbContext<TContext>(opt =>
+                    opt.UseSqlServer(connectionString,
+                        m => m.MigrationsAssembly(migrationsAssembly)));
+            }
+
         }
 
         services.AddScoped<IIdentityDbContext>(provider => provider.GetRequiredService<TContext>());
@@ -32,6 +43,9 @@ public static class Startup
         return services;
     }
 
+    /// <summary>
+    /// Config Identity setup
+    /// </summary>
     public static IServiceCollection AddIdentitySetup<TContext>(this IServiceCollection services)
         where TContext : IdentityDbContext
     {
@@ -62,14 +76,17 @@ public static class Startup
         return services;
     }
 
-    public static IServiceCollection AddClaimProvider<TCustomClaimProvider>(this IServiceCollection services)
-        where TCustomClaimProvider : class, IClaimProvider
+    private static IServiceCollection AddClaimProvider<TCustomClaimProvider>(this IServiceCollection services)
+        where TCustomClaimProvider : class, IClaimType
     {
-        services.AddScoped<IClaimProvider, TCustomClaimProvider>();
+        services.AddScoped<IClaimType, TCustomClaimProvider>();
 
         return services;
     }
 
+    /// <summary>
+    /// Register Identity services
+    /// </summary>
     public static IServiceCollection AddIdentityServices(this IServiceCollection services)
     {
         services.AddScoped<IUserService, UserService>();

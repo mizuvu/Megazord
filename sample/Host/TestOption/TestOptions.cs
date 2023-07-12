@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 
-namespace Host.Identity
+namespace Host.TestOption
 {
     public class TestOptions
     {

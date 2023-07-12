@@ -1,43 +1,41 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using System.Runtime.Versioning;
-using Zord.DomainActiveDirectory.Configurations;
 using Zord.DomainActiveDirectory.Interfaces;
+using Zord.DomainActiveDirectory.Options;
 using Zord.DomainActiveDirectory.Services;
 
 namespace Zord.DomainActiveDirectory;
 
 public static class Startup
 {
-    public static IServiceCollection AddDomainActiveDirectory(this IServiceCollection services, ActiveDirectoryConfiguration? configuration)
+    public static IServiceCollection AddDomainActiveDirectory(this IServiceCollection services, Action<DomainOptions>? action = null)
     {
-        if (configuration == null)
+        if (action == null)
         {
             services.AddTransient<IActiveDirectoryService, FakeActiveDirectoryService>();
         }
         else
         {
+            services.Configure(action);
 #pragma warning disable CA1416
-            services.AddActiveDirectory(configuration);
+            services.AddTransient<IActiveDirectoryService, ActiveDirectoryService>();
 #pragma warning restore CA1416
         }
 
         return services;
     }
 
-    [SupportedOSPlatform("windows")]
-    private static IServiceCollection AddActiveDirectory(this IServiceCollection services, ActiveDirectoryConfiguration configuration)
+    public static IServiceCollection AddLdapActiveDirectory(this IServiceCollection services, Action<LdapOptions>? action = null)
     {
-        if (configuration.LDAP != null)
+        if (action == null)
         {
-            services.AddSingleton(configuration.LDAP);
-
-            services.AddTransient<IActiveDirectoryService, LDAPService>();
+            services.AddTransient<IActiveDirectoryService, FakeActiveDirectoryService>();
         }
         else
         {
-            services.AddSingleton(configuration);
-
-            services.AddTransient<IActiveDirectoryService, ActiveDirectoryService>();
+            services.Configure(action);
+#pragma warning disable CA1416
+            services.AddTransient<IActiveDirectoryService, LDAPService>();
+#pragma warning restore CA1416
         }
 
         return services;

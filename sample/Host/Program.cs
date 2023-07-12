@@ -1,6 +1,7 @@
 global using Zord.Result;
 using Host.Data;
 using Host.Identity;
+using Host.TestOption;
 using Serilog;
 using Zord.Extensions.Caching;
 using Zord.Extensions.Documents;
@@ -42,6 +43,8 @@ builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SMTPM
 builder.Services.AddZordDocumentGenerator();
 
 builder.Services.AddAuth(builder.Configuration);
+
+builder.Services.AddTestOptions(builder.Configuration);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

@@ -31,7 +31,7 @@ public class TokenController : ControllerBase
     }
 
     [HttpGet("claims")]
-    public IActionResult Get()
+    public IActionResult GetClaims()
     {
         return Ok(_claimTypes);
     }
@@ -52,7 +52,7 @@ public class TokenController : ControllerBase
         if (user.Data.UseDomainPassword)
         {
             var domainLogin = await _activeDirectoryService.CheckPasswordSignInAsync(request.ClientId, request.ClientSecret);
-            
+
             if (domainLogin.Succeeded is false)
                 return Ok(domainLogin);
         }
@@ -63,7 +63,7 @@ public class TokenController : ControllerBase
             if (localLogin.Succeeded is false)
                 return Ok(localLogin);
         }
-        
+
         return Ok(await _tokenService.GetTokenByUserNameAsync(request.ClientId));
     }
 

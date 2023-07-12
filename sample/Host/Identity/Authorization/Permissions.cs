@@ -65,9 +65,9 @@ public class Permissions
         [Display(Description = "view / update balance for employee")]
         public const string EmployeeBalance = $"{Base}.Employee.Balance";
 
-		[Display(Description = "reserved a booking for employee")]
-		public const string BookEmployeeFoodcourt = $"{Base}.Employee.{nameof(BookEmployeeFoodcourt)}";
-	}
+        [Display(Description = "reserved a booking for employee")]
+        public const string BookEmployeeFoodcourt = $"{Base}.Employee.{nameof(BookEmployeeFoodcourt)}";
+    }
 
     [Description("Retail permissions")]
     public static class Retail

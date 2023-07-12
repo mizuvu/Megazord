@@ -18,13 +18,13 @@ public class TokenService : ITokenService
         UserManager<ApplicationUser> userManager,
         RoleManager<ApplicationRole> roleManager,
         IOptions<ClaimTypeOptions> claimTypes,
-        IOptions<JwtOptions> jwtConfig,
+        IOptions<JwtOptions> jwtOptions,
         IIdentityDbContext db)
     {
         _userManager = userManager;
         _roleManager = roleManager;
         _claimTypes = claimTypes.Value;
-        _jwtOptions = jwtConfig.Value;
+        _jwtOptions = jwtOptions.Value;
         _db = db;
     }
 
@@ -34,6 +34,7 @@ public class TokenService : ITokenService
         var roles = await _userManager.GetRolesAsync(user);
         var roleClaims = new List<Claim>();
         var permissionClaims = new List<Claim>();
+
         foreach (var role in roles)
         {
             roleClaims.Add(new Claim(ClaimTypes.Role, role));
@@ -112,13 +113,8 @@ public class TokenService : ITokenService
         return await _db.JwtTokens.FirstOrDefaultAsync(x => x.UserId == userId && x.Token == token);
     }
 
-    public async Task<IResult<TokenDto>> GetTokenByUserNameAsync(string userName)
+    public async Task<IResult<TokenDto>> GetTokenAsync(ApplicationUser user)
     {
-        var user = await _userManager.FindByNameAsync(userName);
-
-        if (user == null || user.Status.IsActive is false)
-            return Result<TokenDto>.Unauthorized("Invalid credentials.");
-
         var token = await GenerateJwtAsync(user);
         var tokenExpiryTime = _jwtOptions.ExpiresIn;
         var refreshToken = JwtHelper.GenerateRefreshToken();
@@ -129,8 +125,6 @@ public class TokenService : ITokenService
             token, DateTimeOffset.Now.AddSeconds(tokenExpiryTime),
             refreshToken, DateTimeOffset.Now.AddSeconds(refreshTokenExpiryTime));
 
-        await _userManager.UpdateAsync(user);
-
         var dto = new TokenDto
         {
             AccessToken = token,
@@ -140,6 +134,26 @@ public class TokenService : ITokenService
         };
 
         return Result<TokenDto>.Object(dto);
+    }
+
+    public async Task<IResult<TokenDto>> GetTokenByIdAsync(string userId)
+    {
+        var user = await _userManager.FindByIdAsync(userId);
+
+        if (user == null || user.Status.IsActive is false)
+            return Result<TokenDto>.Unauthorized("Invalid credentials.");
+
+        return await GetTokenAsync(user);
+    }
+
+    public async Task<IResult<TokenDto>> GetTokenByUserNameAsync(string userName)
+    {
+        var user = await _userManager.FindByNameAsync(userName);
+
+        if (user == null || user.Status.IsActive is false)
+            return Result<TokenDto>.Unauthorized("Invalid credentials.");
+
+        return await GetTokenAsync(user);
     }
 
     public async Task<IResult<TokenDto>> RefreshTokenAsync(RefreshTokenRequest request)
@@ -176,8 +190,6 @@ public class TokenService : ITokenService
             user.Id,
             token, DateTimeOffset.Now.AddSeconds(tokenExpiryTime),
             refreshToken, DateTimeOffset.Now.AddSeconds(refreshTokenExpiryTime));
-
-        await _userManager.UpdateAsync(user);
 
         var dto = new TokenDto
         {

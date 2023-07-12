@@ -1,19 +1,20 @@
-﻿using System.DirectoryServices.AccountManagement;
+﻿using Microsoft.Extensions.Options;
+using System.DirectoryServices.AccountManagement;
 using System.Runtime.Versioning;
-using Zord.DomainActiveDirectory.Configurations;
 using Zord.DomainActiveDirectory.Dtos;
 using Zord.DomainActiveDirectory.Interfaces;
+using Zord.DomainActiveDirectory.Options;
 
 namespace Zord.DomainActiveDirectory.Services;
 
 [SupportedOSPlatform("windows")]
 public class ActiveDirectoryService : IActiveDirectoryService
 {
-    private readonly ActiveDirectoryConfiguration _domain;
+    private readonly DomainOptions _domain;
 
-    public ActiveDirectoryService(ActiveDirectoryConfiguration domain)
+    public ActiveDirectoryService(IOptions<DomainOptions> domain)
     {
-        _domain = domain;
+        _domain = domain.Value;
     }
 
     public Task<IResult> CheckPasswordSignInAsync(string userName, string password)
