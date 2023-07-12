@@ -9,9 +9,9 @@
 	<Title>Zord.Identity.EntityFrameworkCore</Title>
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	<Authors>minhvu</Authors>
-	<Description>Domain Active Directory module support on Windows.</Description>
-	<Summary>Domain Active Directory module support on Windows.</Summary>
-	<Version>1.0.0</Version>
+	<Description>Connect Domain Active Directory support on Windows.</Description>
+	<Summary>Connect Domain Active Directory support on Windows.</Summary>
+	<Version>0.0.0.1</Version>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
