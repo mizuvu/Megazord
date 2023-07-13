@@ -14,7 +14,9 @@ namespace Zord.Identity.Migrator.Extensions
         {
             var assemblyName = Assembly.GetExecutingAssembly().GetName().Name;
 
-            services.AddIdentityData<AppIdentityDbContext>(config, assemblyName);
+            var connectionStr = config.GetConnectionString("DefaultConnection");
+
+            services.AddIdentityData<AppIdentityDbContext>(connectionStr, assemblyName);
 
             services.AddIdentitySetup<AppIdentityDbContext>();
 

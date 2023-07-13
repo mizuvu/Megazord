@@ -12,27 +12,25 @@ public static class Startup
     /// <summary>
     /// Config Identity data
     /// </summary>
-    public static IServiceCollection AddIdentityData<TContext>(this IServiceCollection services, IConfiguration config, string? migrationsAssembly = "")
+    public static IServiceCollection AddIdentityData<TContext>(this IServiceCollection services, string? connectionString = "", string? migrationsAssembly = "")
         where TContext : IdentityDbContext
     {
-        if (config.GetValue<bool>("UseInMemoryDatabase"))
+        if (string.IsNullOrEmpty(connectionString))
         {
-            services
-                .AddDbContext<TContext>(options =>
-                    options.UseInMemoryDatabase("MemoryDb"));
+            services.AddDbContext<TContext>(options => 
+                options.UseInMemoryDatabase("IdentityDb"));
         }
         else
         {
-            var connectionString = config.GetConnectionString("DefaultConnection");
-
             if (string.IsNullOrEmpty(migrationsAssembly))
             {
-                services.AddDbContext<TContext>(opt => opt.UseSqlServer(connectionString));
+                services.AddDbContext<TContext>(options =>
+                    options.UseSqlServer(connectionString));
             }
             else
             {
-                services.AddDbContext<TContext>(opt =>
-                    opt.UseSqlServer(connectionString,
+                services.AddDbContext<TContext>(options =>
+                    options.UseSqlServer(connectionString,
                         m => m.MigrationsAssembly(migrationsAssembly)));
             }
 

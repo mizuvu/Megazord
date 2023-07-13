@@ -8,7 +8,9 @@ public static class Startup
 {
     public static IServiceCollection AddAuth(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddIdentityData<AppIdentityDbContext>(configuration);
+        var connectionStr = configuration.GetConnectionString("DefaultConnection");
+
+        services.AddIdentityData<AppIdentityDbContext>(connectionStr);
 
         services.AddHttpContextAccessor();
 
