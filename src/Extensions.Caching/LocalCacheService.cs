@@ -37,17 +37,9 @@ public class LocalCacheService : ICacheService
 
     public void Set<T>(string key, T value, TimeSpan? slidingExpiration = null)
     {
-        if (slidingExpiration is null)
-        {
-            // TODO: add to appsettings?
-            // slidingExpiration = TimeSpan.FromMinutes(10); // Default expiration time of 10 minutes.
+        slidingExpiration ??= TimeSpan.FromMinutes(30); // Default expiration time is 30 minutes.
 
-            _cache.Set(key, value);
-        }
-        else
-        {
-            _cache.Set(key, value, new MemoryCacheEntryOptions { SlidingExpiration = slidingExpiration });
-        }
+        _cache.Set(key, value, new MemoryCacheEntryOptions { SlidingExpiration = slidingExpiration });
 
         _logger.LogDebug("Added to Cache : {key}", key);
     }

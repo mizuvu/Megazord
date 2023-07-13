@@ -101,7 +101,10 @@ public class DistributedCacheService : ICacheService
     {
         try
         {
-            _cache.Set(key, value, GetOptions(slidingExpiration));
+            var options = new DistributedCacheEntryOptions();
+            options.SetSlidingExpiration(slidingExpiration ?? TimeSpan.FromMinutes(30)); // Default expiration time is 30 minutes.
+
+            _cache.Set(key, value, options);
             _logger.LogDebug("Added to Cache : {key}", key);
         }
         catch
@@ -116,35 +119,15 @@ public class DistributedCacheService : ICacheService
     {
         try
         {
-            if (slidingExpiration is null)
-            {
-                await _cache.SetAsync(key, value, token);
-            }
-            else
-            {
-                await _cache.SetAsync(key, value, GetOptions(slidingExpiration), token);
-            }
+            var options = new DistributedCacheEntryOptions();
+            options.SetSlidingExpiration(slidingExpiration ?? TimeSpan.FromMinutes(30)); // Default expiration time is 30 minutes.
+
+            await _cache.SetAsync(key, value, options, token);
 
             _logger.LogDebug("Added to Cache : {key}", key);
         }
         catch
         {
         }
-    }
-
-    private static DistributedCacheEntryOptions GetOptions(TimeSpan? slidingExpiration)
-    {
-        var options = new DistributedCacheEntryOptions();
-        if (slidingExpiration.HasValue)
-        {
-            options.SetSlidingExpiration(slidingExpiration.Value);
-        }
-        else
-        {
-            // TODO: add to appsettings?
-            options.SetSlidingExpiration(TimeSpan.FromMinutes(10)); // Default expiration time of 10 minutes.
-        }
-
-        return options;
     }
 }

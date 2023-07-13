@@ -11,7 +11,7 @@
 	<Authors>minhvu</Authors>
 	<Description>Cache package services using Memory, Distributed, Redis.</Description>
 	<Summary>Cache package services using Memory, Distributed, Redis.</Summary>
-	<Version>1.2.5</Version>
+	<Version>1.2.6</Version>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
