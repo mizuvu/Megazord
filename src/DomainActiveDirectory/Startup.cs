@@ -7,36 +7,31 @@ namespace Zord.DomainActiveDirectory;
 
 public static class Startup
 {
-    public static IServiceCollection AddDomainActiveDirectory(this IServiceCollection services, Action<DomainOptions>? action = null)
+    public static IServiceCollection AddDomainActiveDirectory(this IServiceCollection services)
     {
-        if (action == null)
-        {
-            services.AddTransient<IActiveDirectoryService, FakeActiveDirectoryService>();
-        }
-        else
-        {
-            services.Configure(action);
-#pragma warning disable CA1416
-            services.AddTransient<IActiveDirectoryService, ActiveDirectoryService>();
-#pragma warning restore CA1416
-        }
+        services.AddTransient<IActiveDirectoryService, FakeActiveDirectoryService>();
 
         return services;
     }
 
-    public static IServiceCollection AddLdapActiveDirectory(this IServiceCollection services, Action<LdapOptions>? action = null)
+    public static IServiceCollection AddDomainActiveDirectory(this IServiceCollection services, Action<DomainOptions> action)
     {
-        if (action == null)
-        {
-            services.AddTransient<IActiveDirectoryService, FakeActiveDirectoryService>();
-        }
-        else
-        {
-            services.Configure(action);
+        services.Configure(action);
+
 #pragma warning disable CA1416
-            services.AddTransient<IActiveDirectoryService, LDAPService>();
+        services.AddTransient<IActiveDirectoryService, ActiveDirectoryService>();
 #pragma warning restore CA1416
-        }
+
+        return services;
+    }
+
+    public static IServiceCollection AddLdapActiveDirectory(this IServiceCollection services, Action<LdapOptions> action)
+    {
+        services.Configure(action);
+
+#pragma warning disable CA1416
+        services.AddTransient<IActiveDirectoryService, LDAPService>();
+#pragma warning restore CA1416
 
         return services;
     }

@@ -113,8 +113,13 @@ public class TokenService : ITokenService
         return await _db.JwtTokens.FirstOrDefaultAsync(x => x.UserId == userId && x.Token == token);
     }
 
-    public async Task<IResult<TokenDto>> GetTokenAsync(ApplicationUser user)
+    public async Task<IResult<TokenDto>> GetTokenAsync(ApplicationUser? user)
     {
+        if (user == null
+            || user.Status.IsActive is false
+            || user.IsDeleted)
+            return Result<TokenDto>.Unauthorized("Invalid credentials.");
+
         var token = await GenerateJwtAsync(user);
         var tokenExpiryTime = _jwtOptions.ExpiresIn;
         var refreshToken = JwtHelper.GenerateRefreshToken();
@@ -140,18 +145,12 @@ public class TokenService : ITokenService
     {
         var user = await _userManager.FindByIdAsync(userId);
 
-        if (user == null || user.Status.IsActive is false)
-            return Result<TokenDto>.Unauthorized("Invalid credentials.");
-
         return await GetTokenAsync(user);
     }
 
     public async Task<IResult<TokenDto>> GetTokenByUserNameAsync(string userName)
     {
         var user = await _userManager.FindByNameAsync(userName);
-
-        if (user == null || user.Status.IsActive is false)
-            return Result<TokenDto>.Unauthorized("Invalid credentials.");
 
         return await GetTokenAsync(user);
     }

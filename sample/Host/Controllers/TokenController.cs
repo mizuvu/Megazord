@@ -1,3 +1,4 @@
+using Host.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Zord.DomainActiveDirectory.Interfaces;

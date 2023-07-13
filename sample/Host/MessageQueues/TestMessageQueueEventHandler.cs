@@ -1,8 +1,7 @@
-﻿using Host.MessageQueues;
-using Zord.Extensions.EventBus.Abstractions;
+﻿using Zord.Extensions.EventBus.Abstractions;
 using Zord.Extensions.EventBus.RabbitMQ;
 
-namespace Host.EventHandlers;
+namespace Host.MessageQueues;
 
 public class TestMessageQueueEventHandler
     : BackgroundMessageQueueHandler<TestMessageQueue>
