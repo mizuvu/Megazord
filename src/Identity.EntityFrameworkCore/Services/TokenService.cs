@@ -1,6 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Text;
 using Zord.Identity.EntityFrameworkCore.Abstractions;
 using Zord.Identity.EntityFrameworkCore.Options;
 
@@ -60,21 +64,28 @@ public class TokenService : ITokenService
         .Union(userClaims)
         .Union(roleClaims)
         .Union(permissionClaims);
-
         return claims;
     }
 
     private async Task<string> GenerateJwtAsync(ApplicationUser user)
     {
-        var signingCredentials = JwtHelper.GetSigningCredentials(_jwtOptions.SecretKey);
+        var secret = Encoding.UTF8.GetBytes(_jwtOptions.SecretKey);
 
-        var token = JwtHelper.GenerateEncryptedToken(
-            signingCredentials,
-            await GetClaimsAsync(user),
-            _jwtOptions.Issuer,
-            _jwtOptions.ExpiresIn);
+        var signingCredentials = new SigningCredentials(new SymmetricSecurityKey(secret), SecurityAlgorithms.HmacSha256);
 
-        return token;
+        var claims = await GetClaimsAsync(user);
+
+        var token = new JwtSecurityToken(
+            issuer: _jwtOptions.Issuer,
+            claims: claims,
+            expires: DateTime.Now.AddSeconds(_jwtOptions.ExpiresIn),
+            signingCredentials: signingCredentials);
+
+        var tokenHandler = new JwtSecurityTokenHandler();
+
+        var encryptedToken = tokenHandler.WriteToken(token);
+
+        return encryptedToken;
     }
 
     private async Task SaveTokenAsync(string userId,

@@ -11,8 +11,11 @@
 	<Authors>minhvu</Authors>
 	<Description>Identity module provider that uses Entity Framework Core.</Description>
 	<Summary>Identity module provider that uses Entity Framework Core.</Summary>
-	<Version>1.2.0.2</Version>
-	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	<Version>1.2.0.6</Version>
+	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	<PublishRepositoryUrl>true</PublishRepositoryUrl>
+	<EmbedUntrackedSources>true</EmbedUntrackedSources>
+	<AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
   </PropertyGroup>
 
   <ItemGroup>
@@ -21,6 +24,7 @@
 	<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.9" />
 	<PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.9" />
 	<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.9" />
+	<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>

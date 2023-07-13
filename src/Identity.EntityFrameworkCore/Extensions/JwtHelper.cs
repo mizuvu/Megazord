@@ -8,28 +8,6 @@ namespace Zord.Identity.EntityFrameworkCore.Extensions;
 
 public static class JwtHelper
 {
-    public static SigningCredentials GetSigningCredentials(string key)
-    {
-        var secret = Encoding.UTF8.GetBytes(key);
-        return new SigningCredentials(new SymmetricSecurityKey(secret), SecurityAlgorithms.HmacSha256);
-    }
-
-    public static string GenerateEncryptedToken(
-        SigningCredentials signingCredentials,
-        IEnumerable<Claim> claims,
-        string tokenIssuer,
-        int expireInSeconds)
-    {
-        var token = new JwtSecurityToken(
-            issuer: tokenIssuer,
-            claims: claims,
-            expires: DateTime.Now.AddSeconds(expireInSeconds),
-            signingCredentials: signingCredentials);
-        var tokenHandler = new JwtSecurityTokenHandler();
-        var encryptedToken = tokenHandler.WriteToken(token);
-        return encryptedToken;
-    }
-
     public static string GenerateRefreshToken()
     {
         var randomNumber = new byte[32];

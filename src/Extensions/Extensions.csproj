@@ -10,12 +10,16 @@
 	<Authors>minhvu</Authors>
 	<Description>A simple package to process data faster.</Description>
 	<Summary>A simple package to process data faster.</Summary>
-	<Version>1.1.10</Version>
-	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	<Version>1.1.11</Version>
 	<PackageReleaseNotes></PackageReleaseNotes>
+	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	<PublishRepositoryUrl>true</PublishRepositoryUrl>
+	<EmbedUntrackedSources>true</EmbedUntrackedSources>
+	<AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
   </PropertyGroup>
 
   <ItemGroup>
+	<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
   </ItemGroup>
 
