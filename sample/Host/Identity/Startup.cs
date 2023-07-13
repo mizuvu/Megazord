@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Options;
-using Zord.DomainActiveDirectory;
+﻿using Zord.DomainActiveDirectory;
 using Zord.Identity.EntityFrameworkCore;
 using Zord.Identity.EntityFrameworkCore.Options;
 
@@ -18,7 +17,7 @@ public static class Startup
         //var jwt = configuration.GetSection("JWT").Get<JwtConfiguration>();
         //services.AddJwtConfiguration(jwt);
 
-        services.AddTransient<IConfigureOptions<JwtOptions>, CustomJwtOptions>();
+        services.AddOptions<JwtOptions>().BindConfiguration("JWT");
 
         services.AddDomainActiveDirectory(opt => opt.Name = "domain.com");
 
