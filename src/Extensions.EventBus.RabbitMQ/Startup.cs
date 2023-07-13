@@ -62,4 +62,11 @@ public static class Startup
     {
         services.AddHostedService<TEventHandler>();
     }
+
+    public static void SubscribeMessage<TMessage, TMessageQueueHandler>(this IServiceCollection services)
+        where TMessage : IntegrationEvent, IMessageQueue
+        where TMessageQueueHandler : class, IMessageQueueHandler<TMessage>, IHostedService
+    {
+        services.AddHostedService<TMessageQueueHandler>();
+    }
 }

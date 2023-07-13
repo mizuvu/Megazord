@@ -7,6 +7,9 @@ using Zord.Extensions.Caching;
 using Zord.Extensions.Documents;
 using Zord.Extensions.Logging;
 using Zord.Extensions.SmtpMail;
+using Zord.Extensions.EventBus.RabbitMQ;
+using Host.MessageQueues;
+using Host.EventHandlers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,15 +17,16 @@ builder.Host.UseSerilog(Serilogger.Configure);
 
 // Add services to the container.
 
-/*
+
 builder.Services.AddRabbitMQ(opt =>
 {
     opt.HostName = "localhost";
     opt.UserName = "guest";
     opt.Password = "guest";
 });
-builder.Services.Subscribe<MessageQueue<TestModel>, TestEventHandler>();
-*/
+//builder.Services.Subscribe<MessageQueue<TestModel>, TestEventHandler>();
+builder.Services.SubscribeMessage<TestMessageQueue, TestMessageQueueEventHandler>();
+
 /*
 builder.Services.AddGraphMail(opt =>
 {

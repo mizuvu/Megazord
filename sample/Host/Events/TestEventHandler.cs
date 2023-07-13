@@ -1,4 +1,4 @@
-﻿using Host.Models;
+﻿using Host.Events;
 using Zord.Extensions.EventBus.Abstractions;
 using Zord.Extensions.EventBus.Events;
 using Zord.Extensions.EventBus.RabbitMQ;
@@ -6,7 +6,7 @@ using Zord.Extensions.EventBus.RabbitMQ;
 namespace Host.EventHandlers;
 
 public class TestEventHandler
-    : BackgroundEventHandler<MessageQueue<TestModel>>
+    : BackgroundEventHandler<MessageQueue<TestEvent>>
 {
     public TestEventHandler(IEventBus @event) : base(@event)
     {

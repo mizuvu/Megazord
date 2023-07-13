@@ -1,4 +1,4 @@
-﻿using Host.Models;
+﻿using Host.Events;
 using Microsoft.AspNetCore.Mvc;
 using Zord.Extensions;
 
@@ -11,7 +11,7 @@ namespace Host.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            IQueryable<TestModel> query = new HashSet<TestModel>().AsQueryable();
+            IQueryable<TestEvent> query = new HashSet<TestEvent>().AsQueryable();
 
             var value = "";
             return Ok(value.LeftToChar("-"));

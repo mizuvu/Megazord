@@ -11,7 +11,7 @@
 	<Authors>minhvu</Authors>
 	<Description>Event package using RabbitMQ.</Description>
 	<Summary>Event package using RabbitMQ.</Summary>
-	<Version>0.0.2.1</Version>
+	<Version>0.0.3.1</Version>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 

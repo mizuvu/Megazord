@@ -1,5 +1,5 @@
-﻿using Host.Extensions;
-using Host.Models;
+﻿using Host.Events;
+using Host.Extensions;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
@@ -16,12 +16,12 @@ namespace Host.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            TestModel test = default;
+            TestEvent test = default;
 
             int id = default;
 
 
-            return Result<TestModel>.Object(test).ToResponse();
+            return Result<TestEvent>.Object(test).ToResponse();
         }
 
         private PagedList<int> ResultList()
