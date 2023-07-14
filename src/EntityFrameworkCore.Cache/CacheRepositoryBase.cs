@@ -24,7 +24,7 @@ public abstract class CacheRepositoryBase<T> : RepositoryBase<T>, ICacheReposito
     {
         await _cacheService.RemoveAsync(_tableName, cancellationToken);
 
-        var data = await base.GetAllAsync(cancellationToken);
+        var data = await base.ToListAsync(cancellationToken);
 
         await _cacheService.SetAsync(_tableName, data, cancellationToken: cancellationToken);
 
@@ -33,7 +33,7 @@ public abstract class CacheRepositoryBase<T> : RepositoryBase<T>, ICacheReposito
         return data;
     }
 
-    public override async Task<IEnumerable<T>> GetAllAsync(CancellationToken cancellationToken = default, bool tracking = false)
+    public override async Task<IEnumerable<T>> ToListAsync(CancellationToken cancellationToken = default, bool tracking = false)
     {
         var data = await _cacheService.GetAsync<IEnumerable<T>>(_tableName, cancellationToken);
 

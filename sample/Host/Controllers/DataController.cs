@@ -22,24 +22,24 @@ namespace Host.Controllers
         [HttpGet("locations")]
         public async Task<IActionResult> GetAsync(CancellationToken cancellationToken)
         {
-            var data = await _unitOfWork.Repository<RetailLocation>().GetAllAsync(cancellationToken);
+            var data = await _unitOfWork.Repository<RetailLocation>().ToListAsync(cancellationToken);
             return Ok(data);
         }
 
         [HttpGet("locations/{id}")]
         public async Task<IActionResult> GetAsync(string id, CancellationToken cancellationToken)
         {
-            var data = await _unitOfWork.Repository<RetailLocation>().GetByKeyAsync(id, cancellationToken);
+            var data = await _unitOfWork.Repository<RetailLocation>().FindByKeyAsync(id, cancellationToken);
             return Ok(data);
         }
 
         [HttpPut("locations")]
         public async Task<IActionResult> PutAsync(CancellationToken cancellationToken)
         {
-            var data = await _unitOfWork.Repository<RetailLocation>().GetByKeyAsync("111", cancellationToken);
+            var data = await _unitOfWork.Repository<RetailLocation>().FindByKeyAsync("111", cancellationToken);
             data!.Name = "---111";
 
-            var data2 = await _locationRepo.GetByKeyAsync("222", cancellationToken);
+            var data2 = await _locationRepo.FindByKeyAsync("222", cancellationToken);
             data2!.Name = "----222";
 
             await _unitOfWork.SaveChangesAsync(cancellationToken);

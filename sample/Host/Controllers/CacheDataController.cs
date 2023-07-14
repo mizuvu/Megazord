@@ -18,7 +18,7 @@ namespace Host.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAsync(CancellationToken cancellationToken)
         {
-            var list = await _cacheRepository.GetAllAsync(cancellationToken);
+            var list = await _cacheRepository.ToListAsync(cancellationToken);
 
             var bon = list.Where(x => x.Code == "BonGrocer").First();
             bon.Name = "---- 44444";

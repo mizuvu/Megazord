@@ -13,16 +13,16 @@ namespace Zord.Core.Repositories
         /// <summary>
         ///     Asynchronous query all instances of T.
         /// </summary>
-        Task<IEnumerable<T>> GetAllAsync(CancellationToken cancellationToken = default, bool tracking = false);
+        Task<IEnumerable<T>> ToListAsync(CancellationToken cancellationToken = default, bool tracking = false);
 
         /// <summary>
         ///     Asynchronous find a instance of T by key.
         /// </summary>
-        Task<T?> GetByKeyAsync<TKey>(TKey id, CancellationToken cancellationToken = default);
+        Task<T?> FindByKeyAsync<TKey>(TKey key, CancellationToken cancellationToken = default);
 
         /// <summary>
         ///     Asynchronous find a instance of T by object ids.
         /// </summary>
-        Task<T?> GetByKeyAsync(object?[] id, CancellationToken cancellationToken = default);
+        Task<T?> FindByKeyAsync(object?[] key, CancellationToken cancellationToken = default);
     }
 }

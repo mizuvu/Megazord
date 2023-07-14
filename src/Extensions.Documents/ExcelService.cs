@@ -119,6 +119,12 @@ namespace Zord.Extensions.Documents
                                 else
                                     prop.SetValue(obj, Convert.ChangeType(val, type.GetGenericArguments()[0]));
                             }
+                            else if (prop.PropertyType.IsEnum)
+                            {
+                                var enumValue = Enum.Parse(prop.PropertyType, val);
+
+                                prop.SetValue(obj, enumValue);
+                            }
                             else
                             {
                                 prop.SetValue(obj, Convert.ChangeType(val, type));

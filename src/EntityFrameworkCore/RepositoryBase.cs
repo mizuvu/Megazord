@@ -26,19 +26,19 @@ public abstract class RepositoryBase<TEntity> : QueryRepository<TEntity>, IRepos
 
     public virtual int SaveChanges() => _context.SaveChanges();
 
-    public virtual async Task<IEnumerable<TEntity>> GetAllAsync(CancellationToken cancellationToken = default, bool tracking = false)
+    public virtual async Task<IEnumerable<TEntity>> ToListAsync(CancellationToken cancellationToken = default, bool tracking = false)
     {
         return tracking
             ? await _dbSet.ToListAsync(cancellationToken)
             : await _dbSet.AsNoTracking().ToListAsync(cancellationToken);
     }
 
-    public virtual async Task<TEntity?> GetByKeyAsync<TKey>(TKey id, CancellationToken cancellationToken = default)
+    public virtual async Task<TEntity?> FindByKeyAsync<TKey>(TKey key, CancellationToken cancellationToken = default)
     {
-        return await _context.FindAsync<TEntity>(id, cancellationToken);
+        return await _context.FindAsync<TEntity>(key, cancellationToken);
     }
 
-    public virtual async Task<TEntity?> GetByKeyAsync(object?[] key, CancellationToken cancellationToken = default)
+    public virtual async Task<TEntity?> FindByKeyAsync(object?[] key, CancellationToken cancellationToken = default)
     {
         return await _context.FindAsync<TEntity>(key, cancellationToken);
     }

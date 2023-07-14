@@ -5,11 +5,11 @@ namespace Host.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class ExportController : ControllerBase
+    public class ExcelController : ControllerBase
     {
         private readonly IExcelService _excelService;
 
-        public ExportController(IExcelService excelService)
+        public ExcelController(IExcelService excelService)
         {
             _excelService = excelService;
         }
@@ -42,5 +42,34 @@ namespace Host.Controllers
             Stream stream = _excelService.Export(list);
             return File(stream, "application/octet-stream", "DataExport.xlsx"); // returns a FileStreamResult
         }
+
+        [HttpGet("import")]
+        public IActionResult Import()
+        {
+            var filePath = Path.Combine(@"D:\\", "test.xlsx");
+
+            //Read the File data into Byte Array.
+            byte[] bytes = System.IO.File.ReadAllBytes(filePath);
+
+            Stream stream = new MemoryStream(bytes);
+
+            var list = _excelService.Read<ImportTemp>(stream);
+
+            return Ok(list);
+        }
+    }
+
+    public enum ImportType
+    {
+        None,
+        New,
+        Update,
+        Delete
+    }
+
+    public class ImportTemp
+    {
+        public int Id { get; set; }
+        public ImportType Type { get; set; }
     }
 }
