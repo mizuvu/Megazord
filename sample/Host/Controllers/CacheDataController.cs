@@ -20,11 +20,19 @@ namespace Host.Controllers
         {
             var list = await _cacheRepository.ToListAsync(cancellationToken);
 
+            return Ok(list);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> PutAsync(CancellationToken cancellationToken)
+        {
+            var list = await _cacheRepository.ToListAsync(cancellationToken);
+
             var bon = list.Where(x => x.Code == "BonGrocer").First();
-            bon.Name = "---- 44444";
+            bon.Name = "______";
 
             _cacheRepository.Update(bon);
-            _cacheRepository.SaveChanges();
+            await _cacheRepository.SaveChangesAsync(cancellationToken);
 
             return Ok(list);
         }
