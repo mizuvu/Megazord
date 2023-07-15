@@ -11,7 +11,7 @@
 	<Authors>minhvu</Authors>
 	<Description>EF Core plugin package containing EF Core evaluator and abstract repository.</Description>
 	<Summary>EF Core plugin package containing EF Core evaluator and abstract repository.</Summary>
-	<Version>1.2.25</Version>
+	<Version>1.2.26</Version>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	<PublishRepositoryUrl>true</PublishRepositoryUrl>
 	<EmbedUntrackedSources>true</EmbedUntrackedSources>

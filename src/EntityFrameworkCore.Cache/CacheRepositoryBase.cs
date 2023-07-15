@@ -8,7 +8,7 @@ namespace Zord.EntityFrameworkCore.Cache;
 public abstract class CacheRepositoryBase<T> : RepositoryBase<T>, ICacheRepository<T>
     where T : class
 {
-    private readonly string _tableName = typeof(T).Name;
+    private readonly string _tableName = $"[DB]_[{typeof(T).Name}]";
     private readonly ICacheService _cacheService;
     private readonly ILogger _logger;
 
