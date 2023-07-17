@@ -10,7 +10,7 @@
 	<Authors>minhvu</Authors>
 	<Description>Core package containing useful base interfaces, classes, enums, value objects.</Description>
 	<Summary>Core package containing useful base interfaces, classes, enums, value objects.</Summary>
-	<Version>1.1.9</Version>
+	<Version>1.1.10</Version>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	<PublishRepositoryUrl>true</PublishRepositoryUrl>
 	<EmbedUntrackedSources>true</EmbedUntrackedSources>

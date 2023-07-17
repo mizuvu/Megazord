@@ -5,6 +5,6 @@ namespace Zord.Core.Specification
 {
     public interface ISpecification<T>
     {
-        Expression<Func<T, bool>>? Selector { get; }
+        Expression<Func<T, bool>>? Expression { get; }
     }
 }

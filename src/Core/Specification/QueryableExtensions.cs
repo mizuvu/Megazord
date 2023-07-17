@@ -34,9 +34,9 @@ namespace Zord.Core.Specification
         /// <returns></returns>
         public static IQueryable<T> Where<T>(this IQueryable<T> query, ISpecification<T> specification)
         {
-            if (specification?.Selector != null)
+            if (specification?.Expression != null)
             {
-                return query.Where(specification.Selector);
+                return query.Where(specification.Expression);
             }
 
             return query;
@@ -52,9 +52,9 @@ namespace Zord.Core.Specification
         /// <returns></returns>
         public static IQueryable<T> WhereIf<T>(this IQueryable<T> query, bool condition, ISpecification<T> specification)
         {
-            if (specification?.Selector != null && condition)
+            if (specification?.Expression != null && condition)
             {
-                return query.Where(specification.Selector);
+                return query.Where(specification.Expression);
             }
 
             return query.AsQueryable();

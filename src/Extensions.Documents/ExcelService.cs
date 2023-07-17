@@ -14,6 +14,12 @@ namespace Zord.Extensions.Documents
         {
             using var wb = new XLWorkbook();
             wb.Worksheets.Add(dataTable, sheetName ?? "data");
+
+            foreach (var ws in wb.Worksheets)
+            {
+                ws.ColumnsUsed().AdjustToContents(); // fit columns width
+            }
+
             Stream stream = new MemoryStream();
             wb.SaveAs(stream);
             stream.Seek(0, SeekOrigin.Begin);
@@ -25,6 +31,12 @@ namespace Zord.Extensions.Documents
         {
             using var wb = new XLWorkbook();
             wb.Worksheets.Add(sheetName ?? "data").FirstCell().InsertTable(data, true);
+
+            foreach (var ws in wb.Worksheets)
+            {
+                ws.Columns().AdjustToContents(); // fit columns width
+            }
+
             Stream stream = new MemoryStream();
             wb.SaveAs(stream);
             stream.Seek(0, SeekOrigin.Begin);
