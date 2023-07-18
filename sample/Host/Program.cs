@@ -1,14 +1,12 @@
 global using Zord.Result;
+using Extensions.Telegram;
 using Host.Data;
-using Host.Identity;
 using Host.TestOption;
 using Serilog;
 using Zord.Extensions.Caching;
 using Zord.Extensions.Documents;
 using Zord.Extensions.Logging;
 using Zord.Extensions.SmtpMail;
-using Zord.Extensions.EventBus.RabbitMQ;
-using Host.MessageQueues;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,9 +43,9 @@ builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SMTPM
 
 builder.Services.AddZordDocumentGenerator();
 
-builder.Services.AddAuth(builder.Configuration);
-
 builder.Services.AddTestOptions(builder.Configuration);
+
+builder.Services.AddTelegram();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

@@ -16,10 +16,7 @@ namespace Host.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            TestEvent test = default;
-
-            int id = default;
-
+            TestEvent test = new();
 
             return Result<TestEvent>.Object(test).ToResponse();
         }

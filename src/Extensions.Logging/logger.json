@@ -3,6 +3,8 @@
   "Serilog": {
     "FilePath": "C:\\NetApplication\\LIVE\\BackLogs",
     "Template": "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj} <s:{SourceContext}>{NewLine}{Exception}",
+    "DbConnection": "",
+    "TableName": "Serilogs",
     "Using": [],
     "Enrich": [
       "FromLogContext",

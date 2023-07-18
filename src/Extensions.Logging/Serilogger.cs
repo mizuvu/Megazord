@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Events;
+using Serilog.Sinks.MSSqlServer;
 
 namespace Zord.Extensions.Logging;
 
@@ -38,6 +39,8 @@ public static class Serilogger
             //var template = "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}";
             //var template = "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj} <s:{SourceContext}>{NewLine}{Exception}";
 
+            var dbConnection = context.Configuration.GetValue<string>("Serilog:DbConnection");
+
             configuration
                 //.Filter.ByExcluding(x => x.MessageTemplate.Text.Contains("Executing endpoint"))
                 //.MinimumLevel.Information()
@@ -64,5 +67,45 @@ public static class Serilogger
                 .Enrich.WithProperty("Environment", environmentName)
                 .Enrich.WithProperty("Application", applicationName)
                 .ReadFrom.Configuration(context.Configuration);
+
+            if (!string.IsNullOrEmpty(dbConnection))
+            {
+                var tableName = context.Configuration.GetValue<string>("Serilog:tableName");
+
+                var sinkOpts = new MSSqlServerSinkOptions
+                {
+                    TableName = tableName ?? "SeriLogs",
+                    AutoCreateSqlTable = true,
+                };
+
+                var columnOpts = new ColumnOptions
+                {
+                    AdditionalColumns = new SqlColumn[]
+                    {
+                        new SqlColumn
+                        {
+                            ColumnName = "MachineName",
+                            DataType = System.Data.SqlDbType.NVarChar,
+                            AllowNull = false,
+                            DataLength = 100,
+                        },
+                        new SqlColumn
+                        {
+                            ColumnName = "ApplicationName",
+                            DataType = System.Data.SqlDbType.NVarChar,
+                            AllowNull = false,
+                            DataLength = 100,
+                            PropertyName = "Application"
+                        }
+                    }
+                };
+
+                configuration
+                    .WriteTo.Async(a => a.MSSqlServer(
+                        connectionString: dbConnection,
+                        sinkOptions: sinkOpts,
+                        columnOptions: columnOpts,
+                        restrictedToMinimumLevel: LogEventLevel.Warning));
+            }
         };
 }
