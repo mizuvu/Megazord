@@ -10,7 +10,7 @@
 	<Authors>minhvu</Authors>
 	<Description>Package for generate document files faster.</Description>
 	<Summary>Package for generate document files faster.</Summary>
-	<Version>1.2.5.4</Version>
+	<Version>1.2.5.5</Version>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	<PublishRepositoryUrl>true</PublishRepositoryUrl>
 	<EmbedUntrackedSources>true</EmbedUntrackedSources>

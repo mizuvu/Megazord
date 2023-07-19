@@ -34,7 +34,30 @@ namespace Zord.Extensions.Documents
 
             foreach (var ws in wb.Worksheets)
             {
-                ws.Columns().AdjustToContents(); // fit columns width
+                ws.ColumnsUsed().AdjustToContents(); // fit columns width
+            }
+
+            Stream stream = new MemoryStream();
+            wb.SaveAs(stream);
+            stream.Seek(0, SeekOrigin.Begin);
+
+            return stream;
+        }
+
+        public Stream Export(ExportExcelDataRequest[] request)
+        {
+            using var wb = new XLWorkbook();
+
+            foreach (var obj in request)
+            {
+                var typeOfObj = obj.Data.GetType().Name;
+
+                wb.Worksheets.Add(obj.SheetName ?? typeOfObj).FirstCell().InsertTable(obj.Data, true);
+            }
+
+            foreach (var ws in wb.Worksheets)
+            {
+                ws.ColumnsUsed().AdjustToContents(); // fit columns width
             }
 
             Stream stream = new MemoryStream();
@@ -54,15 +77,15 @@ namespace Zord.Extensions.Documents
                 ? workbook.Worksheet(sheetName)
                 : workbook.Worksheet(1);
 
-            //Create a new DataTable.
+            // Create a new DataTable.
             var dt = new DataTable();
 
-            //Loop through the Worksheet rows.
+            // Loop through the Worksheet rows.
             bool firstRow = true;
 
-            foreach (IXLRow row in worksheet.Rows())//Skip first row which is used for column header texts
+            foreach (IXLRow row in worksheet.Rows()) // Skip first row which is used for column header texts
             {
-                //Use the first row to add columns to DataTable.
+                // Use the first row to add columns to DataTable.
                 if (firstRow)
                 {
                     foreach (IXLCell cell in row.Cells())
@@ -73,7 +96,7 @@ namespace Zord.Extensions.Documents
                 }
                 else
                 {
-                    //Add rows to DataTable.
+                    // Add rows to DataTable.
                     dt.Rows.Add();
                     int i = 0;
                     foreach (IXLCell cell in row.Cells())
@@ -101,11 +124,11 @@ namespace Zord.Extensions.Documents
 
                 var properties = typeOfObject.GetProperties();
 
-                //header column texts
+                // header column texts
                 var columns = worksheet.FirstRow().Cells().Select((v, i) =>
                     new { v.Value, Index = i + 1 }); // indexing of ClosedXml is 1 not 0
 
-                foreach (IXLRow row in worksheet.RowsUsed().Skip(1))//Skip first row which is used for column header texts
+                foreach (IXLRow row in worksheet.RowsUsed().Skip(1))// Skip first row which is used for column header texts
                 {
                     T obj = (T)Activator.CreateInstance(typeOfObject)!;
 
