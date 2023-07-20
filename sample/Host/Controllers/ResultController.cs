@@ -1,6 +1,4 @@
-﻿using Host.Events;
-using Host.Extensions;
-using Mapster;
+﻿using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using Zord.Result.Models;
@@ -16,9 +14,7 @@ namespace Host.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            TestEvent test = new();
-
-            return Result<TestEvent>.Object(test).ToResponse();
+            return Ok();
         }
 
         private PagedList<int> ResultList()

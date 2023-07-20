@@ -1,5 +1,4 @@
-﻿using Host.Events;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Zord.Extensions;
 
 namespace Host.Controllers
@@ -11,10 +10,18 @@ namespace Host.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            IQueryable<TestEvent> query = new HashSet<TestEvent>().AsQueryable();
-
             var value = "";
             return Ok(value.LeftToChar("-"));
+        }
+
+        [HttpGet("null-checker")]
+        public IActionResult NullCheck()
+        {
+            Result result = default;
+
+            result.ThrowIfNull();
+
+            return Ok();
         }
     }
 }

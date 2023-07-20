@@ -1,6 +1,7 @@
 ﻿using Host.Data;
 using Microsoft.AspNetCore.Mvc;
 using Zord.EntityFrameworkCore;
+using Zord.Extensions;
 
 namespace Host.Controllers
 {
@@ -30,6 +31,9 @@ namespace Host.Controllers
         public async Task<IActionResult> GetAsync(string id, CancellationToken cancellationToken)
         {
             var data = await _unitOfWork.Repository<RetailLocation>().FindByKeyAsync(id, cancellationToken);
+
+            data.ThrowIfNull();
+
             return Ok(data);
         }
 

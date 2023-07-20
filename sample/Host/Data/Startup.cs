@@ -27,7 +27,7 @@ public static class Startup
 
         services.AddScoped(typeof(IRepository<>), typeof(CustomRepository<>));
 
-        //services.AddZordDynamicRepositories();
+        services.AddZordDynamicRepositories();
         services.AddZordDynamicCacheRepositories();
 
         services.AddZordUnitOfWork<AlphaDbContext>();

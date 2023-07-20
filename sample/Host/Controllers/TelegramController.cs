@@ -1,6 +1,4 @@
-﻿using Host.Events;
-using Microsoft.AspNetCore.Mvc;
-using Zord.Extensions;
+﻿using Microsoft.AspNetCore.Mvc;
 using Zord.Extensions.Telegram;
 
 namespace Host.Controllers
