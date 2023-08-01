@@ -2,7 +2,9 @@ global using Zord.Result;
 using Extensions.Telegram;
 using Host.Data;
 using Host.TestOption;
+using Microsoft.Extensions.Caching.StackExchangeRedis;
 using Serilog;
+using System.Configuration;
 using Zord.Extensions.Caching;
 using Zord.Extensions.Documents;
 using Zord.Extensions.Logging;
@@ -26,8 +28,13 @@ builder.Services.AddGraphMail(opt =>
 builder.Services.AddZordLogging();
 
 builder.Services.AddData(builder.Configuration);
-
-builder.Services.AddZordMemoryCache();
+var settings = builder.Configuration.GetSection("Caching").Get<CacheOptions>();
+builder.Services.AddZordCache(opt =>
+{
+    opt.Storage = settings!.Storage;
+    opt.RedisHost = settings.RedisHost;
+    opt.RedisPassword = settings.RedisPassword;
+});
 
 builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SMTPMail"));
 

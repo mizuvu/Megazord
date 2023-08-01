@@ -39,8 +39,6 @@ public static class Serilogger
             //var template = "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}";
             //var template = "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj} <s:{SourceContext}>{NewLine}{Exception}";
 
-            var dbConnection = context.Configuration.GetValue<string>("Serilog:DbConnection");
-
             configuration
                 //.Filter.ByExcluding(x => x.MessageTemplate.Text.Contains("Executing endpoint"))
                 //.MinimumLevel.Information()
@@ -68,9 +66,11 @@ public static class Serilogger
                 .Enrich.WithProperty("Application", applicationName)
                 .ReadFrom.Configuration(context.Configuration);
 
+            var dbConnection = context.Configuration.GetValue<string>("Serilog:DbConnection");
+
             if (!string.IsNullOrEmpty(dbConnection))
             {
-                var tableName = context.Configuration.GetValue<string>("Serilog:tableName");
+                var tableName = context.Configuration.GetValue<string>("Serilog:TableName");
 
                 var sinkOpts = new MSSqlServerSinkOptions
                 {

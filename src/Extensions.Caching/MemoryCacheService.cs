@@ -3,12 +3,12 @@ using Microsoft.Extensions.Logging;
 
 namespace Zord.Extensions.Caching;
 
-public class LocalCacheService : ICacheService
+public class MemoryCacheService : ICacheService
 {
     private readonly IMemoryCache _cache;
-    private readonly ILogger<LocalCacheService> _logger;
+    private readonly ILogger<MemoryCacheService> _logger;
 
-    public LocalCacheService(IMemoryCache cache, ILogger<LocalCacheService> logger) =>
+    public MemoryCacheService(IMemoryCache cache, ILogger<MemoryCacheService> logger) =>
         (_cache, _logger) = (cache, logger);
 
     public T Get<T>(string key) =>
