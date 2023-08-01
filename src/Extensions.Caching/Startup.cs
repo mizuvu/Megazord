@@ -10,7 +10,7 @@ public static class Startup
         var setup = new CacheOptions();
         action(setup); // bind action to setup
 
-        if (setup.Storage == "redis")
+        if (setup.Provider == "redis")
         {
             if (string.IsNullOrEmpty(setup.RedisHost))
                 throw new Exception("Redis host is not configured");

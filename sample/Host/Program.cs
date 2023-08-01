@@ -31,7 +31,7 @@ builder.Services.AddData(builder.Configuration);
 var settings = builder.Configuration.GetSection("Caching").Get<CacheOptions>();
 builder.Services.AddZordCache(opt =>
 {
-    opt.Storage = settings!.Storage;
+    opt.Provider = settings!.Provider;
     opt.RedisHost = settings.RedisHost;
     opt.RedisPassword = settings.RedisPassword;
 });
