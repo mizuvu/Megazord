@@ -10,25 +10,34 @@ public static class Startup
         var setup = new CacheOptions();
         action(setup); // bind action to setup
 
-        if (setup.Provider == "redis")
+        services.AddZordCache(setup);
+
+        return services;
+    }
+
+    public static IServiceCollection AddZordCache(this IServiceCollection services, CacheOptions settings)
+    {
+        ArgumentNullException.ThrowIfNull(settings, nameof(CacheOptions));
+        
+        if (settings.Provider == "redis")
         {
-            if (string.IsNullOrEmpty(setup.RedisHost))
+            if (string.IsNullOrEmpty(settings.RedisHost))
                 throw new Exception("Redis host is not configured");
 
             var redisConfigurationOptions = new ConfigurationOptions()
             {
                 AbortOnConnectFail = true,
-                EndPoints = { setup.RedisHost },
+                EndPoints = { settings.RedisHost },
             };
 
-            if (!string.IsNullOrEmpty(setup.RedisPassword))
+            if (!string.IsNullOrEmpty(settings.RedisPassword))
             {
-                redisConfigurationOptions.Password = setup.RedisPassword;
+                redisConfigurationOptions.Password = settings.RedisPassword;
             }
 
             services.AddStackExchangeRedisCache(options =>
             {
-                options.Configuration = setup.RedisHost;
+                options.Configuration = settings.RedisHost;
                 options.ConfigurationOptions = redisConfigurationOptions;
             });
 
