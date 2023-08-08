@@ -7,7 +7,7 @@ namespace Zord.Core.Repositories
     /// <summary>
     ///     Use to query and save instances of T with Repository patterns
     /// </summary>
-    public interface IUnitOfWork : IDisposable, ISaveChanges
+    public interface IUnitOfWork : IDisposable, ISaveChanges, IAsyncDisposable
     {
         /// <summary>
         ///     Can be used to query, add, update, remove instances of T

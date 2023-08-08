@@ -13,9 +13,9 @@ public class LocationRepository : Repository<RetailLocation, AlphaDbContext>, IR
     {
     }
 
-    public override Task<IEnumerable<RetailLocation>> ToListAsync(CancellationToken cancellationToken = default, bool tracking = false)
+    public override Task<IEnumerable<RetailLocation>> ToListAsync(CancellationToken cancellationToken = default)
     {
         Console.WriteLine("Loaded data to cache");
-        return base.ToListAsync(cancellationToken, tracking);
+        return base.ToListAsync(cancellationToken);
     }
 }

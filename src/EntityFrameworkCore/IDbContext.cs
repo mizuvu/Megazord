@@ -12,5 +12,5 @@ public interface IDbContext : ISaveChanges, IDisposable, IAsyncDisposable
 
     DatabaseFacade Database { get; }
 
-    EntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
+    EntityEntry<TEntity> EntityEntry<TEntity>(TEntity entity) where TEntity : class;
 }

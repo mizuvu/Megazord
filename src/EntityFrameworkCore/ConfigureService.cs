@@ -1,5 +1,6 @@
 ﻿global using Microsoft.EntityFrameworkCore;
 global using Zord.Core.Repositories;
+
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Zord.EntityFrameworkCore;

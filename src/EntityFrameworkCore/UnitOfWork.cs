@@ -1,5 +1,6 @@
 ﻿namespace Zord.EntityFrameworkCore;
 
+/// <inheritdoc/>
 public class UnitOfWork<TContext> : UnitOfWorkBase, IUnitOfWork<TContext>
     where TContext : DbContext
 {

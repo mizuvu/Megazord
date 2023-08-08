@@ -41,7 +41,7 @@ namespace Host.Controllers
         public async Task<IActionResult> PutAsync(CancellationToken cancellationToken)
         {
             var data = await _unitOfWork.Repository<RetailLocation>().FindByKeyAsync("111", cancellationToken);
-            data!.Name = "---111";
+            data!.Name = "---111----";
 
             var data2 = await _locationRepo.FindByKeyAsync("222", cancellationToken);
             data2!.Name = "----222";

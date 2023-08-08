@@ -2,6 +2,7 @@
 
 namespace Zord.EntityFrameworkCore;
 
+/// <inheritdoc/>
 public abstract class UnitOfWorkBase : IUnitOfWork
 {
     private readonly DbContext _context;
@@ -13,6 +14,7 @@ public abstract class UnitOfWorkBase : IUnitOfWork
         _repositories = new Dictionary<Type, object>();
     }
 
+    /// <inheritdoc/>
     public IRepositoryBase<T> Repository<T>(bool useCustomRepository = false)
         where T : class
     {
@@ -39,34 +41,34 @@ public abstract class UnitOfWorkBase : IUnitOfWork
         return repository;
     }
 
-    public virtual int SaveChanges()
-    {
-        return _context.SaveChanges();
-    }
+    /// <inheritdoc/>
+    public virtual int SaveChanges() => _context.SaveChanges();
 
+    /// <inheritdoc/>
     public virtual async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
-    {
-        return await _context.SaveChangesAsync(cancellationToken);
-    }
+        => await _context.SaveChangesAsync(cancellationToken);
 
+    /// <inheritdoc/>
     public virtual async Task BeginTransactionAsync(CancellationToken cancellationToken = default)
-    {
-        await _context.Database.BeginTransactionAsync(cancellationToken);
-    }
+        => await _context.Database.BeginTransactionAsync(cancellationToken);
 
+    /// <inheritdoc/>
     public virtual async Task CommitAsync(CancellationToken cancellationToken = default)
-    {
-        await _context.Database.CommitTransactionAsync(cancellationToken);
-    }
+        => await _context.Database.CommitTransactionAsync(cancellationToken);
 
+    /// <inheritdoc/>
     public virtual async Task RollbackAsync(CancellationToken cancellationToken = default)
-    {
-        await _context.Database.RollbackTransactionAsync(cancellationToken);
-    }
+        => await _context.Database.RollbackTransactionAsync(cancellationToken);
 
     public void Dispose()
     {
         _context.Dispose();
+        GC.SuppressFinalize(this);
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        await _context.DisposeAsync();
         GC.SuppressFinalize(this);
     }
 }

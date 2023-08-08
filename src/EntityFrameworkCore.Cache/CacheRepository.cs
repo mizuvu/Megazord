@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Zord.Extensions.Caching;
+﻿using Zord.Extensions.Caching;
 using Zord.Extensions.Logging;
 
 namespace Zord.EntityFrameworkCore.Cache;

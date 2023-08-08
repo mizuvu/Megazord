@@ -10,9 +10,9 @@ public class CustomRepository<TEntity> : RepositoryBase<TEntity>, IAppRepository
     {
     }
 
-    public override Task<IEnumerable<TEntity>> ToListAsync(CancellationToken cancellationToken = default, bool tracking = false)
+    public override Task<IEnumerable<TEntity>> ToListAsync(CancellationToken cancellationToken = default)
     {
         Console.WriteLine("Use from Custom repository");
-        return base.ToListAsync(cancellationToken, tracking);
+        return base.ToListAsync(cancellationToken);
     }
 }

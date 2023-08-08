@@ -8,30 +8,21 @@ namespace Zord.Core.Specification
     public static class QueryableExtensions
     {
         /// <summary>
-        /// only query data when condition is true
+        ///     Only filter data when condition is true
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="query"></param>
-        /// <param name="condition"></param>
-        /// <param name="whereClause"></param>
-        /// <returns></returns>
-        public static IQueryable<T> WhereIf<T>(this IQueryable<T> query, bool condition, Expression<Func<T, bool>> whereClause)
+        public static IQueryable<T> WhereIf<T>(this IQueryable<T> query, bool condition, Expression<Func<T, bool>> expression)
         {
             if (condition)
             {
-                return query.Where(whereClause);
+                return query.Where(expression);
             }
 
             return query;
         }
 
         /// <summary>
-        /// query data by specification
+        ///     Filter data by specification
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="query"></param>
-        /// <param name="specification"></param>
-        /// <returns></returns>
         public static IQueryable<T> Where<T>(this IQueryable<T> query, ISpecification<T> specification)
         {
             if (specification?.Expression != null)
@@ -43,13 +34,8 @@ namespace Zord.Core.Specification
         }
 
         /// <summary>
-        /// only query data by specification when condition is true
+        ///     Only filter data by specification when condition is true
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="query"></param>
-        /// <param name="condition"></param>
-        /// <param name="specification"></param>
-        /// <returns></returns>
         public static IQueryable<T> WhereIf<T>(this IQueryable<T> query, bool condition, ISpecification<T> specification)
         {
             if (specification?.Expression != null && condition)

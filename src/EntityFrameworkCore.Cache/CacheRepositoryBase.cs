@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Zord.Core.Repositories;
+﻿using Zord.Core.Repositories;
 using Zord.Extensions.Caching;
 using Zord.Extensions.Logging;
 
@@ -8,14 +7,16 @@ namespace Zord.EntityFrameworkCore.Cache;
 public abstract class CacheRepositoryBase<T> : RepositoryBase<T>, ICacheRepository<T>
     where T : class
 {
-    private readonly string _tableName = $"[DB]_[{typeof(T).Name}]";
+    private readonly string _tableName;
     private readonly ICacheService _cacheService;
     private readonly ILogger _logger;
 
-    public CacheRepositoryBase(DbContext context,
+    protected CacheRepositoryBase(DbContext context,
         ICacheService cacheService,
         ILogger logger) : base(context)
     {
+        var dbName = context.Database.GetDbConnection().Database;
+        _tableName = $"[{dbName}]_[{typeof(T).Name}]";
         _cacheService = cacheService;
         _logger = logger;
     }
@@ -28,12 +29,12 @@ public abstract class CacheRepositoryBase<T> : RepositoryBase<T>, ICacheReposito
 
         await _cacheService.SetAsync(_tableName, data, cancellationToken: cancellationToken);
 
-        _logger.Information("Table {name} loaded to cache", _tableName);
+        _logger.Information("{name} loaded to cache", _tableName);
 
         return data;
     }
 
-    public override async Task<IEnumerable<T>> ToListAsync(CancellationToken cancellationToken = default, bool tracking = false)
+    public override async Task<IEnumerable<T>> ToListAsync(CancellationToken cancellationToken = default)
     {
         var data = await _cacheService.GetAsync<IEnumerable<T>>(_tableName, cancellationToken);
 

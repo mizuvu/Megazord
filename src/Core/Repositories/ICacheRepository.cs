@@ -11,12 +11,12 @@ namespace Zord.Core.Repositories
         where T : class
     {
         /// <summary>
-        ///     delete list of T on cache.
+        ///     Delete list of T on cache.
         /// </summary>
         Task RemoveCacheAsync(CancellationToken cancellationToken = default);
 
         /// <summary>
-        ///     reload list of T on cache.
+        ///     Reload list of T on cache.
         /// </summary>
         Task ReloadCacheAsync(CancellationToken cancellationToken = default);
     }

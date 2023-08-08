@@ -7,22 +7,47 @@ namespace Zord.Core.Repositories
     /// <summary>
     ///     Can be used to query and update instances of T.
     /// </summary>
-    public interface IRepositoryBase<T> : IQueryRepository<T>, ICommandRepository<T>
+    public interface IRepositoryBase<T> : IQueryRepository<T>
         where T : class
     {
         /// <summary>
-        ///     Asynchronous query all instances of T.
+        ///     Add a instance of T.
         /// </summary>
-        Task<IEnumerable<T>> ToListAsync(CancellationToken cancellationToken = default, bool tracking = false);
+        void Add(T entity);
 
         /// <summary>
-        ///     Asynchronous find a instance of T by key.
+        ///     Add list instances of T.
         /// </summary>
-        Task<T?> FindByKeyAsync<TKey>(TKey key, CancellationToken cancellationToken = default);
+        void AddRange(IEnumerable<T> entities);
 
         /// <summary>
-        ///     Asynchronous find a instance of T by object ids.
+        ///     Update a instance of T.
         /// </summary>
-        Task<T?> FindByKeyAsync(object?[] key, CancellationToken cancellationToken = default);
+        void Update(T entity);
+
+        /// <summary>
+        ///     Update list instances of T.
+        /// </summary>
+        void UpdateRange(IEnumerable<T> entities);
+
+        /// <summary>
+        ///     Remove a instance of T.
+        /// </summary>
+        void Remove(T entity);
+
+        /// <summary>
+        ///     Remove list instances of T.
+        /// </summary>
+        void RemoveRange(IEnumerable<T> entities);
+
+        /// <summary>
+        ///     Asynchronously add a instance of T.
+        /// </summary>
+        Task AddAsync(T entity, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        ///     Asynchronously add list instances of T.
+        /// </summary>
+        Task AddRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default);
     }
 }

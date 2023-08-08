@@ -11,7 +11,7 @@
 	<Authors>minhvu</Authors>
 	<Description>EF Core repositories with auto load data to cache plugin package.</Description>
 	<Summary>EF Core repositories with auto load data to cache plugin package.</Summary>
-	<Version>1.0.9</Version>
+	<Version>1.0.10</Version>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
