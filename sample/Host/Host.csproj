@@ -8,18 +8,20 @@
 
   <ItemGroup>
     <PackageReference Include="Mapster" Version="7.3.0" />
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.9" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.9" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.9" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.10" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\EntityFrameworkCore.Cache\EntityFrameworkCore.Cache.csproj" />
-    <ProjectReference Include="..\..\src\EntityFrameworkCore\EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\..\src\EfCore.Cache\EfCore.Cache.csproj" />
+    <ProjectReference Include="..\..\src\EfCore\EfCore.csproj" />
     <ProjectReference Include="..\..\src\Extensions.Caching\Extensions.Caching.csproj" />
+    <ProjectReference Include="..\..\src\Extensions.DependencyInjection\Extensions.DependencyInjection.csproj" />
     <ProjectReference Include="..\..\src\Extensions.Documents\Extensions.Documents.csproj" />
+    <ProjectReference Include="..\..\src\Extensions.Graph\Extensions.Graph.csproj" />
     <ProjectReference Include="..\..\src\Extensions.Logging\Extensions.Logging.csproj" />
     <ProjectReference Include="..\..\src\Extensions.SmtpMail\Extensions.SmtpMail.csproj" />
     <ProjectReference Include="..\..\src\Extensions.Telegram\Extensions.Telegram.csproj" />

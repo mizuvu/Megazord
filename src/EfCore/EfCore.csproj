@@ -1,16 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	<TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
+	<ImplicitUsings>enable</ImplicitUsings>
 	<Nullable>enable</Nullable>
-	<RootNamespace>Zord.Extensions.Documents</RootNamespace>
-	<AssemblyName>Zord.Extensions.Documents</AssemblyName>
-	<Title>Zord.Extensions.Documents</Title>
+	<RootNamespace>Zord.EntityFrameworkCore</RootNamespace>
+	<AssemblyName>Zord.EntityFrameworkCore</AssemblyName>
+	<Title>Zord.EntityFrameworkCore</Title>
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	<Authors>minhvu</Authors>
-	<Description>Package for generate document files faster.</Description>
-	<Summary>Package for generate document files faster.</Summary>
-	<Version>0.0.0.1</Version>
+	<Description>EF Core plugin package containing EF Core evaluator and abstract repository.</Description>
+	<Summary>EF Core plugin package containing EF Core evaluator and abstract repository.</Summary>
+	<Version>1.2.27</Version>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	<PublishRepositoryUrl>true</PublishRepositoryUrl>
 	<EmbedUntrackedSources>true</EmbedUntrackedSources>
@@ -18,13 +19,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ClosedXML" Version="0.102.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
+    <PackageReference Include="Dapper" Version="2.0.143" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.10" />
 	<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Core.Documents\Core.Documents.csproj" />
+    <ProjectReference Include="..\Core\Core.csproj" />
   </ItemGroup>
 
 </Project>

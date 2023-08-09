@@ -1,14 +1,13 @@
-﻿using System;
-using System.Net.Mail;
+﻿using System.Net.Mail;
 using System.Threading;
 using System.Threading.Tasks;
-using Zord.Extensions.Mailing.Models;
+using Zord.Core.Mailing;
 
 namespace Zord.Extensions.SmtpMail
 {
     public class SmtpMail
     {
-        public async Task SendAsync(Sender sender, Mailing.Models.MailMessage mail, SmtpSettings settings, CancellationToken cancellationToken = default)
+        public async Task SendAsync(Sender sender, Core.Mailing.MailMessage mail, SmtpSettings settings, CancellationToken cancellationToken = default)
         {
             var message = new System.Net.Mail.MailMessage
             {
@@ -44,10 +43,6 @@ namespace Zord.Extensions.SmtpMail
 
             await smtp.SendMailAsync(message);
             smtp.Dispose();
-
-#if DEBUG
-            Console.WriteLine($"----- Mail to <{mail.Recipients.JoinToString()}> [{mail.Subject}] succeeded.");
-#endif
         }
     }
 }

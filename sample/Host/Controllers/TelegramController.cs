@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Zord.Extensions.Telegram;
+using Zord.Core;
 
 namespace Host.Controllers
 {
@@ -7,9 +7,9 @@ namespace Host.Controllers
     [ApiController]
     public class TelegramController : ControllerBase
     {
-        private readonly ITelegramBotService _botService;
+        private readonly ITelegramService _botService;
 
-        public TelegramController(ITelegramBotService botService)
+        public TelegramController(ITelegramService botService)
         {
             _botService = botService;
         }

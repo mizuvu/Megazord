@@ -1,16 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	<TargetFramework>netstandard2.1</TargetFramework>
-	<Nullable>enable</Nullable>
-	<RootNamespace>Zord.Extensions.Documents</RootNamespace>
-	<AssemblyName>Zord.Extensions.Documents</AssemblyName>
-	<Title>Zord.Extensions.Documents</Title>
+	<TargetFramework>netstandard2.0</TargetFramework>
+	<RootNamespace>Zord.Core</RootNamespace>
+	<AssemblyName>Zord.Core.Graph</AssemblyName>
+	<Title>Zord.Core.Graph</Title>
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	<Authors>minhvu</Authors>
-	<Description>Package for generate document files faster.</Description>
-	<Summary>Package for generate document files faster.</Summary>
+	<Description>Cache package services using Memory, Redis.</Description>
+	<Summary>Cache package services using Memory, Redis.</Summary>
 	<Version>0.0.0.1</Version>
+	<PackageReleaseNotes></PackageReleaseNotes>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	<PublishRepositoryUrl>true</PublishRepositoryUrl>
 	<EmbedUntrackedSources>true</EmbedUntrackedSources>
@@ -18,13 +18,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ClosedXML" Version="0.102.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
 	<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Core.Documents\Core.Documents.csproj" />
   </ItemGroup>
 
 </Project>

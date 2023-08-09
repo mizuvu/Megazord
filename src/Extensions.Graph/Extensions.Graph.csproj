@@ -21,12 +21,12 @@
   <ItemGroup>
 	<PackageReference Include="Azure.Identity" Version="1.9.0" />
 	<PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="7.0.0" />
-	<PackageReference Include="Microsoft.Graph" Version="5.18.0" />
+	<PackageReference Include="Microsoft.Graph" Version="5.21.0" />
 	<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Extensions\Extensions.csproj" />
+    <ProjectReference Include="..\Core.Sender\Core.Sender.csproj" />
   </ItemGroup>
 
 </Project>

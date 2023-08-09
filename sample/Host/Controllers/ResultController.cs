@@ -1,7 +1,6 @@
 ﻿using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
-using Zord.Result.Models;
 
 namespace Host.Controllers
 {
@@ -9,44 +8,46 @@ namespace Host.Controllers
     [ApiController]
     public class ResultController : ControllerBase
     {
-        private readonly List<int> _list = new() { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+        private readonly List<int> _list = new() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
 
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok();
+            return Ok(_list.ToPagedResult(1, _list.Count));
         }
 
-        private PagedList<int> ResultList()
+        [HttpGet("mapper-list")]
+        public IActionResult GetPaged(int page, int size)
         {
-            var result = _list.ToPagedList();
-            return result;
+            var paged = _list.ToPagedResult(page, size);
+            var result = paged.Adapt<PagedResult<int>>();
+            return Ok(result);
         }
 
-        private PagedList<int> MapperList()
+        [HttpGet("deserialize-list")]
+        public IActionResult DeserializePaged(int page, int size)
         {
-            var paged = _list.ToPagedList(1, 5);
-            var result = paged.Adapt<PagedList<int>>();
-            return result;
-        }
-
-        private PagedList<int> DeserializeList()
-        {
-            var list = _list.ToPagedList(1, 5);
+            var list = _list.ToPagedResult(page, size);
             var json = JsonSerializer.Serialize(list);
 
-            var result = JsonSerializer.Deserialize<PagedList<int>>(json);
-            return result!;
+            var result = JsonSerializer.Deserialize<PagedResult<int>>(json);
+
+            return Ok(result);
         }
 
-        private IResult<List<int>> MapperObject()
+        [HttpGet("error")]
+        public IActionResult Error()
         {
-            var data = new List<int>() { 1, 2, 3, 4 };
+            IEnumerable<int>? list = null;
 
-            var list = Result<List<int>>.Object(data);
+            var result = Result.Error("Error");
+            var resultOfT = Result<int>.Error("Error of T");
 
-            var result = list.Adapt<IResult<List<int>>>();
-            return result;
+
+            var resultOfList = list.ToPagedResult(1, 5);
+
+
+            return Ok(new { result, resultOfT, resultOfList });
         }
     }
 }

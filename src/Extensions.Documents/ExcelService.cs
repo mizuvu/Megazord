@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
-using Zord.Extensions.Excel;
+using Zord.Core;
+using Zord.Core.Excel;
 
 namespace Zord.Extensions.Documents
 {

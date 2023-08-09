@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using Zord.Extensions.Mailing.Models;
+using Zord.Core.Mailing;
 using Zord.Extensions.SmtpMail;
 
 namespace Host.Controllers

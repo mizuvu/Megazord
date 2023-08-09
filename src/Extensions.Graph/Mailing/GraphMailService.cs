@@ -5,8 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Zord.Extensions.Graph.Abstractions;
-using Zord.Extensions.Mailing.Models;
+using Zord.Core;
+using Zord.Core.Mailing;
 
 namespace Zord.Extensions.Graph.Mailing
 {
@@ -50,11 +50,6 @@ namespace Zord.Extensions.Graph.Mailing
 
             // Send mail as the given user. 
             await _graphServiceClient.Users[sender.Address].SendMail.PostAsync(request, cancellationToken: cancellationToken);
-
-#if DEBUG
-            Console.WriteLine("----- Mail to <{email}> [{subject}] succeeded.",
-                string.Join("|", mail.Recipients), mail.Subject);
-#endif
         }
 
         private List<Recipient> RecipientBuilder(List<string> addresses)

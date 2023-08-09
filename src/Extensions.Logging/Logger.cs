@@ -1,4 +1,6 @@
-﻿namespace Zord.Extensions.Logging;
+﻿using Zord.Core;
+
+namespace Zord.Extensions.Logging;
 
 public class Logger : ILogger
 {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Telegram.Bot;
-using Zord.Extensions.Telegram;
+using Zord.Core;
 
 namespace Extensions.Telegram
 {
@@ -21,7 +21,7 @@ namespace Extensions.Telegram
                     return new TelegramBotClient(options, httpClient);
                 });
 
-            services.AddTransient<ITelegramBotService, TelegramBotService>();
+            services.AddTransient<ITelegramService, TelegramBotService>();
 
             return services;
         }

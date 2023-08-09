@@ -32,7 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Extensions\Extensions.csproj" />
+    <ProjectReference Include="..\Core.Logging\Core.Logging.csproj" />
   </ItemGroup>
 
 </Project>

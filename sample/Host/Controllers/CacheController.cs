@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Zord.Extensions;
-using Zord.Extensions.Caching;
+using Zord.Core;
 
 namespace Host.Controllers
 {

@@ -2,9 +2,11 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Graph;
 using System;
-using Zord.Extensions.Graph.Abstractions;
+using Zord.Core;
+using Zord.Extensions.Graph;
+using Zord.Extensions.Graph.Mailing;
 
-namespace Zord.Extensions.Graph.Mailing
+namespace Zord.Extensions.DependencyInjection
 {
     public static class Startup
     {

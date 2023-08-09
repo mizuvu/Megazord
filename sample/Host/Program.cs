@@ -6,7 +6,7 @@ using Microsoft.Extensions.Caching.StackExchangeRedis;
 using Serilog;
 using System.Configuration;
 using Zord.Extensions.Caching;
-using Zord.Extensions.Documents;
+using Zord.Extensions.DependencyInjection;
 using Zord.Extensions.Logging;
 using Zord.Extensions.SmtpMail;
 
@@ -38,7 +38,7 @@ builder.Services.AddZordCache(opt =>
 
 builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SMTPMail"));
 
-builder.Services.AddZordDocumentGenerator();
+builder.Services.AddZordDocuments();
 
 builder.Services.AddTestOptions(builder.Configuration);
 

@@ -1,10 +1,8 @@
 ﻿using MailKit.Net.Smtp;
 using MimeKit;
-using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Zord.Extensions.Mailing.Models;
+using Zord.Core.Mailing;
 
 namespace Zord.Extensions.SmtpMail
 {
@@ -38,7 +36,7 @@ namespace Zord.Extensions.SmtpMail
                 email.Bcc.Add(MailboxAddress.Parse(address));
             }
 
-            var attachments = new List<MimeEntity>();
+            //var attachments = new List<MimeEntity>();
 
             foreach (var attachment in mail.Attachments)
             {
@@ -55,10 +53,6 @@ namespace Zord.Extensions.SmtpMail
             await smtp.SendAsync(email, cancellationToken);
             await smtp.DisconnectAsync(true, cancellationToken);
             smtp.Dispose();
-
-#if DEBUG
-            Console.WriteLine($"----- Mail to <{mail.Recipients.JoinToString()}> [{mail.Subject}] succeeded.");
-#endif
         }
     }
 }

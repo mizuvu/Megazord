@@ -1,8 +1,7 @@
 ﻿using Host.Data.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Zord.Core.Repositories;
-using Zord.EntityFrameworkCore;
-using Zord.EntityFrameworkCore.Cache;
+using Zord.Extensions.DependencyInjection;
 
 namespace Host.Data;
 
@@ -27,7 +26,7 @@ public static class Startup
 
         services.AddScoped(typeof(IRepository<>), typeof(CustomRepository<>));
 
-        services.AddZordDynamicRepositories();
+        services.AddZordUnitOfWork();
         services.AddZordDynamicCacheRepositories();
 
         services.AddZordUnitOfWork<AlphaDbContext>();

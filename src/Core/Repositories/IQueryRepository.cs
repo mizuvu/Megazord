@@ -46,7 +46,7 @@ namespace Zord.Core.Repositories
         /// <summary>
         ///     Asynchronous find a instance of T by key.
         /// </summary>
-        Task<T?> FindByKeyAsync<TKey>(TKey key, CancellationToken cancellationToken = default);
+        Task<T?> FindByKeyAsync<TKey>(TKey key, CancellationToken cancellationToken = default) where TKey : notnull;
 
         /// <summary>
         ///     Asynchronous find a instance of T by object ids.

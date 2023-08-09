@@ -1,9 +1,9 @@
 ﻿using Telegram.Bot;
-using Zord.Extensions.Telegram;
+using Zord.Core;
 
 namespace Extensions.Telegram
 {
-    public class TelegramBotService : ITelegramBotService
+    public class TelegramBotService : ITelegramService
     {
         private readonly ITelegramBotClient _telegramBotClient;
 
