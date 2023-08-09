@@ -11,8 +11,7 @@ namespace Zord.Core.Repositories
     /// <summary>
     ///     Use to query instances of T.
     /// </summary>
-    public interface IQueryRepository<T>
-        where T : class
+    public interface IQueryRepository<T> where T : class
     {
         /// <summary>
         ///     Query instances of T with Include.

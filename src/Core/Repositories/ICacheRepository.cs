@@ -7,8 +7,7 @@ namespace Zord.Core.Repositories
     ///     Can be used to auto load list of T on cache,
     ///         query, add, update, remove instances of T.
     /// </summary>
-    public interface ICacheRepository<T> : IRepository<T>
-        where T : class
+    public interface ICacheRepository<T> : IRepository<T> where T : class
     {
         /// <summary>
         ///     Delete list of T on cache.

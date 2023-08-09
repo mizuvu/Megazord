@@ -7,8 +7,7 @@ namespace Zord.Core.Repositories
     /// <summary>
     ///     Can be used to query and update instances of T.
     /// </summary>
-    public interface IRepositoryBase<T> : IQueryRepository<T>
-        where T : class
+    public interface IRepositoryBase<T> : IQueryRepository<T> where T : class
     {
         /// <summary>
         ///     Add a instance of T.
