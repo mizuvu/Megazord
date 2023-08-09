@@ -15,6 +15,8 @@ namespace Zord.Result
             }
             else
             {
+                Code = ResultCode.Ok;
+                
                 var pagedInfo = new PagedInfo(page, pageSize, count);
                 PagedInfo = pagedInfo;
 
