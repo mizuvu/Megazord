@@ -3,7 +3,7 @@ using Zord.Result;
 
 namespace Zord.EntityFrameworkCore.Extensions;
 
-public static class QueryableExtensions
+public static class ResultExtensions
 {
     public static async Task<PagedResult<T>> ToPagedResultAsync<T>(this IQueryable<T> queryable,
         int pageNumber,

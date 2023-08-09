@@ -43,6 +43,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EfCore", "src\EfCore\EfCore
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EfCore.Cache", "src\EfCore.Cache\EfCore.Cache.csproj", "{FF1115E4-CCA1-40A2-A2E4-1155E199166A}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EfCore.Extensions", "src\EfCore.Extensions\EfCore.Extensions.csproj", "{77E1C92F-2AEC-4E45-AADB-615F9E30077F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -121,6 +123,10 @@ Global
 		{FF1115E4-CCA1-40A2-A2E4-1155E199166A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF1115E4-CCA1-40A2-A2E4-1155E199166A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF1115E4-CCA1-40A2-A2E4-1155E199166A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77E1C92F-2AEC-4E45-AADB-615F9E30077F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77E1C92F-2AEC-4E45-AADB-615F9E30077F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77E1C92F-2AEC-4E45-AADB-615F9E30077F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77E1C92F-2AEC-4E45-AADB-615F9E30077F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -144,6 +150,7 @@ Global
 		{26681D3B-96E3-4277-8192-619FC30AB879} = {CADBDB9C-5FEE-474F-8A09-1BD90B8999A4}
 		{B315A5C7-C9DF-43C9-B9E8-508579A97683} = {CADBDB9C-5FEE-474F-8A09-1BD90B8999A4}
 		{FF1115E4-CCA1-40A2-A2E4-1155E199166A} = {CADBDB9C-5FEE-474F-8A09-1BD90B8999A4}
+		{77E1C92F-2AEC-4E45-AADB-615F9E30077F} = {CADBDB9C-5FEE-474F-8A09-1BD90B8999A4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0FBA6141-187D-457A-95AD-2AE6A2AD9FCA}
