@@ -1,31 +1,11 @@
-﻿using System.Collections.Generic;
-using Zord.Result.Models;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Zord.Result
 {
-    public class PagedResult<T> : Result<PagedList<T>>
+    public class PagedResult<T> : IResult<IEnumerable<T>>
     {
         public PagedResult() { }
-
-        public PagedResult(string message = "", IEnumerable<string> errors = default)
-        {
-            Code = ResultCode.Error;
-            Message = message;
-            Errors = errors;
-        }
-
-        public PagedResult(IEnumerable<T> data, int page, int pageSize)
-        {
-            if (data == null)
-            {
-                Code = ResultCode.NotFound;
-            }
-            else
-            {
-                Code = ResultCode.Ok;
-                Data = new PagedList<T>(data, page, pageSize);
-            }
-        }
 
         public PagedResult(IEnumerable<T> data, int page, int pageSize, int count)
         {
@@ -35,9 +15,23 @@ namespace Zord.Result
             }
             else
             {
-                Code = ResultCode.Ok;
-                Data = new PagedList<T>(data, page, pageSize, count);
+                var pagedInfo = new PagedInfo(page, pageSize, count);
+                PagedInfo = pagedInfo;
+
+                Data = data;
             }
         }
+
+        public ResultCode Code { get; set; }
+
+        public bool Succeeded => Code == ResultCode.Ok && Data != null;
+
+        public string Message { get; set; } = "";
+
+        public IEnumerable<string> Errors { get; set; } = Array.Empty<string>();
+
+        public PagedInfo PagedInfo { get; set; }
+
+        public IEnumerable<T> Data { get; set; } = new List<T>();
     }
 }

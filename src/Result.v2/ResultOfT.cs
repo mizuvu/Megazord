@@ -45,8 +45,8 @@ namespace Zord.Result
 
         public T Data { get; set; }
 
-        public static Result<T> Object(T data, string message = "") =>
-            new Result<T>(data, message);
+        public static Result<T> Object(T data, string message = "")
+            => new Result<T>(data, message);
 
         public static Result<T> ObjectNotFound(string objectName, object queryValue)
         {
@@ -62,22 +62,10 @@ namespace Zord.Result
             return new Result<T>(ResultCode.NotFound, message, default);
         }
 
-        public static Result<T> BadRequest(string message = "", IEnumerable<string> errors = default) =>
-            new Result<T>(ResultCode.BadRequest, message, errors);
+        public static Result<T> BadRequest(string message = "", IEnumerable<string> errors = default)
+            => new Result<T>(ResultCode.BadRequest, message, errors);
 
-        public static Result<T> Forbidden(string message = "", IEnumerable<string> errors = default) =>
-            new Result<T>(ResultCode.Forbidden, message, errors);
-
-        public static Result<T> Unauthorized(string message = "", IEnumerable<string> errors = default) =>
-            new Result<T>(ResultCode.Unauthorized, message, errors);
-
-        public static Result<T> NotFound(string message = "", IEnumerable<string> errors = default) =>
-            new Result<T>(ResultCode.NotFound, message, errors);
-
-        public static Result<T> Conflict(string message = "", IEnumerable<string> errors = default) =>
-            new Result<T>(ResultCode.Conflict, message, errors);
-
-        public static Result<T> Error(string message = "", IEnumerable<string> errors = default) =>
-            new Result<T>(ResultCode.Error, message, errors);
+        public static Result<T> Error(string message = "", IEnumerable<string> errors = default)
+            => new Result<T>(ResultCode.Error, message, errors);
     }
 }
