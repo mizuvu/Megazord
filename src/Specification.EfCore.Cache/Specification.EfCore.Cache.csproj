@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	<RootNamespace>Zord.Specification.EntityFrameworkCore.Cache</RootNamespace>
+	<AssemblyName>Zord.Specification.EntityFrameworkCore.Cache</AssemblyName>
+	<Title>Zord.EntityFrameworkCore</Title>
+	<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	<Authors>minhvu</Authors>
+	<Description>EF Core repositories with auto load data to cache plugin package.</Description>
+	<Summary>EF Core repositories with auto load data to cache plugin package.</Summary>
+	<Version>7.0.0.1</Version>
+	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Extensions.Caching\Extensions.Caching.csproj" />
+    <ProjectReference Include="..\Specification.EfCore\Specification.EfCore.csproj" />
+  </ItemGroup>
+
+</Project>

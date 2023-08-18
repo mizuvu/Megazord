@@ -1,6 +1,4 @@
-﻿using Zord.Core.Entities.Interfaces;
-
-namespace Host.Data;
+﻿namespace Host.Data;
 
 public partial class RetailProduct : IEntity
 {

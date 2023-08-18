@@ -3,14 +3,14 @@
   <PropertyGroup>
 	<TargetFramework>netstandard2.1</TargetFramework>
 	<Nullable>enable</Nullable>
-	<RootNamespace>Zord.Core</RootNamespace>
-	<AssemblyName>Zord.Core</AssemblyName>
-	<Title>Zord.Core</Title>
+	<RootNamespace>Zord.Specification</RootNamespace>
+	<AssemblyName>Zord.Specification</AssemblyName>
+	<Title>Zord.Specification</Title>
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	<Authors>minhvu</Authors>
-	<Description>Core package containing useful base interfaces, classes, enums, value objects.</Description>
-	<Summary>Core package containing useful base interfaces, classes, enums, value objects.</Summary>
-	<Version>1.1.12.1</Version>
+	<Description>A simple package with a base Specification class.</Description>
+	<Summary>A simple package with a base Specification class.</Summary>
+	<Version>0.0.0.1</Version>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	<PublishRepositoryUrl>true</PublishRepositoryUrl>
 	<EmbedUntrackedSources>true</EmbedUntrackedSources>

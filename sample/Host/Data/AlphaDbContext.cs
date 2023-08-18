@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Zord.Core.Entities.Interfaces;
 
 namespace Host.Data;
 

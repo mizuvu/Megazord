@@ -1,6 +1,5 @@
 ﻿using Host.Data.Persistence;
 using Microsoft.EntityFrameworkCore;
-using Zord.Core.Repositories;
 using Zord.Extensions.DependencyInjection;
 
 namespace Host.Data;

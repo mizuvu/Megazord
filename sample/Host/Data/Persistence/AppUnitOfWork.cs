@@ -1,6 +1,4 @@
-﻿using Zord.EntityFrameworkCore;
-
-namespace Host.Data.Persistence
+﻿namespace Host.Data.Persistence
 {
     public class AppUnitOfWork : UnitOfWorkBase, IAppUnitOfWork
     {

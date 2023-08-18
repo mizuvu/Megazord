@@ -16,8 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\EfCore.Cache\EfCore.Cache.csproj" />
-    <ProjectReference Include="..\..\src\EfCore\EfCore.csproj" />
+    <ProjectReference Include="..\..\src\Core\Core.csproj" />
+    <ProjectReference Include="..\..\src\EfCore.Extensions\EfCore.Extensions.csproj" />
     <ProjectReference Include="..\..\src\Extensions.Caching\Extensions.Caching.csproj" />
     <ProjectReference Include="..\..\src\Extensions.DependencyInjection\Extensions.DependencyInjection.csproj" />
     <ProjectReference Include="..\..\src\Extensions.Files\Extensions.Files.csproj" />
@@ -27,6 +27,8 @@
     <ProjectReference Include="..\..\src\Extensions.Telegram\Extensions.Telegram.csproj" />
     <ProjectReference Include="..\..\src\Extensions\Extensions.csproj" />
     <ProjectReference Include="..\..\src\Result.v2\Result.v2.csproj" />
+    <ProjectReference Include="..\..\src\Specification.EfCore.Cache\Specification.EfCore.Cache.csproj" />
+    <ProjectReference Include="..\..\src\Specification.EfCore\Specification.EfCore.csproj" />
   </ItemGroup>
 
 </Project>

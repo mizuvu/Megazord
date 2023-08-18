@@ -1,11 +1,15 @@
 global using Zord.Result;
+global using Zord.Core.Entities.Interfaces;
+global using Zord.Specification;
+global using Zord.Specification.EntityFrameworkCore;
+global using Zord.Specification.EntityFrameworkCore.Cache;
+
 using Extensions.Telegram;
 using Host.Data;
 using Host.TestOption;
 using Serilog;
 using Zord.Extensions.Caching;
 using Zord.Extensions.DependencyInjection;
-using Zord.Extensions.Files;
 using Zord.Extensions.Logging;
 using Zord.Extensions.SmtpMail;
 

@@ -1,5 +1,5 @@
 ﻿using Zord.Core.Entities.Interfaces;
-using Zord.EntityFrameworkCore;
+using Zord.Specification.EntityFrameworkCore;
 
 namespace Host.Data.Persistence
 {
