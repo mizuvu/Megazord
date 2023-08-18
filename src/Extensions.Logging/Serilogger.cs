@@ -98,15 +98,17 @@ public static class Serilogger
         return logger;
     }
 
-    private static LoggerConfiguration WriteToElasticsearch(this LoggerConfiguration logger, IConfiguration configuration, string environment)
+    private static LoggerConfiguration WriteToElasticsearch(this LoggerConfiguration logger, IConfiguration configuration, string applicationName, string environment)
     {
         var settings = configuration.GetSection("Serilog:Elasticsearch").Get<ElasticsearchOptions>();
 
         if (settings != null && !string.IsNullOrEmpty(settings.Endpoint))
         {
+            var serviceName = settings.ServiceName ?? applicationName;
+
             logger.WriteTo.Async(w => w.Elasticsearch(new ElasticsearchSinkOptions(new Uri(settings.Endpoint))
             {
-                IndexFormat = $"{settings.ServiceName}-{environment}-{DateTime.UtcNow:yyyy-MM}",
+                IndexFormat = $"{serviceName}-{environment}-{DateTime.UtcNow:yyyy-MM}",
                 AutoRegisterTemplate = true,
                 NumberOfReplicas = 1,
                 NumberOfShards = 2,
@@ -126,7 +128,7 @@ public static class Serilogger
             configuration
                 .BaseConfig(context.Configuration, applicationName, environment)
                 .WriteToMSSQL(context.Configuration)
-                .WriteToElasticsearch(context.Configuration, environment)
+                .WriteToElasticsearch(context.Configuration, applicationName, environment)
                 .Enrich.FromLogContext()
                 .Enrich.WithMachineName()
                 .Enrich.WithProperty("Environment", environment)
