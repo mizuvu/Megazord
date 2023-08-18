@@ -1,5 +1,4 @@
 ﻿global using Microsoft.EntityFrameworkCore;
-global using Zord.Core;
 
 using Microsoft.Extensions.DependencyInjection;
 using Zord.EntityFrameworkCore.Cache;

@@ -5,6 +5,7 @@ using Host.TestOption;
 using Serilog;
 using Zord.Extensions.Caching;
 using Zord.Extensions.DependencyInjection;
+using Zord.Extensions.Files;
 using Zord.Extensions.Logging;
 using Zord.Extensions.SmtpMail;
 
@@ -22,8 +23,6 @@ builder.Services.AddGraphMail(opt =>
     opt.TenantId = "";
 });
 */
-
-builder.Services.AddZordLogging();
 
 builder.Services.AddData(builder.Configuration);
 var settings = builder.Configuration.GetSection("Caching").Get<CacheOptions>();

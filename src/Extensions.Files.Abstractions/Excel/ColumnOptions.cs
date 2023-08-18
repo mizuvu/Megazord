@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace Zord.Core.Excel
+namespace Zord.Extensions.Files.Excel
 {
     public class ColumnOptions<T>
     {

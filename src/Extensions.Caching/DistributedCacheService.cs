@@ -54,6 +54,7 @@ public class DistributedCacheService : ICacheService
         try
         {
             _cache.Refresh(key);
+            _logger.LogInformation("Cache refreshed: {key}", key);
         }
         catch
         {
@@ -65,7 +66,7 @@ public class DistributedCacheService : ICacheService
         try
         {
             await _cache.RefreshAsync(key, token);
-            _logger.LogDebug("Cache Refreshed : {key}", key);
+            _logger.LogInformation("Cache refreshed: {key}", key);
         }
         catch
         {
@@ -77,6 +78,7 @@ public class DistributedCacheService : ICacheService
         try
         {
             _cache.Remove(key);
+            _logger.LogInformation("Cache removed: {key}", key);
         }
         catch
         {
@@ -88,6 +90,7 @@ public class DistributedCacheService : ICacheService
         try
         {
             await _cache.RemoveAsync(key, token);
+            _logger.LogInformation("Cache removed: {key}", key);
         }
         catch
         {
@@ -105,7 +108,7 @@ public class DistributedCacheService : ICacheService
             options.SetSlidingExpiration(slidingExpiration ?? TimeSpan.FromMinutes(30)); // Default expiration time is 30 minutes.
 
             _cache.Set(key, value, options);
-            _logger.LogDebug("Added to Cache : {key}", key);
+            _logger.LogInformation("Cache loaded: {key}", key);
         }
         catch
         {
@@ -124,7 +127,7 @@ public class DistributedCacheService : ICacheService
 
             await _cache.SetAsync(key, value, options, token);
 
-            _logger.LogDebug("Added to Cache : {key}", key);
+            _logger.LogInformation("Cache loaded: {key}", key);
         }
         catch
         {

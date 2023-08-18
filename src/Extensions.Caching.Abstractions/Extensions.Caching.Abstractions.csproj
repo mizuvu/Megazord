@@ -1,15 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	<TargetFramework>netstandard2.1</TargetFramework>
-	<Nullable>enable</Nullable>
-	<RootNamespace>Zord.Core</RootNamespace>
-	<AssemblyName>Zord.Core.Sender</AssemblyName>
-	<Title>Zord.Core.Sender</Title>
+	<TargetFramework>netstandard2.0</TargetFramework>
+	<RootNamespace>Zord.Extensions.Caching</RootNamespace>
+	<AssemblyName>Zord.Extensions.Caching.Abstractions</AssemblyName>
+	<Title>Zord.Extensions.Caching.Abstractions</Title>
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	<Authors>minhvu</Authors>
-	<Description>Mail client package.</Description>
-	<Summary>Mail client package.</Summary>
+	<Description>Caching package.</Description>
+	<Summary>Caching package.</Summary>
 	<Version>0.0.0.1</Version>
 	<PackageReleaseNotes></PackageReleaseNotes>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>

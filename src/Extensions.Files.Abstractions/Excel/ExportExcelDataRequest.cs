@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Zord.Core.Excel
+namespace Zord.Extensions.Files.Excel
 {
     public class ExportExcelDataRequest
     {

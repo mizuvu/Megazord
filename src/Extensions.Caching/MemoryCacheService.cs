@@ -17,17 +17,27 @@ public class MemoryCacheService : ICacheService
     public Task<T> GetAsync<T>(string key, CancellationToken token = default) =>
         Task.FromResult(Get<T>(key));
 
-    public void Refresh(string key) =>
+    public void Refresh(string key)
+    {
         _cache.TryGetValue(key, out _);
+
+        _logger.LogInformation("Cache refreshed: {key}", key);
+    }
+
 
     public Task RefreshAsync(string key, CancellationToken token = default)
     {
         Refresh(key);
+
         return Task.CompletedTask;
     }
 
-    public void Remove(string key) =>
+    public void Remove(string key)
+    {
         _cache.Remove(key);
+
+        _logger.LogInformation("Cache removed: {key}", key);
+    }
 
     public Task RemoveAsync(string key, CancellationToken token = default)
     {
@@ -41,7 +51,7 @@ public class MemoryCacheService : ICacheService
 
         _cache.Set(key, value, new MemoryCacheEntryOptions { SlidingExpiration = slidingExpiration });
 
-        _logger.LogDebug("Added to Cache : {key}", key);
+        _logger.LogInformation("Cache loaded: {key}", key);
     }
 
     public Task SetAsync<T>(string key, T value, TimeSpan? slidingExpiration = null, CancellationToken token = default)

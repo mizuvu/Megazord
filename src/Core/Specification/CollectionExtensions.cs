@@ -5,7 +5,7 @@ using Zord.Core.Specification;
 
 namespace Zord.Core.Specification
 {
-    public static class IEnumerableExtensions
+    public static class CollectionExtensions
     {
         public static IEnumerable<T> Where<T>(this IEnumerable<T> source, ISpecification<T> specification)
         {

@@ -3,13 +3,13 @@
   <PropertyGroup>
 	<TargetFramework>netstandard2.1</TargetFramework>
 	<Nullable>enable</Nullable>
-	<RootNamespace>Zord.Core</RootNamespace>
-	<AssemblyName>Zord.Core.Documents</AssemblyName>
-	<Title>Zord.Core.Documents</Title>
+	<RootNamespace>Zord.Extensions</RootNamespace>
+	<AssemblyName>Zord.Extensions.Message</AssemblyName>
+	<Title>Zord.Extensions.Message</Title>
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	<Authors>minhvu</Authors>
-	<Description>Package for generate document files faster.</Description>
-	<Summary>Package for generate document files faster.</Summary>
+	<Description>Mail client package.</Description>
+	<Summary>Mail client package.</Summary>
 	<Version>0.0.0.1</Version>
 	<PackageReleaseNotes></PackageReleaseNotes>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>

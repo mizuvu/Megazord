@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Zord.Core;
-using Zord.Extensions.Documents;
+using Zord.Extensions.Files;
 
 namespace Zord.Extensions.DependencyInjection
 {

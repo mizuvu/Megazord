@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using Zord.Extensions.Caching;
 
 namespace Zord.EntityFrameworkCore.Cache;
 

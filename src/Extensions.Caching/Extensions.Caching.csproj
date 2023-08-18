@@ -11,7 +11,7 @@
 	<Authors>minhvu</Authors>
 	<Description>Cache package services using Memory, Distributed, Redis.</Description>
 	<Summary>Cache package services using Memory, Distributed, Redis.</Summary>
-	<Version>1.3.0.1</Version>
+	<Version>7.0.0.2</Version>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	<PublishRepositoryUrl>true</PublishRepositoryUrl>
 	<EmbedUntrackedSources>true</EmbedUntrackedSources>
@@ -25,11 +25,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Core.Caching\Core.Caching.csproj" />
+    <ProjectReference Include="..\Extensions.Caching.Abstractions\Extensions.Caching.Abstractions.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-	<Using Include="Zord.Core" />
+	<Using Include="Zord.Extensions.Caching" />
   </ItemGroup>
 
 </Project>

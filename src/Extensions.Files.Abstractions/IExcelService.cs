@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 using System.IO;
-using Zord.Core.Excel;
+using Zord.Extensions.Files.Excel;
 
-namespace Zord.Core
+namespace Zord.Extensions.Files
 {
     public interface IExcelService
     {

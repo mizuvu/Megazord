@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using StackExchange.Redis;
-using Zord.Extensions.Caching;
 
 namespace Zord.Extensions.DependencyInjection;
 

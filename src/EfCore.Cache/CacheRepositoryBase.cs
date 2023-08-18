@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Zord.Core.Repositories;
+using Zord.Extensions.Caching;
 
 namespace Zord.EntityFrameworkCore.Cache;
 
@@ -27,8 +28,6 @@ public abstract class CacheRepositoryBase<T> : RepositoryBase<T>, ICacheReposito
         var data = await base.ToListAsync(cancellationToken);
 
         await _cacheService.SetAsync(_tableName, data, cancellationToken: cancellationToken);
-
-        _logger.LogInformation("{name} loaded to cache", _tableName);
 
         return data;
     }
@@ -65,6 +64,5 @@ public abstract class CacheRepositoryBase<T> : RepositoryBase<T>, ICacheReposito
     public virtual async Task RemoveCacheAsync(CancellationToken cancellationToken = default)
     {
         await _cacheService.RemoveAsync(_tableName, cancellationToken);
-        _logger.LogInformation("{name} cache removed", _tableName);
     }
 }
