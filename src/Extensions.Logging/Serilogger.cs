@@ -20,21 +20,8 @@ public static class Serilogger
         }
     }
 
-    private static LoggerConfiguration BaseConfig(this LoggerConfiguration logger, IConfiguration configuration, string applicationName, string environment)
+    private static LoggerConfiguration BaseConfig(this LoggerConfiguration logger)
     {
-        // default settings
-        var defaultPath = "logs";
-        var defaultTemplate = "[{Timestamp:HH:mm:ss} {Level:u3}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}";
-
-        // custom settings
-        var configPath = configuration.GetValue<string>("Serilog:LogPath");
-        var configTemplate = configuration.GetValue<string>("Serilog:Template");
-
-        //var template = "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}";
-        //var template = "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj} <s:{SourceContext}>{NewLine}{Exception}";
-        var template = !string.IsNullOrEmpty(configTemplate) ? configTemplate : defaultTemplate;
-        var path = !string.IsNullOrEmpty(configPath) ? configPath : defaultPath;
-
         logger
             //.Filter.ByExcluding(x => x.MessageTemplate.Text.Contains("Executing endpoint"))
             //.MinimumLevel.Information()
@@ -44,12 +31,38 @@ public static class Serilogger
             //.MinimumLevel.Override("Microsoft.Hosting.Lifetime", LogEventLevel.Information)
             //.MinimumLevel.Override("Microsoft.EntityFrameworkCore.Database.Command", LogEventLevel.Warning)
             .WriteTo.Async(c => c.Debug())
-            .WriteTo.Async(c => c.Console())
-            .WriteTo.Async(c => c.File(@$"{path}\{applicationName}-{environment}-log-.txt",
-                outputTemplate: template,
-                shared: true,
-                rollingInterval: RollingInterval.Day,
-                rollOnFileSizeLimit: true));
+            .WriteTo.Async(c => c.Console());
+
+        return logger;
+    }
+
+    private static LoggerConfiguration WriteToFile(this LoggerConfiguration logger, IConfiguration configuration, string applicationName, string environment)
+    {
+        var settings = configuration.GetSection("Serilog:File").Get<FileOptions>();
+
+        if (settings == null)
+        {
+            return logger;
+        }
+
+        // default settings
+        var defaultPath = "logs"; // default save logs files to [current directory]/logs
+        var defaultTemplate = "[{Timestamp:HH:mm:ss} {Level:u3}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}";
+
+        // custom settings
+        var configPath = settings.Path;
+        var configTemplate = settings.Template;
+
+        //var template = "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}";
+        //var template = "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj} <s:{SourceContext}>{NewLine}{Exception}";
+        var template = !string.IsNullOrEmpty(configTemplate) ? configTemplate : defaultTemplate;
+        var path = !string.IsNullOrEmpty(configPath) ? configPath : defaultPath;
+
+        logger.WriteTo.Async(c => c.File(@$"{path}\{applicationName}-{environment}-log-.txt",
+            outputTemplate: template,
+            shared: true,
+            rollingInterval: RollingInterval.Day,
+            rollOnFileSizeLimit: true));
 
         return logger;
     }
@@ -126,7 +139,8 @@ public static class Serilogger
             var environment = context.HostingEnvironment.EnvironmentName ?? "Development";
 
             configuration
-                .BaseConfig(context.Configuration, applicationName, environment)
+                .BaseConfig()
+                .WriteToFile(context.Configuration, applicationName, environment)
                 .WriteToMSSQL(context.Configuration)
                 .WriteToElasticsearch(context.Configuration, applicationName, environment)
                 .Enrich.FromLogContext()
