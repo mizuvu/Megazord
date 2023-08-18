@@ -9,17 +9,21 @@ namespace Host.Controllers
     public class CacheDataController : ControllerBase
     {
         private readonly ICacheRepository<RetailLocation, AlphaDbContext> _cacheRepository;
+        private readonly Serilog.ILogger _logger;
 
-        public CacheDataController(ICacheRepository<RetailLocation, AlphaDbContext> cacheRepository)
+        public CacheDataController(
+            ICacheRepository<RetailLocation, AlphaDbContext> cacheRepository,
+            Serilog.ILogger logger)
         {
             _cacheRepository = cacheRepository;
+            _logger = logger;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAsync(CancellationToken cancellationToken)
         {
             var list = await _cacheRepository.ToListAsync(cancellationToken);
-
+            _logger.Information("Hello......");
             return Ok(list);
         }
 
@@ -35,6 +39,13 @@ namespace Host.Controllers
             await _cacheRepository.SaveChangesAsync(cancellationToken);
 
             return Ok(list);
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteAsync(CancellationToken cancellationToken)
+        {
+            await _cacheRepository.RemoveCacheAsync(cancellationToken);
+            return Ok();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Zord.Core.Repositories;
+﻿using Microsoft.Extensions.Logging;
+using Zord.Core.Repositories;
 
 namespace Zord.EntityFrameworkCore.Cache;
 
@@ -7,11 +8,11 @@ public abstract class CacheRepositoryBase<T> : RepositoryBase<T>, ICacheReposito
 {
     private readonly string _tableName;
     private readonly ICacheService _cacheService;
-    private readonly Serilog.ILogger _logger;
+    private readonly ILogger _logger;
 
     protected CacheRepositoryBase(DbContext context,
         ICacheService cacheService,
-        Serilog.ILogger logger) : base(context)
+        ILogger<ICacheService> logger) : base(context)
     {
         var dbName = context.Database.GetDbConnection().Database;
         _tableName = $"[{dbName}]_[{typeof(T).Name}]";
@@ -27,7 +28,7 @@ public abstract class CacheRepositoryBase<T> : RepositoryBase<T>, ICacheReposito
 
         await _cacheService.SetAsync(_tableName, data, cancellationToken: cancellationToken);
 
-        _logger.Information("{name} loaded to cache", _tableName);
+        _logger.LogInformation("{name} loaded to cache", _tableName);
 
         return data;
     }
@@ -64,5 +65,6 @@ public abstract class CacheRepositoryBase<T> : RepositoryBase<T>, ICacheReposito
     public virtual async Task RemoveCacheAsync(CancellationToken cancellationToken = default)
     {
         await _cacheService.RemoveAsync(_tableName, cancellationToken);
+        _logger.LogInformation("{name} cache removed", _tableName);
     }
 }

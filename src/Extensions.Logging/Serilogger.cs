@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Events;
+using Serilog.Sinks.Elasticsearch;
 using Serilog.Sinks.MSSqlServer;
 
 namespace Zord.Extensions.Logging;
@@ -19,93 +20,117 @@ public static class Serilogger
         }
     }
 
+    private static LoggerConfiguration BaseConfig(this LoggerConfiguration logger, IConfiguration configuration, string applicationName, string environment)
+    {
+        // default settings
+        var defaultPath = "logs";
+        var defaultTemplate = "[{Timestamp:HH:mm:ss} {Level:u3}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}";
+
+        // custom settings
+        var configPath = configuration.GetValue<string>("Serilog:LogPath");
+        var configTemplate = configuration.GetValue<string>("Serilog:Template");
+
+        //var template = "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}";
+        //var template = "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj} <s:{SourceContext}>{NewLine}{Exception}";
+        var template = !string.IsNullOrEmpty(configTemplate) ? configTemplate : defaultTemplate;
+        var path = !string.IsNullOrEmpty(configPath) ? configPath : defaultPath;
+
+        logger
+            //.Filter.ByExcluding(x => x.MessageTemplate.Text.Contains("Executing endpoint"))
+            //.MinimumLevel.Information()
+            //.MinimumLevel.Override("Hangfire", LogEventLevel.Warning)
+            //.MinimumLevel.Override("Microsoft", LogEventLevel.Error)
+            //.MinimumLevel.Override("System", LogEventLevel.Information)
+            //.MinimumLevel.Override("Microsoft.Hosting.Lifetime", LogEventLevel.Information)
+            //.MinimumLevel.Override("Microsoft.EntityFrameworkCore.Database.Command", LogEventLevel.Warning)
+            .WriteTo.Async(c => c.Debug())
+            .WriteTo.Async(c => c.Console())
+            .WriteTo.Async(c => c.File(@$"{path}\{applicationName}-{environment}-log-.txt",
+                outputTemplate: template,
+                shared: true,
+                rollingInterval: RollingInterval.Day,
+                rollOnFileSizeLimit: true));
+
+        return logger;
+    }
+
+    private static LoggerConfiguration WriteToMSSQL(this LoggerConfiguration logger, IConfiguration configuration)
+    {
+        var settings = configuration.GetSection("Serilog:MSSQL").Get<MSSQLOptions>();
+
+        if (settings != null && !string.IsNullOrEmpty(settings.Connection))
+        {
+            var sinkOpts = new MSSqlServerSinkOptions
+            {
+                TableName = settings.TableName ?? "SeriLogs",
+                AutoCreateSqlTable = true,
+            };
+
+            var columnOpts = new ColumnOptions
+            {
+                AdditionalColumns = new SqlColumn[]
+                {
+                    new SqlColumn
+                    {
+                        ColumnName = "MachineName",
+                        DataType = System.Data.SqlDbType.NVarChar,
+                        AllowNull = false,
+                        DataLength = 100,
+                    },
+                    new SqlColumn
+                    {
+                        ColumnName = "ApplicationName",
+                        DataType = System.Data.SqlDbType.NVarChar,
+                        AllowNull = false,
+                        DataLength = 100,
+                        PropertyName = "Application"
+                    }
+                }
+            };
+
+            logger.WriteTo.Async(a => a.MSSqlServer(
+                connectionString: settings.Connection,
+                sinkOptions: sinkOpts,
+                columnOptions: columnOpts,
+                restrictedToMinimumLevel: LogEventLevel.Warning));
+        }
+
+        return logger;
+    }
+
+    private static LoggerConfiguration WriteToElasticsearch(this LoggerConfiguration logger, IConfiguration configuration, string environment)
+    {
+        var settings = configuration.GetSection("Serilog:Elasticsearch").Get<ElasticsearchOptions>();
+
+        if (settings != null && !string.IsNullOrEmpty(settings.Endpoint))
+        {
+            logger.WriteTo.Async(w => w.Elasticsearch(new ElasticsearchSinkOptions(new Uri(settings.Endpoint))
+            {
+                IndexFormat = $"{settings.ServiceName}-{environment}-{DateTime.UtcNow:yyyy-MM}",
+                AutoRegisterTemplate = true,
+                NumberOfReplicas = 1,
+                NumberOfShards = 2,
+                ModifyConnectionSettings = x => x.BasicAuthentication(settings.Username, settings.Password)
+            }));
+        }
+
+        return logger;
+    }
+
     public static Action<HostBuilderContext, LoggerConfiguration> Configure =>
         (context, configuration) =>
         {
-            // default settings
-            var defaultPath = "logs";
-            var defaultTemplate = "[{Timestamp:HH:mm:ss} {Level:u3}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}";
-
-            // custom settings
-            var configPath = context.Configuration.GetValue<string>("Serilog:FilePath");
-            var configTemplate = context.Configuration.GetValue<string>("Serilog:Template");
-
-            var template = !string.IsNullOrEmpty(configTemplate) ? configTemplate : defaultTemplate;
-            var path = !string.IsNullOrEmpty(configPath) ? configPath : defaultPath;
-
             var applicationName = context.HostingEnvironment.ApplicationName?.ToLower().Replace(".", "-") ?? "UnknownApp";
-            var environmentName = context.HostingEnvironment.EnvironmentName ?? "Development";
-
-            //var template = "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}";
-            //var template = "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj} <s:{SourceContext}>{NewLine}{Exception}";
+            var environment = context.HostingEnvironment.EnvironmentName ?? "Development";
 
             configuration
-                //.Filter.ByExcluding(x => x.MessageTemplate.Text.Contains("Executing endpoint"))
-                //.MinimumLevel.Information()
-                //.MinimumLevel.Override("Hangfire", LogEventLevel.Warning)
-                //.MinimumLevel.Override("Microsoft", LogEventLevel.Error)
-                //.MinimumLevel.Override("System", LogEventLevel.Information)
-                //.MinimumLevel.Override("Microsoft.Hosting.Lifetime", LogEventLevel.Information)
-                //.MinimumLevel.Override("Microsoft.EntityFrameworkCore.Database.Command", LogEventLevel.Warning)
-                .WriteTo.Async(c => c.Debug())
-                .WriteTo.Async(c => c.Console())
-                .WriteTo.Async(c => c.File(@$"{path}\{applicationName}-{environmentName}-log-.txt",
-                    outputTemplate: template,
-                    shared: true,
-                    rollingInterval: RollingInterval.Day,
-                    rollOnFileSizeLimit: true))
-                .WriteTo.Async(c => c.File(@$"{path}\{applicationName}-{environmentName}-critical-.txt",
-                    outputTemplate: template,
-                    shared: true,
-                    rollingInterval: RollingInterval.Day,
-                    rollOnFileSizeLimit: true,
-                    restrictedToMinimumLevel: LogEventLevel.Warning))
+                .BaseConfig(context.Configuration, applicationName, environment)
+                .WriteToMSSQL(context.Configuration)
+                .WriteToElasticsearch(context.Configuration, environment)
                 .Enrich.FromLogContext()
                 .Enrich.WithMachineName()
-                .Enrich.WithProperty("Environment", environmentName)
+                .Enrich.WithProperty("Environment", environment)
                 .Enrich.WithProperty("Application", applicationName)
                 .ReadFrom.Configuration(context.Configuration);
-
-            var dbConnection = context.Configuration.GetValue<string>("Serilog:DbConnection");
-
-            if (!string.IsNullOrEmpty(dbConnection))
-            {
-                var tableName = context.Configuration.GetValue<string>("Serilog:TableName");
-
-                var sinkOpts = new MSSqlServerSinkOptions
-                {
-                    TableName = tableName ?? "SeriLogs",
-                    AutoCreateSqlTable = true,
-                };
-
-                var columnOpts = new ColumnOptions
-                {
-                    AdditionalColumns = new SqlColumn[]
-                    {
-                        new SqlColumn
-                        {
-                            ColumnName = "MachineName",
-                            DataType = System.Data.SqlDbType.NVarChar,
-                            AllowNull = false,
-                            DataLength = 100,
-                        },
-                        new SqlColumn
-                        {
-                            ColumnName = "ApplicationName",
-                            DataType = System.Data.SqlDbType.NVarChar,
-                            AllowNull = false,
-                            DataLength = 100,
-                            PropertyName = "Application"
-                        }
-                    }
-                };
-
-                configuration
-                    .WriteTo.Async(a => a.MSSqlServer(
-                        connectionString: dbConnection,
-                        sinkOptions: sinkOpts,
-                        columnOptions: columnOpts,
-                        restrictedToMinimumLevel: LogEventLevel.Warning));
-            }
         };
 }
