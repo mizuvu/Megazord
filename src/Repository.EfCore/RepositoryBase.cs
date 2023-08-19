@@ -1,6 +1,8 @@
 ﻿using System.Linq.Expressions;
+using Zord.Specification;
+using Zord.Specification.Extensions;
 
-namespace Zord.Specification.EntityFrameworkCore;
+namespace Zord.Repository;
 
 /// <inheritdoc/>
 public abstract class RepositoryBase<TEntity> : IRepositoryBase<TEntity>

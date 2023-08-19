@@ -1,9 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using Zord.Extensions.Caching;
-using Zord.Specification;
-using Zord.Specification.EntityFrameworkCore;
 
-namespace Zord.Specification.EntityFrameworkCore.Cache;
+namespace Zord.Repository;
 
 public abstract class CacheRepositoryBase<T> : RepositoryBase<T>, ICacheRepository<T>
     where T : class

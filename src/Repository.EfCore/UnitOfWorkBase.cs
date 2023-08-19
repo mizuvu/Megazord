@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Infrastructure;
 
-namespace Zord.Specification.EntityFrameworkCore;
+namespace Zord.Repository;
 
 /// <inheritdoc/>
 public abstract class UnitOfWorkBase : IUnitOfWork

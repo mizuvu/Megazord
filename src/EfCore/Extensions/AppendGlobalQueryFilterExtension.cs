@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;
 
-namespace Zord.Specification.EntityFrameworkCore.Extensions;
+namespace Zord.EntityFrameworkCore.Extensions;
 
 public static class ModelBuilderExtensions
 {

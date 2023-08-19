@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 
-namespace Zord.Specification
+namespace Zord.Repository
 {
     public interface ISaveChanges
     {

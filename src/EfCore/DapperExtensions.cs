@@ -1,9 +1,9 @@
 ﻿using Dapper;
 using System.Data;
 using System.Data.Common;
-using Zord.Specification.EntityFrameworkCore;
+using Zord.EntityFrameworkCore;
 
-namespace Zord.Specification.EntityFrameworkCore;
+namespace Zord.EntityFrameworkCore;
 
 /// <summary>
 ///     Raw SQL query via Dapper

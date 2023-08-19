@@ -1,6 +1,5 @@
 ﻿using Host.Data;
 using Microsoft.AspNetCore.Mvc;
-using Zord.Specification.EntityFrameworkCore.Cache;
 
 namespace Host.Controllers
 {

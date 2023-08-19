@@ -1,7 +1,7 @@
 ﻿global using Microsoft.EntityFrameworkCore;
 
 using Microsoft.Extensions.DependencyInjection;
-using Zord.Specification.EntityFrameworkCore.Cache;
+using Zord.Repository;
 
 namespace Zord.Extensions.DependencyInjection;
 

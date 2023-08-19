@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Zord.Specification
+namespace Zord.Repository
 {
     /// <summary>
     ///     Use to query and save instances of T with Repository patterns

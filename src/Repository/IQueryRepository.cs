@@ -4,8 +4,9 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Zord.Specification;
 
-namespace Zord.Specification
+namespace Zord.Repository
 {
     /// <summary>
     ///     Use to query instances of T.

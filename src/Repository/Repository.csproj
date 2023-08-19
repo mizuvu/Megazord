@@ -1,17 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
-	<ImplicitUsings>enable</ImplicitUsings>
+	<TargetFramework>netstandard2.1</TargetFramework>
 	<Nullable>enable</Nullable>
-	<RootNamespace>Zord.Specification.EntityFrameworkCore</RootNamespace>
-	<AssemblyName>Zord.Specification.EntityFrameworkCore</AssemblyName>
-	<Title>Zord.Specification.EntityFrameworkCore</Title>
+	<RootNamespace>Zord.Repository</RootNamespace>
+	<AssemblyName>Zord.Repository</AssemblyName>
+	<Title>Zord.Repository</Title>
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	<Authors>minhvu</Authors>
-	<Description>EF Core plugin package containing EF Core evaluator and abstract repository.</Description>
-	<Summary>EF Core plugin package containing EF Core evaluator and abstract repository.</Summary>
-	<Version>7.0.0.1</Version>
+	<Description>A simple package with base abstract Unit Of Work and Repository.</Description>
+	<Summary>A simple package with base abstract Unit Of Work and Repository.</Summary>
+	<Version>0.0.0.1</Version>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	<PublishRepositoryUrl>true</PublishRepositoryUrl>
 	<EmbedUntrackedSources>true</EmbedUntrackedSources>
@@ -19,8 +18,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Dapper" Version="2.0.151" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.10" />
 	<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
   </ItemGroup>
 

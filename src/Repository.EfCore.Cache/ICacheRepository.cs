@@ -1,6 +1,4 @@
-﻿using Zord.Specification;
-
-namespace Zord.Specification.EntityFrameworkCore.Cache;
+﻿namespace Zord.Repository;
 
 public interface ICacheRepository<TEntity, TContext> : ICacheRepository<TEntity>
     where TEntity : class

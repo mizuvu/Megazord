@@ -1,9 +1,6 @@
-global using Zord.Result;
 global using Zord.Core.Entities.Interfaces;
-global using Zord.Specification;
-global using Zord.Specification.EntityFrameworkCore;
-global using Zord.Specification.EntityFrameworkCore.Cache;
-
+global using Zord.Repository;
+global using Zord.Result;
 using Extensions.Telegram;
 using Host.Data;
 using Host.TestOption;

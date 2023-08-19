@@ -1,4 +1,4 @@
-﻿namespace Zord.Specification.EntityFrameworkCore;
+﻿namespace Zord.EntityFrameworkCore;
 
 /// <summary>
 ///     Dynamic set entity

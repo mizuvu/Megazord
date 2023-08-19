@@ -1,4 +1,4 @@
-﻿namespace Zord.Specification
+﻿namespace Zord.Repository
 {
     /// <summary>
     ///     Can be used to query, add, update, remove instances of T

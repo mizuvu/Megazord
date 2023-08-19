@@ -1,4 +1,4 @@
-﻿namespace Zord.Specification.EntityFrameworkCore;
+﻿namespace Zord.Repository;
 
 /// <summary>
 ///     Use to query and save instances of T with Repository patterns with specify DbContext

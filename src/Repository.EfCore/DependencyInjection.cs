@@ -1,9 +1,7 @@
 ﻿global using Microsoft.EntityFrameworkCore;
-global using Zord.Specification.Extensions;
 
 using Microsoft.Extensions.DependencyInjection;
-using Zord.Specification;
-using Zord.Specification.EntityFrameworkCore;
+using Zord.Repository;
 
 namespace Zord.Extensions.DependencyInjection;
 

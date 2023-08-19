@@ -26,9 +26,9 @@
     <ProjectReference Include="..\..\src\Extensions.SmtpMail\Extensions.SmtpMail.csproj" />
     <ProjectReference Include="..\..\src\Extensions.Telegram\Extensions.Telegram.csproj" />
     <ProjectReference Include="..\..\src\Extensions\Extensions.csproj" />
+    <ProjectReference Include="..\..\src\Repository.EfCore.Cache\Repository.EfCore.Cache.csproj" />
+    <ProjectReference Include="..\..\src\Repository.EfCore\Repository.EfCore.csproj" />
     <ProjectReference Include="..\..\src\Result.v2\Result.v2.csproj" />
-    <ProjectReference Include="..\..\src\Specification.EfCore.Cache\Specification.EfCore.Cache.csproj" />
-    <ProjectReference Include="..\..\src\Specification.EfCore\Specification.EfCore.csproj" />
   </ItemGroup>
 
 </Project>
