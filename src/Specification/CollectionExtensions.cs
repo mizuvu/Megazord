@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Zord.Specification.Extensions;
+using Zord.Specification;
 
-namespace Zord.Specification.Extensions
+namespace Zord.Specification
 {
     public static class CollectionExtensions
     {

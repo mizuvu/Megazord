@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
-using Zord.Specification.Extensions;
+using Zord.Specification;
 
-namespace Zord.Specification.Extensions
+namespace Zord.Specification
 {
     public static class QueryableExtensions
     {

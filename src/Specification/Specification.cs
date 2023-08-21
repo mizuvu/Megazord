@@ -14,7 +14,7 @@ namespace Zord.Specification
         /// Add or update expression
         /// </summary>
         /// <param name="expression"></param>
-        protected virtual void Where(Expression<Func<T, bool>> expression)
+        protected void Where(Expression<Func<T, bool>> expression)
         {
             if (Expression is null)
             {
@@ -31,7 +31,7 @@ namespace Zord.Specification
         /// Add or update expression when condition is true
         /// </summary>
         /// <param name="expression"></param>
-        protected virtual void WhereIf(bool condition, Expression<Func<T, bool>> expression)
+        protected void WhereIf(bool condition, Expression<Func<T, bool>> expression)
         {
             if (condition)
             {

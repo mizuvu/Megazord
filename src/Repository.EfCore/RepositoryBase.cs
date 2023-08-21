@@ -1,6 +1,5 @@
 ﻿using System.Linq.Expressions;
 using Zord.Specification;
-using Zord.Specification.Extensions;
 
 namespace Zord.Repository;
 
