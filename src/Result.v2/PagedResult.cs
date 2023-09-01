@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Zord.Result
 {
@@ -18,6 +19,26 @@ namespace Zord.Result
                 Code = ResultCode.Ok;
 
                 var pagedInfo = new PagedInfo(page, pageSize, count);
+                PagedInfo = pagedInfo;
+
+                Data = data;
+            }
+        }
+
+        public PagedResult(IEnumerable<T> data)
+        {
+            if (data == null)
+            {
+                Code = ResultCode.NotFound;
+            }
+            else
+            {
+                Code = ResultCode.Ok;
+
+                var page = 1;
+                var count = data.Count();
+
+                var pagedInfo = new PagedInfo(page, count, count);
                 PagedInfo = pagedInfo;
 
                 Data = data;

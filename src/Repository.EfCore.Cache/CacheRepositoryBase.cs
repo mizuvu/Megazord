@@ -1,39 +1,41 @@
-﻿using Microsoft.Extensions.Logging;
-using Zord.Extensions.Caching;
+﻿using Zord.Extensions.Caching;
 
 namespace Zord.Repository;
 
 public abstract class CacheRepositoryBase<T> : RepositoryBase<T>, ICacheRepository<T>
     where T : class
 {
-    private readonly string _tableName;
     private readonly ICacheService _cacheService;
-    private readonly ILogger _logger;
+    private readonly DbContext _context;
 
-    protected CacheRepositoryBase(DbContext context,
-        ICacheService cacheService,
-        ILogger<ICacheService> logger) : base(context)
+    protected CacheRepositoryBase(DbContext context, ICacheService cacheService) : base(context)
     {
-        var dbName = context.Database.GetDbConnection().Database;
-        _tableName = $"[{dbName}]_[{typeof(T).Name}]";
+        _context = context;
         _cacheService = cacheService;
-        _logger = logger;
     }
+
+    public virtual string DatabaseName => _context.Database.GetDbConnection().Database;
+
+    public virtual string BuildCacheKey() => $"[{DatabaseName}]_[{typeof(T).Name}]";
 
     private async Task<IEnumerable<T>> LoadDataToCacheAsync(CancellationToken cancellationToken = default)
     {
-        await _cacheService.RemoveAsync(_tableName, cancellationToken);
+        var key = BuildCacheKey();
+
+        await _cacheService.RemoveAsync(key, cancellationToken);
 
         var data = await base.ToListAsync(cancellationToken);
 
-        await _cacheService.SetAsync(_tableName, data, cancellationToken: cancellationToken);
+        await _cacheService.SetAsync(key, data, cancellationToken: cancellationToken);
 
         return data;
     }
 
     public override async Task<IEnumerable<T>> ToListAsync(CancellationToken cancellationToken = default)
     {
-        var data = await _cacheService.GetAsync<IEnumerable<T>>(_tableName, cancellationToken);
+        var key = BuildCacheKey();
+        
+        var data = await _cacheService.GetAsync<IEnumerable<T>>(key, cancellationToken);
 
         data ??= await LoadDataToCacheAsync(cancellationToken);
 
@@ -54,7 +56,6 @@ public abstract class CacheRepositoryBase<T> : RepositoryBase<T>, ICacheReposito
         return result;
     }
 
-
     public async Task ReloadCacheAsync(CancellationToken cancellationToken = default)
     {
         await LoadDataToCacheAsync(cancellationToken);
@@ -62,6 +63,7 @@ public abstract class CacheRepositoryBase<T> : RepositoryBase<T>, ICacheReposito
 
     public virtual async Task RemoveCacheAsync(CancellationToken cancellationToken = default)
     {
-        await _cacheService.RemoveAsync(_tableName, cancellationToken);
+        var key = BuildCacheKey();
+        await _cacheService.RemoveAsync(key, cancellationToken);
     }
 }

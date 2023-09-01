@@ -11,7 +11,7 @@
 	<Authors>minhvu</Authors>
 	<Description>Extensions for Entity Framework Core.</Description>
 	<Summary>Extensions for Entity Framework Core.</Summary>
-	<Version>7.0.0.1</Version>
+	<Version>7.0.0.2</Version>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Result.v2\Result.v2.csproj" />
+    <ProjectReference Include="..\Specification\Specification.csproj" />
   </ItemGroup>
 
 </Project>

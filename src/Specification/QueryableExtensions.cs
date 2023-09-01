@@ -8,19 +8,6 @@ namespace Zord.Specification
     public static class QueryableExtensions
     {
         /// <summary>
-        ///     Only filter data when condition is true
-        /// </summary>
-        public static IQueryable<T> WhereIf<T>(this IQueryable<T> query, bool condition, Expression<Func<T, bool>> expression)
-        {
-            if (condition)
-            {
-                return query.Where(expression);
-            }
-
-            return query;
-        }
-
-        /// <summary>
         ///     Filter data by specification
         /// </summary>
         public static IQueryable<T> Where<T>(this IQueryable<T> query, ISpecification<T> specification)
@@ -28,6 +15,19 @@ namespace Zord.Specification
             if (specification?.Expression != null)
             {
                 return query.Where(specification.Expression);
+            }
+
+            return query;
+        }
+
+        /// <summary>
+        ///     Only filter data when condition is true
+        /// </summary>
+        public static IQueryable<T> WhereIf<T>(this IQueryable<T> query, bool condition, Expression<Func<T, bool>> expression)
+        {
+            if (condition)
+            {
+                return query.Where(expression);
             }
 
             return query;

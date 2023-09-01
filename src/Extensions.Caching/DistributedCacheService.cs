@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using System.Text;
 using System.Text.Json;
 
@@ -54,10 +55,11 @@ public class DistributedCacheService : ICacheService
         try
         {
             _cache.Refresh(key);
-            _logger.LogInformation("Cache refreshed: {key}", key);
+            _logger.LogInformation("Cache {key} refreshed", key);
         }
-        catch
+        catch (Exception ex)
         {
+            _logger.LogError("Cache {key} refresh failed {message}", key, ex.Message);
         }
     }
 
@@ -66,10 +68,11 @@ public class DistributedCacheService : ICacheService
         try
         {
             await _cache.RefreshAsync(key, token);
-            _logger.LogInformation("Cache refreshed: {key}", key);
+            _logger.LogInformation("Cache {key} refreshed", key);
         }
-        catch
+        catch (Exception ex)
         {
+            _logger.LogError("Cache {key} refresh failed {message}", key, ex.Message);
         }
     }
 
@@ -78,10 +81,11 @@ public class DistributedCacheService : ICacheService
         try
         {
             _cache.Remove(key);
-            _logger.LogInformation("Cache removed: {key}", key);
+            _logger.LogInformation("Cache {key} removed", key);
         }
-        catch
+        catch (Exception ex)
         {
+            _logger.LogError("Cache {key} remove failed {message}", key, ex.Message);
         }
     }
 
@@ -90,10 +94,11 @@ public class DistributedCacheService : ICacheService
         try
         {
             await _cache.RemoveAsync(key, token);
-            _logger.LogInformation("Cache removed: {key}", key);
+            _logger.LogInformation("Cache {key} removed", key);
         }
-        catch
+        catch (Exception ex)
         {
+            _logger.LogError("Cache {key} remove failed {message}", key, ex.Message);
         }
     }
 
@@ -108,10 +113,11 @@ public class DistributedCacheService : ICacheService
             options.SetSlidingExpiration(slidingExpiration ?? TimeSpan.FromMinutes(30)); // Default expiration time is 30 minutes.
 
             _cache.Set(key, value, options);
-            _logger.LogInformation("Cache loaded: {key}", key);
+            _logger.LogInformation("Cache {key} loaded", key);
         }
-        catch
+        catch (Exception ex)
         {
+            _logger.LogError("Cache {key} load failed with error {message}", key, ex.Message);
         }
     }
 
@@ -127,10 +133,11 @@ public class DistributedCacheService : ICacheService
 
             await _cache.SetAsync(key, value, options, token);
 
-            _logger.LogInformation("Cache loaded: {key}", key);
+            _logger.LogInformation("Cache {key} loaded", key);
         }
-        catch
+        catch (Exception ex)
         {
+            _logger.LogError("Cache {key} load failed {message}", key, ex.Message);
         }
     }
 }

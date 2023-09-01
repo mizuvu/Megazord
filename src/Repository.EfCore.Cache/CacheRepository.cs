@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-using Zord.Extensions.Caching;
+﻿using Zord.Extensions.Caching;
 
 namespace Zord.Repository;
 
@@ -7,8 +6,7 @@ public class CacheRepository<TEntity, TContext> : CacheRepositoryBase<TEntity>, 
     where TEntity : class
     where TContext : DbContext
 {
-    public CacheRepository(TContext context, ICacheService cacheService, ILogger<ICacheService> logger)
-        : base(context, cacheService, logger)
+    public CacheRepository(TContext context, ICacheService cacheService) : base(context, cacheService)
     {
     }
 }

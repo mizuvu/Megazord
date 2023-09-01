@@ -21,7 +21,7 @@ public class MemoryCacheService : ICacheService
     {
         _cache.TryGetValue(key, out _);
 
-        _logger.LogInformation("Cache refreshed: {key}", key);
+        _logger.LogInformation("Cache {key} refreshed", key);
     }
 
 
@@ -36,7 +36,7 @@ public class MemoryCacheService : ICacheService
     {
         _cache.Remove(key);
 
-        _logger.LogInformation("Cache removed: {key}", key);
+        _logger.LogInformation("Cache {key} removed", key);
     }
 
     public Task RemoveAsync(string key, CancellationToken token = default)
@@ -51,7 +51,7 @@ public class MemoryCacheService : ICacheService
 
         _cache.Set(key, value, new MemoryCacheEntryOptions { SlidingExpiration = slidingExpiration });
 
-        _logger.LogInformation("Cache loaded: {key}", key);
+        _logger.LogInformation("Cache {key} loaded", key);
     }
 
     public Task SetAsync<T>(string key, T value, TimeSpan? slidingExpiration = null, CancellationToken token = default)

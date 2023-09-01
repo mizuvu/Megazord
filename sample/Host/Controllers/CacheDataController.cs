@@ -22,7 +22,6 @@ namespace Host.Controllers
         public async Task<IActionResult> GetAsync(CancellationToken cancellationToken)
         {
             var list = await _cacheRepository.ToListAsync(cancellationToken);
-            _logger.Information("Hello......");
             return Ok(list);
         }
 
