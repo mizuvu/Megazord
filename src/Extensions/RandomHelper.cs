@@ -14,9 +14,7 @@ namespace Zord.Extensions
         private static string Generate(string characterLibs, int length)
         {
             Random random = new Random();
-            return new string(Enumerable.Repeat(characterLibs, length)
-                .Select(s => s[random.Next(s.Length)])
-                .ToArray());
+            return new string(Enumerable.Repeat(characterLibs, length).Select(s => s[random.Next(s.Length)]).ToArray());
         }
         
         /// <summary>
