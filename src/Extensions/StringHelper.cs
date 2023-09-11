@@ -5,9 +5,9 @@ namespace Zord.Extensions
     public static class StringHelper
     {
         /// <summary>
-        /// Get characters from left to character input
+        ///     Get characters from left to character input
         /// </summary>
-        public static string LeftToChar(this string value, string c)
+        public static string Left(this string value, string c)
         {
             if (string.IsNullOrEmpty(value))
                 return value;
@@ -22,16 +22,33 @@ namespace Zord.Extensions
         }
 
         /// <summary>
-        /// Get number of characters from left
+        ///     Get substring of specified number of characters on the left.
         /// </summary>
-        public static string Left(this string value, int maxLength)
+        public static string Left(this string value, int length)
         {
-            if (string.IsNullOrEmpty(value)) return value;
-            maxLength = Math.Abs(maxLength);
+            if (string.IsNullOrEmpty(value))
+                return value;
 
-            return value.Length <= maxLength
+            length = Math.Abs(length);
+
+            return value.Length <= length
                    ? value
-                   : value[..maxLength];
+                   : value[..length];
+        }
+
+        /// <summary>
+        ///     Get substring of specified number of characters on the right.
+        /// </summary>
+        public static string Right(this string value, int length)
+        {
+            if (string.IsNullOrEmpty(value))
+                return value;
+
+            length = Math.Abs(length);
+
+            return value.Length <= length
+                   ? value
+                   : value[(value.Length - length)..];
         }
     }
 }
