@@ -12,7 +12,7 @@ public interface IDbContext : IDisposable, IAsyncDisposable
 
     DatabaseFacade Database { get; }
 
-    EntityEntry<TEntity> EntityEntry<TEntity>(TEntity entity) where TEntity : class;
+    EntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }
