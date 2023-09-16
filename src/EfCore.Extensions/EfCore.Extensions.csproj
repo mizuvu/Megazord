@@ -11,7 +11,7 @@
 	<Authors>minhvu</Authors>
 	<Description>Extensions for Entity Framework Core.</Description>
 	<Summary>Extensions for Entity Framework Core.</Summary>
-	<Version>7.0.0.3</Version>
+	<Version>7.0.0.4</Version>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 

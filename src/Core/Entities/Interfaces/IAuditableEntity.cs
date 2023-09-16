@@ -1,15 +1,12 @@
-﻿using System;
+﻿namespace Zord.Entities.Interfaces;
 
-namespace Zord.Entities.Interfaces
+public interface IAuditableEntity
 {
-    public interface IAuditableEntity
-    {
-        DateTimeOffset CreatedOn { get; set; }
+    DateTimeOffset CreatedOn { get; set; }
 
-        string? CreatedBy { get; set; }
+    string? CreatedBy { get; set; }
 
-        DateTimeOffset? LastModifiedOn { get; set; }
+    DateTimeOffset? LastModifiedOn { get; set; }
 
-        string? LastModifiedBy { get; set; }
-    }
+    string? LastModifiedBy { get; set; }
 }

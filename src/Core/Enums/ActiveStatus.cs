@@ -1,9 +1,8 @@
-﻿namespace Zord.Enums
+﻿namespace Zord.Enums;
+
+public enum ActiveStatus
 {
-    public enum ActiveStatus
-    {
-        unactive = 0,
-        active = 1,
-        locked = 2,
-    }
+    unactive = 0,
+    active = 1,
+    locked = 2,
 }

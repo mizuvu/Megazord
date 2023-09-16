@@ -1,7 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	<TargetFramework>netstandard2.1</TargetFramework>
+	<TargetFramework>net7.0</TargetFramework>
+	<ImplicitUsings>enable</ImplicitUsings>
 	<Nullable>enable</Nullable>
 	<RootNamespace>Zord</RootNamespace>
 	<AssemblyName>Zord.Core</AssemblyName>
@@ -10,7 +11,7 @@
 	<Authors>minhvu</Authors>
 	<Description>Core package containing useful base interfaces, classes, enums, value objects.</Description>
 	<Summary>Core package containing useful base interfaces, classes, enums, value objects.</Summary>
-	<Version>1.1.12.2</Version>
+	<Version>1.1.13.1</Version>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	<PublishRepositoryUrl>true</PublishRepositoryUrl>
 	<EmbedUntrackedSources>true</EmbedUntrackedSources>
@@ -18,6 +19,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+	<PackageReference Include="MassTransit.Abstractions" Version="8.1.0" />
+	<PackageReference Include="MediatR" Version="12.1.1" />
 	<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
   </ItemGroup>
 

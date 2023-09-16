@@ -1,13 +1,10 @@
-﻿using System;
+﻿namespace Zord.Entities.Interfaces;
 
-namespace Zord.Entities.Interfaces
+public interface ISoftDelete
 {
-    public interface ISoftDelete
-    {
-        bool IsDeleted { get; set; }
+    bool IsDeleted { get; set; }
 
-        DateTimeOffset? DeletedOn { get; set; }
+    DateTimeOffset? DeletedOn { get; set; }
 
-        string? DeletedBy { get; set; }
-    }
+    string? DeletedBy { get; set; }
 }
