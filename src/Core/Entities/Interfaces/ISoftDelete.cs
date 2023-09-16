@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Zord.Core.Entities.Interfaces
+namespace Zord.Entities.Interfaces
 {
     public interface ISoftDelete
     {

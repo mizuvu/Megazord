@@ -1,4 +1,4 @@
-﻿namespace Zord.Core.Entities.Interfaces
+﻿namespace Zord.Entities.Interfaces
 {
     public interface IEntity
     {

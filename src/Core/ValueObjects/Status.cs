@@ -1,21 +1,22 @@
 ﻿using System.Collections.Generic;
+using Zord.Enums;
 
-namespace Zord.Core.ValueObjects
+namespace Zord.ValueObjects
 {
     public class Status : ValueObject
     {
         public Status() { }
 
-        public Status(Enums.ActiveStatus status)
+        public Status(ActiveStatus status)
         {
             Value = status;
         }
 
-        public Enums.ActiveStatus Value { get; set; } = Enums.ActiveStatus.active;
+        public ActiveStatus Value { get; set; } = ActiveStatus.active;
 
-        public bool IsUnactive => Value == Enums.ActiveStatus.unactive;
-        public bool IsActive => Value == Enums.ActiveStatus.active;
-        public bool IsLocked => Value == Enums.ActiveStatus.locked;
+        public bool IsUnactive => Value == ActiveStatus.unactive;
+        public bool IsActive => Value == ActiveStatus.active;
+        public bool IsLocked => Value == ActiveStatus.locked;
 
         protected override IEnumerable<object> GetEqualityComponents()
         {
@@ -26,10 +27,10 @@ namespace Zord.Core.ValueObjects
             yield return IsLocked;
         }
 
-        public void Update(Enums.ActiveStatus status)
+        public void Update(ActiveStatus status)
         {
             // only update 2 status
-            if (status == Enums.ActiveStatus.active || status == Enums.ActiveStatus.locked)
+            if (status == ActiveStatus.active || status == ActiveStatus.locked)
                 Value = status;
         }
     }

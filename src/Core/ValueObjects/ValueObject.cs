@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Zord.Core.ValueObjects
+namespace Zord.ValueObjects
 {
     public abstract class ValueObject
     {

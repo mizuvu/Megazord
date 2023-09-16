@@ -1,4 +1,4 @@
-﻿namespace Zord.Core.Enums
+﻿namespace Zord.Enums
 {
     public enum ActiveStatus
     {

@@ -1,4 +1,4 @@
-﻿namespace Zord.Core
+﻿namespace Zord
 {
     // Apply this marker interface only to aggregate root entities
     // Repositories will only work with aggregate roots, not their children
