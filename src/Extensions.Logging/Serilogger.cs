@@ -121,7 +121,7 @@ public static class Serilogger
 
             logger.WriteTo.Async(w => w.Elasticsearch(new ElasticsearchSinkOptions(new Uri(settings.Endpoint))
             {
-                IndexFormat = $"{serviceName}-{environment}-{DateTime.UtcNow:yyyy-MM}",
+                IndexFormat = $"{serviceName}-{environment}-{DateTime.UtcNow:yyyy-MM-dd}",
                 AutoRegisterTemplate = true,
                 NumberOfReplicas = 1,
                 NumberOfShards = 2,
