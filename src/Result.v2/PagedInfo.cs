@@ -2,7 +2,7 @@
 
 namespace Zord.Result
 {
-    public class PagedInfo
+    public class PagedInfo : IPagedInfo
     {
         public PagedInfo() { }
 

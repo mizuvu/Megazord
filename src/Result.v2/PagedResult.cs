@@ -53,7 +53,7 @@ namespace Zord.Result
 
         public IEnumerable<string> Errors { get; set; } = Array.Empty<string>();
 
-        public PagedInfo PagedInfo { get; set; }
+        public IPagedInfo PagedInfo { get; set; }
 
         public IEnumerable<T> Data { get; set; } = new List<T>();
     }
