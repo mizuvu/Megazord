@@ -18,8 +18,7 @@ namespace Zord.Result
             {
                 Code = ResultCode.Ok;
 
-                var pagedInfo = new PagedInfo(page, pageSize, count);
-                PagedInfo = pagedInfo;
+                PagedInfo = new PagedInfo(page, pageSize, count);
 
                 Data = data;
             }
@@ -38,8 +37,7 @@ namespace Zord.Result
                 var page = 1;
                 var count = data.Count();
 
-                var pagedInfo = new PagedInfo(page, count, count);
-                PagedInfo = pagedInfo;
+                PagedInfo = new PagedInfo(page, count, count);
 
                 Data = data;
             }
