@@ -11,7 +11,7 @@
 	<Authors>minhvu</Authors>
 	<Description>EF Core plugin package containing combination of the Unit Of Work and Repository patterns.</Description>
 	<Summary>EF Core plugin package containing combination of the Unit Of Work and Repository patterns.</Summary>
-	<Version>7.0.0.2</Version>
+	<Version>7.0.0.3</Version>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	<PublishRepositoryUrl>true</PublishRepositoryUrl>
 	<EmbedUntrackedSources>true</EmbedUntrackedSources>
@@ -19,7 +19,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.12" />
 	<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
   </ItemGroup>
 

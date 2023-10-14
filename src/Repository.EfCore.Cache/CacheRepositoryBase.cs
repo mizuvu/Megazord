@@ -26,7 +26,9 @@ public abstract class CacheRepositoryBase<T> : RepositoryBase<T>, ICacheReposito
 
         var data = await base.ToListAsync(cancellationToken);
 
-        await _cacheService.SetAsync(key, data, cancellationToken: cancellationToken);
+        var lifeTime = TimeSpan.FromMinutes(30);
+
+        await _cacheService.TrySetAsync(key, data, lifeTime, cancellationToken: cancellationToken);
 
         return data;
     }
@@ -34,8 +36,8 @@ public abstract class CacheRepositoryBase<T> : RepositoryBase<T>, ICacheReposito
     public override async Task<IEnumerable<T>> ToListAsync(CancellationToken cancellationToken = default)
     {
         var key = BuildCacheKey();
-        
-        var data = await _cacheService.GetAsync<IEnumerable<T>>(key, cancellationToken);
+
+        var data = await _cacheService.TryGetAsync<IEnumerable<T>>(key, cancellationToken);
 
         data ??= await LoadDataToCacheAsync(cancellationToken);
 

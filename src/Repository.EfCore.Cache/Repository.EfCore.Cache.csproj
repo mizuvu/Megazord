@@ -11,12 +11,12 @@
 	<Authors>minhvu</Authors>
 	<Description>EF Core Repository with auto load data to cache plugin package.</Description>
 	<Summary>EF Core Repository with auto load data to cache plugin package.</Summary>
-	<Version>7.0.0.2</Version>
+	<Version>7.0.0.3</Version>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
-	<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.10" />
+	<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.12" />
 	<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
   </ItemGroup>
 
