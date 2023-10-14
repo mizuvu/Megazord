@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Watsons.Contracts.Extensions;
+namespace Zord.Contracts;
 
 /// <summary>
 /// Execute a query for read data from Database
