@@ -1,8 +1,5 @@
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using System.Text;
-using System.Text.Json;
 
 namespace Zord.Extensions.Caching;
 
@@ -11,133 +8,128 @@ public class DistributedCacheService : ICacheService
     private readonly IDistributedCache _cache;
     private readonly ILogger<DistributedCacheService> _logger;
 
-    public DistributedCacheService(IDistributedCache cache, ILogger<DistributedCacheService> logger) =>
-        (_cache, _logger) = (cache, logger);
+    public DistributedCacheService(IDistributedCache cache,
+        ILogger<DistributedCacheService> logger)
+        => (_cache, _logger) = (cache, logger);
 
-    public T Get<T>(string key) =>
-        Get(key) is { } data
-            ? JsonSerializer.Deserialize<T>(Encoding.Default.GetString(data))
-            : default;
+    public T Get<T>(string key) => _cache.GetString(key).ReadFromJson<T>();
 
-    private byte[] Get(string key)
-    {
-        ArgumentNullException.ThrowIfNull(key);
-
-        try
-        {
-            return _cache.Get(key);
-        }
-        catch
-        {
-            return null;
-        }
-    }
-
-    public async Task<T> GetAsync<T>(string key, CancellationToken token = default) =>
-        await GetAsync(key, token) is { } data
-            ? JsonSerializer.Deserialize<T>(Encoding.Default.GetString(data))
-            : default;
-
-    private async Task<byte[]> GetAsync(string key, CancellationToken token = default)
+    public T TryGet<T>(string key)
     {
         try
         {
-            return await _cache.GetAsync(key, token);
-        }
-        catch
-        {
-            return null;
-        }
-    }
-
-    public void Refresh(string key)
-    {
-        try
-        {
-            _cache.Refresh(key);
-            _logger.LogInformation("Cache {key} refreshed", key);
+            return Get<T>(key);
         }
         catch (Exception ex)
         {
-            _logger.LogError("Cache {key} refresh failed {message}", key, ex.Message);
+            _logger.LogError("Cache {key} GET error: {error}", key, ex.Message);
+            return default;
         }
     }
 
-    public async Task RefreshAsync(string key, CancellationToken token = default)
+    public void Set<T>(string key, T value) => _cache.SetString(key, value.JsonSerialize());
+
+    public void TrySet<T>(string key, T value)
     {
         try
         {
-            await _cache.RefreshAsync(key, token);
-            _logger.LogInformation("Cache {key} refreshed", key);
+            Set(key, value);
         }
         catch (Exception ex)
         {
-            _logger.LogError("Cache {key} refresh failed {message}", key, ex.Message);
+            _logger.LogError("Cache {key} SET error: {error}", key, ex.Message);
         }
     }
 
-    public void Remove(string key)
+    public void Set<T>(string key, T value, TimeSpan slidingExpiration)
+    {
+        var options = new DistributedCacheEntryOptions();
+
+        options.SetSlidingExpiration(slidingExpiration);
+
+        _cache.SetString(key, value.JsonSerialize(), options);
+    }
+
+    public void TrySet<T>(string key, T value, TimeSpan slidingExpiration)
     {
         try
         {
-            _cache.Remove(key);
-            _logger.LogInformation("Cache {key} removed", key);
+            Set(key, value, slidingExpiration);
         }
         catch (Exception ex)
         {
-            _logger.LogError("Cache {key} remove failed {message}", key, ex.Message);
+            _logger.LogError("Cache {key} SET error: {error}", key, ex.Message);
         }
     }
 
-    public async Task RemoveAsync(string key, CancellationToken token = default)
+    public void Remove(string key) => _cache.Remove(key);
+
+    #region[Async]
+
+    public async Task<T> GetAsync<T>(string key,
+        CancellationToken cancellationToken = default)
+    {
+        var cacheValue = await _cache.GetStringAsync(key, cancellationToken);
+        return cacheValue.ReadFromJson<T>();
+    }
+
+    public async Task<T> TryGetAsync<T>(string key,
+        CancellationToken cancellationToken = default)
     {
         try
         {
-            await _cache.RemoveAsync(key, token);
-            _logger.LogInformation("Cache {key} removed", key);
+            return await GetAsync<T>(key, cancellationToken);
         }
         catch (Exception ex)
         {
-            _logger.LogError("Cache {key} remove failed {message}", key, ex.Message);
+            _logger.LogError("Cache {key} GET error: {error}", key, ex.Message);
+            return default;
         }
     }
 
-    public void Set<T>(string key, T value, TimeSpan? slidingExpiration = null) =>
-        Set(key, Encoding.Default.GetBytes(JsonSerializer.Serialize(value)), slidingExpiration);
+    public Task SetAsync<T>(string key, T value,
+        CancellationToken cancellationToken = default)
+        => _cache.SetStringAsync(key, value.JsonSerialize(), cancellationToken);
 
-    private void Set(string key, byte[] value, TimeSpan? slidingExpiration = null)
+    public async Task TrySetAsync<T>(string key, T value,
+        CancellationToken cancellationToken = default)
     {
         try
         {
-            var options = new DistributedCacheEntryOptions();
-            options.SetSlidingExpiration(slidingExpiration ?? TimeSpan.FromMinutes(30)); // Default expiration time is 30 minutes.
-
-            _cache.Set(key, value, options);
-            _logger.LogInformation("Cache {key} loaded", key);
+            await GetAsync<T>(key, cancellationToken);
         }
         catch (Exception ex)
         {
-            _logger.LogError("Cache {key} load failed with error {message}", key, ex.Message);
+            _logger.LogError("Cache {key} SET error: {error}", key, ex.Message);
         }
     }
 
-    public Task SetAsync<T>(string key, T value, TimeSpan? slidingExpiration = null, CancellationToken cancellationToken = default) =>
-        SetAsync(key, Encoding.Default.GetBytes(JsonSerializer.Serialize(value)), slidingExpiration, cancellationToken);
+    public Task SetAsync<T>(string key, T value, TimeSpan slidingExpiration,
+        CancellationToken cancellationToken = default)
+    {
+        var options = new DistributedCacheEntryOptions();
 
-    private async Task SetAsync(string key, byte[] value, TimeSpan? slidingExpiration = null, CancellationToken token = default)
+        options.SetSlidingExpiration(slidingExpiration);
+
+        return _cache.SetStringAsync(key, value.JsonSerialize(), options, cancellationToken);
+    }
+
+    public async Task TrySetAsync<T>(string key, T value, TimeSpan slidingExpiration,
+        CancellationToken cancellationToken = default)
     {
         try
         {
-            var options = new DistributedCacheEntryOptions();
-            options.SetSlidingExpiration(slidingExpiration ?? TimeSpan.FromMinutes(30)); // Default expiration time is 30 minutes.
-
-            await _cache.SetAsync(key, value, options, token);
-
-            _logger.LogInformation("Cache {key} loaded", key);
+            await SetAsync(key, value, slidingExpiration, cancellationToken);
         }
         catch (Exception ex)
         {
-            _logger.LogError("Cache {key} load failed {message}", key, ex.Message);
+            _logger.LogError("Cache {key} SET error: {error}", key, ex.Message);
         }
     }
+
+    public Task RemoveAsync(string key,
+        CancellationToken cancellationToken = default)
+        => _cache.RefreshAsync(key, cancellationToken);
+
+    #endregion
 }

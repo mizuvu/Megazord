@@ -9,7 +9,7 @@
 	<Authors>minhvu</Authors>
 	<Description>Caching package.</Description>
 	<Summary>Caching package.</Summary>
-	<Version>0.0.0.1</Version>
+	<Version>0.0.0.2</Version>
 	<PackageReleaseNotes></PackageReleaseNotes>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	<PublishRepositoryUrl>true</PublishRepositoryUrl>

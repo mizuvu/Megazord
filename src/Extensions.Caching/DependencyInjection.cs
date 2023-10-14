@@ -46,7 +46,7 @@ public static class DependencyInjection
             return services;
         }
 
-        // default will user memory cache
+        // default will use memory cache
         services.AddMemoryCache();
         services.AddTransient<ICacheService, MemoryCacheService>();
 

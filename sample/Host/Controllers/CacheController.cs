@@ -7,45 +7,52 @@ namespace Host.Controllers
     [ApiController]
     public class CacheController : ControllerBase
     {
-        private const string _cacheKey = "CacheValues";
+        private readonly string _cacheKey;
+
+        private readonly Dictionary<string, int> _data;
 
         private readonly ICacheService _cacheService;
 
         public CacheController(ICacheService cacheService)
         {
+            _cacheKey = "CacheValues";
+
+            var data = new Dictionary<string, int>();
+            for (var i = 1; i <= 10; i++)
+            {
+                data.Add($"Key{i}", i);
+            }
+            _data = data;
+
             _cacheService = cacheService;
         }
 
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var data = await GetDataOnCache();
-            return Ok(data);
+            var res = await _cacheService.GetAsync<Dictionary<string, int>>(_cacheKey);
+            return Ok(res);
         }
 
-        private async Task<Dictionary<string, int>> LoadDataToCache()
+        [HttpPost]
+        public async Task<IActionResult> Set()
         {
-            var data = CacheData();
-            await _cacheService.SetAsync(_cacheKey, data);
-            return data;
+            await _cacheService.SetAsync(_cacheKey, _data);
+            return Ok();
         }
 
-        private async Task<Dictionary<string, int>> GetDataOnCache()
+        [HttpGet("try")]
+        public async Task<IActionResult> TryGet()
         {
-            var data = await _cacheService.GetAsync<Dictionary<string, int>>(_cacheKey);
-            data ??= await LoadDataToCache();
-            return data;
+            var res = await _cacheService.TryGetAsync<Dictionary<string, int>>(_cacheKey);
+            return Ok(res);
         }
 
-        private static Dictionary<string, int> CacheData()
+        [HttpPost("try")]
+        public async Task<IActionResult> TrySet()
         {
-            var data = new Dictionary<string, int>();
-            for (var i = 1; i <= 10; i++)
-            {
-                data.Add($"Key{i}", i);
-            }
-
-            return data;
+            await _cacheService.TrySetAsync(_cacheKey, _data);
+            return Ok();
         }
     }
 }

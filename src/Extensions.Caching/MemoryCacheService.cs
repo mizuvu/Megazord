@@ -8,55 +8,129 @@ public class MemoryCacheService : ICacheService
     private readonly IMemoryCache _cache;
     private readonly ILogger<MemoryCacheService> _logger;
 
-    public MemoryCacheService(IMemoryCache cache, ILogger<MemoryCacheService> logger) =>
-        (_cache, _logger) = (cache, logger);
+    public MemoryCacheService(IMemoryCache cache,
+        ILogger<MemoryCacheService> logger)
+        => (_cache, _logger) = (cache, logger);
 
-    public T Get<T>(string key) =>
-        _cache.Get<T>(key);
+    public T Get<T>(string key) => _cache.Get<T>(key);
 
-    public Task<T> GetAsync<T>(string key, CancellationToken token = default) =>
-        Task.FromResult(Get<T>(key));
-
-    public void Refresh(string key)
+    public T TryGet<T>(string key)
     {
-        _cache.TryGetValue(key, out _);
-
-        _logger.LogInformation("Cache {key} refreshed", key);
+        try
+        {
+            return Get<T>(key);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Cache {key} GET error: {error}", key, ex.Message);
+            return default;
+        }
     }
 
+    public void Set<T>(string key, T value) => _cache.Set(key, value);
 
-    public Task RefreshAsync(string key, CancellationToken token = default)
+    public void TrySet<T>(string key, T value)
     {
-        Refresh(key);
+        try
+        {
+            Set(key, value);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Cache {key} SET error: {error}", key, ex.Message);
+        }
+    }
 
+    public void Set<T>(string key, T value, TimeSpan slidingExpiration)
+    {
+        var options = new MemoryCacheEntryOptions
+        {
+            SlidingExpiration = slidingExpiration
+        };
+
+        _cache.Set(key, value, options);
+    }
+
+    public void TrySet<T>(string key, T value, TimeSpan slidingExpiration)
+    {
+        try
+        {
+            Set(key, value, slidingExpiration);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Cache {key} SET error: {error}", key, ex.Message);
+        }
+    }
+
+    public void Remove(string key) => _cache.Remove(key);
+
+    #region[Async]
+
+    public Task<T> GetAsync<T>(string key,
+        CancellationToken cancellationToken = default)
+        => Task.FromResult(Get<T>(key));
+
+    public async Task<T> TryGetAsync<T>(string key,
+        CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            return await GetAsync<T>(key, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Cache {key} GET error: {error}", key, ex.Message);
+            return default;
+        }
+    }
+
+    public Task SetAsync<T>(string key, T value,
+        CancellationToken cancellationToken = default)
+    {
+        Set(key, value);
         return Task.CompletedTask;
     }
 
-    public void Remove(string key)
+    public async Task TrySetAsync<T>(string key, T value,
+        CancellationToken cancellationToken = default)
     {
-        _cache.Remove(key);
-
-        _logger.LogInformation("Cache {key} removed", key);
+        try
+        {
+            await SetAsync(key, value, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Cache {key} GET error: {error}", key, ex.Message);
+        }
     }
 
-    public Task RemoveAsync(string key, CancellationToken token = default)
+    public Task SetAsync<T>(string key, T value, TimeSpan slidingExpiration,
+        CancellationToken cancellationToken = default)
+    {
+        Set(key, value, slidingExpiration);
+        return Task.CompletedTask;
+    }
+
+    public async Task TrySetAsync<T>(string key, T value, TimeSpan slidingExpiration,
+        CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            await SetAsync(key, value, slidingExpiration, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Cache {key} GET error: {error}", key, ex.Message);
+        }
+    }
+
+    public Task RemoveAsync(string key,
+        CancellationToken cancellationToken = default)
     {
         Remove(key);
         return Task.CompletedTask;
     }
 
-    public void Set<T>(string key, T value, TimeSpan? slidingExpiration = null)
-    {
-        slidingExpiration ??= TimeSpan.FromMinutes(30); // Default expiration time is 30 minutes.
-
-        _cache.Set(key, value, new MemoryCacheEntryOptions { SlidingExpiration = slidingExpiration });
-
-        _logger.LogInformation("Cache {key} loaded", key);
-    }
-
-    public Task SetAsync<T>(string key, T value, TimeSpan? slidingExpiration = null, CancellationToken token = default)
-    {
-        Set(key, value, slidingExpiration);
-        return Task.CompletedTask;
-    }
+    #endregion
 }

@@ -1,23 +1,23 @@
 ﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Zord.Extensions.Caching
 {
-    public interface ICacheService
+    public interface ICacheService : IAsyncCacheService
     {
         //[return: MaybeNull]
         T Get<T>(string key);
-        Task<T> GetAsync<T>(string key, CancellationToken token = default);
 
-        void Refresh(string key);
-        Task RefreshAsync(string key, CancellationToken token = default);
+        T TryGet<T>(string key);
+
+        void Set<T>(string key, T value);
+
+        void Set<T>(string key, T value, TimeSpan slidingExpiration);
+
+        void TrySet<T>(string key, T value);
+
+        void TrySet<T>(string key, T value, TimeSpan slidingExpiration);
 
         void Remove(string key);
-        Task RemoveAsync(string key, CancellationToken token = default);
-
-        void Set<T>(string key, T value, TimeSpan? slidingExpiration = null);
-        Task SetAsync<T>(string key, T value, TimeSpan? slidingExpiration = null, CancellationToken cancellationToken = default);
     }
 }
 
