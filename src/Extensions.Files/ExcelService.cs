@@ -20,11 +20,7 @@ namespace Zord.Extensions.Files
                 ws.ColumnsUsed().AdjustToContents(); // fit columns width
             }
 
-            Stream stream = new MemoryStream();
-            wb.SaveAs(stream);
-            stream.Seek(0, SeekOrigin.Begin);
-
-            return stream;
+            return wb.AsStream();
         }
 
         public Stream Export<T>(IList<T> data, string? sheetName = null)
@@ -37,11 +33,7 @@ namespace Zord.Extensions.Files
                 ws.ColumnsUsed().AdjustToContents(); // fit columns width
             }
 
-            Stream stream = new MemoryStream();
-            wb.SaveAs(stream);
-            stream.Seek(0, SeekOrigin.Begin);
-
-            return stream;
+            return wb.AsStream();
         }
 
         public Stream Export(ExportExcelDataRequest[] request)
@@ -60,11 +52,7 @@ namespace Zord.Extensions.Files
                 ws.ColumnsUsed().AdjustToContents(); // fit columns width
             }
 
-            Stream stream = new MemoryStream();
-            wb.SaveAs(stream);
-            stream.Seek(0, SeekOrigin.Begin);
-
-            return stream;
+            return wb.AsStream();
         }
 
         public DataTable Read(Stream streamData, string? sheetName = null)
