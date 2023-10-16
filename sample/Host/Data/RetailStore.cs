@@ -1,4 +1,6 @@
-﻿namespace Host.Data;
+﻿using Zord.Entities.Interfaces;
+
+namespace Host.Data;
 
 public partial class RetailStore : IEntity
 {

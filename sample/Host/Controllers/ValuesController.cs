@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Host.Models;
+using Microsoft.AspNetCore.Mvc;
 using Zord.Extensions;
 
 namespace Host.Controllers
@@ -11,7 +12,13 @@ namespace Host.Controllers
         public IActionResult Get()
         {
             var value = "";
-            return Ok(value.LeftToChar("-"));
+            return Ok(value.Left("-"));
+        }
+
+        [HttpGet("right")]
+        public IActionResult Get(string data, int length)
+        {
+            return Ok(data.Right(length));
         }
 
         [HttpGet("null-checker")]
@@ -22,6 +29,29 @@ namespace Host.Controllers
             result.ThrowIfNull();
 
             return Ok();
+        }
+
+        [HttpGet("obj-to-string")]
+        public IActionResult ObjToString()
+        {
+            var obj = new TestModel
+            {
+                Id = 1,
+                Name = "Test",
+                CreatedOn = DateTime.Now,
+            };
+
+            var stringData = obj.ToStringData();
+
+            return Ok(stringData);
+        }
+
+        [HttpGet("read-string-as-obj")]
+        public IActionResult StringToObj(string value)
+        {
+            var obj = value.ReadAs<TestModel>();
+
+            return Ok(obj);
         }
     }
 }

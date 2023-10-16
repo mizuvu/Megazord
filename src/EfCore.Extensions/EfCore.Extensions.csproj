@@ -11,12 +11,12 @@
 	<Authors>minhvu</Authors>
 	<Description>Extensions for Entity Framework Core.</Description>
 	<Summary>Extensions for Entity Framework Core.</Summary>
-	<Version>7.0.0.4</Version>
+	<Version>7.0.0.5</Version>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.12" />
   </ItemGroup>
 
   <ItemGroup>

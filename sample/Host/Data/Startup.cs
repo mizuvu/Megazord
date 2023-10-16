@@ -27,8 +27,8 @@ public static class Startup
 
         services.AddZordUnitOfWork();
 
-        //services.AddZordDynamicCacheRepositories();
-        services.AddScoped(typeof(ICacheRepository<,>), typeof(CustomCacheRepository<,>));
+        services.AddZordDynamicCacheRepositories();
+        //services.AddScoped(typeof(ICacheRepository<,>), typeof(CustomCacheRepository<,>));
 
         services.AddZordUnitOfWork<AlphaDbContext>();
 

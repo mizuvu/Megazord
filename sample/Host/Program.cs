@@ -1,4 +1,3 @@
-global using Zord.Core.Entities.Interfaces;
 global using Zord.Repository;
 global using Zord.Result;
 using Extensions.Telegram;

@@ -49,6 +49,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository.EfCore", "src\Re
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository.EfCore.Cache", "src\Repository.EfCore.Cache\Repository.EfCore.Cache.csproj", "{370BBE4E-DD70-4EB0-B67C-62DB9858F386}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "src\Api\Api.csproj", "{FAFC95EC-0DE3-4429-AB63-813A43F97729}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -139,6 +141,10 @@ Global
 		{370BBE4E-DD70-4EB0-B67C-62DB9858F386}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{370BBE4E-DD70-4EB0-B67C-62DB9858F386}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{370BBE4E-DD70-4EB0-B67C-62DB9858F386}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FAFC95EC-0DE3-4429-AB63-813A43F97729}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAFC95EC-0DE3-4429-AB63-813A43F97729}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAFC95EC-0DE3-4429-AB63-813A43F97729}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAFC95EC-0DE3-4429-AB63-813A43F97729}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -165,6 +171,7 @@ Global
 		{DE18A417-7EF6-471C-954B-81267138E54B} = {CADBDB9C-5FEE-474F-8A09-1BD90B8999A4}
 		{224B0F6C-70A3-4541-B8B1-3D6265F6DAC8} = {CADBDB9C-5FEE-474F-8A09-1BD90B8999A4}
 		{370BBE4E-DD70-4EB0-B67C-62DB9858F386} = {CADBDB9C-5FEE-474F-8A09-1BD90B8999A4}
+		{FAFC95EC-0DE3-4429-AB63-813A43F97729} = {CADBDB9C-5FEE-474F-8A09-1BD90B8999A4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0FBA6141-187D-457A-95AD-2AE6A2AD9FCA}

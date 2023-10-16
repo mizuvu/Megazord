@@ -1,4 +1,6 @@
-﻿namespace Host.Data.Persistence;
+﻿using Zord.Entities.Interfaces;
+
+namespace Host.Data.Persistence;
 
 public class CustomRepository<TEntity> : RepositoryBase<TEntity>, IAppRepository<TEntity>
     where TEntity : class, IEntity

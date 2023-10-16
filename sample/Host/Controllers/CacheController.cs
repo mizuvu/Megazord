@@ -37,7 +37,7 @@ namespace Host.Controllers
         [HttpPost]
         public async Task<IActionResult> Set()
         {
-            await _cacheService.SetAsync(_cacheKey, _data);
+            await _cacheService.SetAsync(_cacheKey, _data, TimeSpan.FromMinutes(1));
             return Ok();
         }
 
@@ -51,7 +51,7 @@ namespace Host.Controllers
         [HttpPost("try")]
         public async Task<IActionResult> TrySet()
         {
-            await _cacheService.TrySetAsync(_cacheKey, _data);
+            await _cacheService.TrySetAsync(_cacheKey, _data, TimeSpan.FromMinutes(1));
             return Ok();
         }
     }
