@@ -15,10 +15,6 @@ public static class ApiModule
     /// <summary>
     /// add API version
     /// </summary>
-    /// <param name="services"></param>
-    /// <param name="version"></param>
-    /// <param name="minorVersion"></param>
-    /// <returns></returns>
     public static IApiVersioningBuilder AddApiVersion(this IServiceCollection services, int version, int minorVersion = 0)
         => services
         .AddApiVersioning(config =>
@@ -36,8 +32,6 @@ public static class ApiModule
     /// <summary>
     /// use configuration files *.json from folder
     /// </summary>
-    /// <param name="host"></param>
-    /// <returns></returns>
     public static WebApplicationBuilder AddConfigurations(this WebApplicationBuilder host)
     {
         var env = host.Environment.EnvironmentName;
@@ -64,22 +58,35 @@ public static class ApiModule
     }
 
     /// <summary>
-    /// Custom controller options for web api
+    /// Add controlers with lowercase name
     /// </summary>
-    /// <param name="services"></param>
-    /// <returns></returns>
-    public static IServiceCollection AddWebApiControllers(this IServiceCollection services)
+    public static IMvcBuilder AddLowercaseControllers(this IServiceCollection services)
     {
-        services.AddControllers(options =>
+        return services.AddControllers(options =>
         {
             options.Conventions.Add(new LowercaseControllerNameConvention());
-        })
-        .AddJsonOptions(options =>
+        });
+    }
+
+    /// <summary>
+    /// Default Json options settings for controllers
+    /// </summary>
+    public static IMvcBuilder AddDefaultJsonOptions(this IMvcBuilder builder)
+    {
+        return builder.AddJsonOptions(options =>
         {
             options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
             options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
-        })
-        .ConfigureApiBehaviorOptions(options =>
+            options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+        });
+    }
+
+    /// <summary>
+    /// Custom Invalid Model State Response
+    /// </summary>
+    public static IMvcBuilder ConfigureInvalidModelStateResponse(this IMvcBuilder builder)
+    {
+        return builder.ConfigureApiBehaviorOptions(options =>
         {
             // custom Invalid model state response
             options.InvalidModelStateResponseFactory = context =>
@@ -88,7 +95,7 @@ public static class ApiModule
                     .SelectMany(key => context.ModelState[key]!.Errors.Select(x => $"{key}: {x.ErrorMessage}"))
                     .ToArray();
 
-                var apiError = Result.Result.BadRequest("", errors);
+                var apiError = Result.Result.BadRequest("Validation Error", errors);
 
                 var result = new ObjectResult(apiError)
                 {
@@ -99,7 +106,5 @@ public static class ApiModule
                 return result;
             };
         });
-
-        return services;
     }
 }

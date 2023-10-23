@@ -6,28 +6,11 @@ namespace Zord.Api.Extensions
     {
         public void Apply(ControllerModel controller)
         {
-            var oldControllerName = controller.ControllerName;
+            var controllerName = controller.ControllerName;
 
-            if (oldControllerName != null)
+            if (controllerName != null)
             {
-                string newControllerName = "";
-
-                for (int i = 0; i < oldControllerName.Length; i++)
-                    if (char.IsUpper(oldControllerName[i]))
-                    {
-                        if (i == 0) // first char
-                        {
-                            newControllerName += char.ToLower(oldControllerName[i]);
-                        }
-                        else
-                        {
-                            newControllerName += "_" + char.ToLower(oldControllerName[i]); // add prefix to upper chars
-                        }
-                    }
-                    else
-                        newControllerName += oldControllerName[i];
-
-                controller.ControllerName = newControllerName;
+                controller.ControllerName = controllerName.ConvertName();
             }
         }
     }
