@@ -8,7 +8,17 @@ namespace Host.Controllers
     [ApiController]
     public class ResultController : ControllerBase
     {
-        private readonly List<int> _list = new() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
+        private readonly List<int> _list;
+
+        public ResultController()
+        {
+            var list = new List<int>();
+            for (int i = 0; i < 20; i++)
+                list.Add(i);
+
+            _list = list;
+        }
+
 
         [HttpGet]
         public IActionResult Get()
