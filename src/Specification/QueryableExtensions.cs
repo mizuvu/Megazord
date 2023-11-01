@@ -43,7 +43,7 @@ namespace Zord.Specification
                 return query.Where(specification.Expression);
             }
 
-            return query.AsQueryable();
+            return query;
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Zord.Result;
+﻿using Zord.Result;
 
 namespace Zord.EntityFrameworkCore.Extensions;
 

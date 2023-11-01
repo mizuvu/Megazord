@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Zord.EntityFrameworkCore.Extensions;
 using Zord.Specification;
 
 namespace Zord.EntityFrameworkCore.Extensions
@@ -35,8 +35,8 @@ namespace Zord.EntityFrameworkCore.Extensions
         /// </summary>
         public static Task<List<T>> ToListAsync<T>(this DbContext context,
             ISpecification<T> specification,
-            bool tracking = true,
-            CancellationToken cancellationToken = default)
+            CancellationToken cancellationToken = default,
+            bool tracking = true)
             where T : class
             => context.Where(specification, tracking).ToListAsync(cancellationToken);
 
@@ -45,8 +45,8 @@ namespace Zord.EntityFrameworkCore.Extensions
         /// </summary>
         public static Task<T> SingleAsync<T>(this DbContext context,
             ISpecification<T> specification,
-            bool tracking = true,
-            CancellationToken cancellationToken = default)
+            CancellationToken cancellationToken = default,
+            bool tracking = true)
             where T : class
             => context.Where(specification, tracking).SingleAsync(cancellationToken);
 
@@ -55,8 +55,8 @@ namespace Zord.EntityFrameworkCore.Extensions
         /// </summary>
         public static Task<T?> SingleOrDefaultAsync<T>(this DbContext context,
             ISpecification<T> specification,
-            bool tracking = true,
-            CancellationToken cancellationToken = default)
+            CancellationToken cancellationToken = default,
+            bool tracking = true)
             where T : class
             => context.Where(specification, tracking).SingleOrDefaultAsync(cancellationToken);
 
@@ -65,7 +65,13 @@ namespace Zord.EntityFrameworkCore.Extensions
         /// </summary>
         public static Task<T> FirstAsync<T>(this DbContext context,
             ISpecification<T> specification,
-            bool tracking = true,
+            CancellationToken cancellationToken = default)
+            where T : class
+            => context.Where(specification, true).FirstAsync(cancellationToken);
+
+        public static Task<T> FirstAsync<T>(this DbContext context,
+            ISpecification<T> specification,
+            bool tracking,
             CancellationToken cancellationToken = default)
             where T : class
             => context.Where(specification, tracking).FirstAsync(cancellationToken);
@@ -75,7 +81,13 @@ namespace Zord.EntityFrameworkCore.Extensions
         /// </summary>
         public static Task<T?> FirstOrDefaultAsync<T>(this DbContext context,
             ISpecification<T> specification,
-            bool tracking = true,
+            CancellationToken cancellationToken = default)
+            where T : class
+            => context.Where(specification, true).FirstOrDefaultAsync(cancellationToken);
+
+        public static Task<T?> FirstOrDefaultAsync<T>(this DbContext context,
+            ISpecification<T> specification,
+            bool tracking,
             CancellationToken cancellationToken = default)
             where T : class
             => context.Where(specification, tracking).FirstOrDefaultAsync(cancellationToken);

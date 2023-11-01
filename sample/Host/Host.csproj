@@ -17,7 +17,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Core\Core.csproj" />
-    <ProjectReference Include="..\..\src\EfCore.Extensions\EfCore.Extensions.csproj" />
     <ProjectReference Include="..\..\src\Extensions.Caching\Extensions.Caching.csproj" />
     <ProjectReference Include="..\..\src\Extensions.DependencyInjection\Extensions.DependencyInjection.csproj" />
     <ProjectReference Include="..\..\src\Extensions.Files\Extensions.Files.csproj" />
