@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Zord.Contracts;
+namespace Zord.Interfaces;
 
 /// <summary>
 /// Execute a query for read data from Database

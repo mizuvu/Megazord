@@ -1,23 +1,39 @@
-﻿using Zord.Entities.Interfaces;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using Zord.Entities.Interfaces;
 
 namespace Zord.Entities;
 
 /// <summary>
 ///     A base class for DDD Entities. Includes support for domain events dispatched post-persistence.
 /// </summary>
-public abstract class BaseEntity : BaseEvent, IEntity
-{ }
+public abstract class BaseEntity : IEntity, IEvent
+{
+    private readonly List<DomainEvent> _domainEvents = new();
+
+    [NotMapped]
+    public IReadOnlyCollection<DomainEvent> DomainEvents => _domainEvents.AsReadOnly();
+
+    public void AddDomainEvent(DomainEvent domainEvent)
+    {
+        _domainEvents.Add(domainEvent);
+    }
+
+    public void RemoveDomainEvent(DomainEvent domainEvent)
+    {
+        _domainEvents.Remove(domainEvent);
+    }
+
+    public void ClearDomainEvents()
+    {
+        _domainEvents.Clear();
+    }
+}
 
 /// <summary>
-///     A base class for DDD Auditable Entities. Includes support for domain events dispatched post-persistence.
+///     A base class for DDD Entities. Includes support for domain events dispatched post-persistence.
+///     support both GUID and int IDs, change to EntityBase&lt;TId&gt; and use TId as the type for Id.
 /// </summary>
-public abstract class BaseAuditableEntity : BaseEntity, IAuditableEntity
+public abstract class BaseEntity<TId> : BaseEntity, IEntity<TId>
 {
-    public DateTimeOffset CreatedOn { get; set; }
-
-    public string? CreatedBy { get; set; }
-
-    public DateTimeOffset? LastModifiedOn { get; set; }
-
-    public string? LastModifiedBy { get; set; }
+    public virtual TId Id { get; protected set; } = default!;
 }
