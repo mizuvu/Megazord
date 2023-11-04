@@ -16,7 +16,7 @@ namespace Zord.Extensions
             Random random = new Random();
             return new string(Enumerable.Repeat(characterLibs, length).Select(s => s[random.Next(s.Length)]).ToArray());
         }
-        
+
         /// <summary>
         ///     Generate a random string
         /// </summary>
