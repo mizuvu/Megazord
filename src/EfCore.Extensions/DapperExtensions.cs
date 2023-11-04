@@ -10,7 +10,7 @@ namespace Zord.EntityFrameworkCore.Extensions;
 /// </summary>
 public static class DapperExtensions
 {
-    public static async Task<IEnumerable<T>> QueryAsync<T>(this IDbContext context,
+    public static async Task<IEnumerable<T>> QueryAsync<T>(this DbContext context,
         string query, Func<DbDataReader, T> map,
         CancellationToken cancellationToken = default)
     {
@@ -32,7 +32,7 @@ public static class DapperExtensions
         return entities;
     }
 
-    public static async Task<IEnumerable<T>> QueryAsync<T>(this IDbContext context,
+    public static async Task<IEnumerable<T>> QueryAsync<T>(this DbContext context,
         string query, object? param = null, CommandType commandType = CommandType.Text)
     {
         if (param is not null)

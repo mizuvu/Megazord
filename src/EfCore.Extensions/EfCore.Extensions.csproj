@@ -2,15 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
-	<ImplicitUsings>enable</ImplicitUsings>
-	<Nullable>enable</Nullable>
-	<RootNamespace>Zord.EntityFrameworkCore</RootNamespace>
-	<AssemblyName>Zord.EntityFrameworkCore</AssemblyName>
-	<Title>Zord.EntityFrameworkCore</Title>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	<RootNamespace>Zord.EntityFrameworkCore.Extensions</RootNamespace>
+	<AssemblyName>Zord.EntityFrameworkCore.Extensions</AssemblyName>
+	<Title>Zord.EntityFrameworkCore.Extensions</Title>
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	<Authors>minhvu</Authors>
-	<Description>EF Core plugin package containing EF Core evaluator.</Description>
-	<Summary>EF Core plugin package containing EF Core evaluator.</Summary>
+	<Description>EF Core extensions package.</Description>
+	<Summary>EF Core extensions package.</Summary>
 	<Version>7.0.0.7</Version>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	<PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -19,12 +19,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-	<PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.13" />
+    <PackageReference Include="Dapper" Version="2.1.15" />
+	<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.13" />
 	<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Specification\Specification.csproj" />
+    <ProjectReference Include="..\Result.v2\Result.v2.csproj" />
   </ItemGroup>
 
   <ItemGroup>
