@@ -7,9 +7,9 @@
 	<Title>Zord.Extensions.Caching.Abstractions</Title>
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	<Authors>minhvu</Authors>
-	<Description>Caching package.</Description>
-	<Summary>Caching package.</Summary>
-	<Version>0.0.0.2</Version>
+	<Description>Caching abstractions for in-memory cache and distributed cache.</Description>
+	<Summary>Caching abstractions for in-memory cache and distributed cache.</Summary>
+	<Version>0.0.0.5</Version>
 	<PackageReleaseNotes></PackageReleaseNotes>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	<PublishRepositoryUrl>true</PublishRepositoryUrl>

@@ -4,14 +4,14 @@
     <TargetFramework>net7.0</TargetFramework>
 	<ImplicitUsings>enable</ImplicitUsings>
     <Nullable>disable</Nullable>
-	<RootNamespace>Zord.Extensions.Caching</RootNamespace>
+	<RootNamespace>Zord.Extensions</RootNamespace>
 	<AssemblyName>Zord.Extensions.Caching</AssemblyName>
 	<Title>Zord.Extensions.Caching</Title>
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	<Authors>minhvu</Authors>
 	<Description>Cache package services using Memory, Distributed, Redis.</Description>
 	<Summary>Cache package services using Memory, Distributed, Redis.</Summary>
-	<Version>7.0.0.4</Version>
+	<Version>7.0.0.5</Version>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	<PublishRepositoryUrl>true</PublishRepositoryUrl>
 	<EmbedUntrackedSources>true</EmbedUntrackedSources>
