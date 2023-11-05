@@ -1,6 +1,7 @@
 ﻿using Host.Data;
 using Microsoft.AspNetCore.Mvc;
 using Zord.Extensions;
+using Zord.Repository.EntityFrameworkCore;
 
 namespace Host.Controllers
 {

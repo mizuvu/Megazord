@@ -1,4 +1,6 @@
-﻿namespace Host.Data.Persistence;
+﻿using Zord.Repository.EntityFrameworkCore;
+
+namespace Host.Data.Persistence;
 
 public interface ILocationRepository : IRepository<RetailLocation>
 {

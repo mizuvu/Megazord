@@ -1,13 +1,13 @@
 global using Zord.Repository;
 global using Zord.Result;
-using Extensions.Telegram;
 using Host.Data;
 using Host.TestOption;
 using Serilog;
+using Telegram;
 using Zord.Extensions.Caching;
 using Zord.Extensions.DependencyInjection;
 using Zord.Extensions.Logging;
-using Zord.Extensions.SmtpMail;
+using Zord.SmtpMail;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,7 +35,7 @@ builder.Services.AddZordCache(opt =>
 
 builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SMTPMail"));
 
-builder.Services.AddZordDocuments();
+builder.Services.AddFiles();
 
 builder.Services.AddTestOptions(builder.Configuration);
 

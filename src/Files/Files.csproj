@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	<TargetFramework>netstandard2.1</TargetFramework>
+	<Nullable>enable</Nullable>
+	<RootNamespace>Zord</RootNamespace>
+	<AssemblyName>Zord.Files</AssemblyName>
+	<Title>Zord.Files</Title>
+	<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	<Authors>minhvu</Authors>
+	<Description>Package for generate document files faster.</Description>
+	<Summary>Package for generate document files faster.</Summary>
+	<Version>0.0.0.1</Version>
+	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	<PublishRepositoryUrl>true</PublishRepositoryUrl>
+	<EmbedUntrackedSources>true</EmbedUntrackedSources>
+	<AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ClosedXML" Version="0.102.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
+	<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Application\Application.csproj" />
+  </ItemGroup>
+
+</Project>

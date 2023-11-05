@@ -25,12 +25,12 @@ public static class Startup
 
         services.AddScoped(typeof(IRepository<>), typeof(CustomRepository<>));
 
-        services.AddZordUnitOfWork();
+        services.AddUnitOfWork();
 
-        services.AddZordDynamicCacheRepositories();
-        //services.AddScoped(typeof(ICacheRepository<,>), typeof(CustomCacheRepository<,>));
+        services.AddCacheRepository();
+        //services.AddScoped(typeof(ICacheRepository<>), typeof(CustomCacheRepository));
 
-        services.AddZordUnitOfWork<AlphaDbContext>();
+        services.AddUnitOfWork<AlphaDbContext>();
 
         //services.AddScoped(typeof(IAppRepository<>), typeof(AppRepository<>));
         //services.AddScoped(typeof(IAppUnitOfWork), typeof(AppUnitOfWork));

@@ -1,14 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Zord.Extensions.Caching;
+﻿using Zord.Extensions.Caching;
+using Zord.Repository.Cache;
 
 namespace Host.Data.Persistence;
 
-public class CustomCacheRepository<TDbContext> : CacheRepositoryBase<TDbContext>
-    where TDbContext : DbContext
+public class CustomCacheRepository : CacheRepositoryBase<AlphaDbContext>
 {
-    public CustomCacheRepository(DbContext context, ICacheService cacheService) : base(context, cacheService)
+    public CustomCacheRepository(AlphaDbContext context, ICacheService cacheService) : base(context, cacheService)
     {
     }
 
-    public override string DatabaseName => "CustomDatabase";
+    public override string CacheKey => "CustomDatabase";
 }

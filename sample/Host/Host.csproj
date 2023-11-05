@@ -17,17 +17,17 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Core\Core.csproj" />
+    <ProjectReference Include="..\..\src\EfCore\EfCore.csproj" />
     <ProjectReference Include="..\..\src\Extensions.Caching\Extensions.Caching.csproj" />
     <ProjectReference Include="..\..\src\Extensions.DependencyInjection\Extensions.DependencyInjection.csproj" />
-    <ProjectReference Include="..\..\src\Extensions.Files\Extensions.Files.csproj" />
-    <ProjectReference Include="..\..\src\Extensions.Graph\Extensions.Graph.csproj" />
     <ProjectReference Include="..\..\src\Extensions.Logging\Extensions.Logging.csproj" />
-    <ProjectReference Include="..\..\src\Extensions.SmtpMail\Extensions.SmtpMail.csproj" />
-    <ProjectReference Include="..\..\src\Extensions.Telegram\Extensions.Telegram.csproj" />
     <ProjectReference Include="..\..\src\Extensions\Extensions.csproj" />
-    <ProjectReference Include="..\..\src\Repository.EfCore.Cache\Repository.EfCore.Cache.csproj" />
+    <ProjectReference Include="..\..\src\Files\Files.csproj" />
+    <ProjectReference Include="..\..\src\Graph\Graph.csproj" />
     <ProjectReference Include="..\..\src\Repository.EfCore\Repository.EfCore.csproj" />
     <ProjectReference Include="..\..\src\Result.v2\Result.v2.csproj" />
+    <ProjectReference Include="..\..\src\SmtpMail\SmtpMail.csproj" />
+    <ProjectReference Include="..\..\src\Telegram\Telegram.csproj" />
   </ItemGroup>
 
 </Project>

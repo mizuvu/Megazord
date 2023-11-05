@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Zord.Extensions.Files;
+using Zord.Files;
 
 namespace Host.Controllers
 {
