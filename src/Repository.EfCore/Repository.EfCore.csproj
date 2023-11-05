@@ -11,7 +11,7 @@
 	<Authors>minhvu</Authors>
 	<Description>EF Core plugin package containing combination of the Unit Of Work and Repository patterns.</Description>
 	<Summary>EF Core plugin package containing combination of the Unit Of Work and Repository patterns.</Summary>
-	<Version>7.1.0.1</Version>
+	<Version>7.1.0.2</Version>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	<PublishRepositoryUrl>true</PublishRepositoryUrl>
 	<EmbedUntrackedSources>true</EmbedUntrackedSources>
