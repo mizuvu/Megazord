@@ -1,4 +1,4 @@
-﻿namespace Zord.Repository;
+﻿namespace Zord.Repository.EntityFrameworkCore;
 
 /// <inheritdoc/>
 public class Repository<TEntity> : RepositoryBase<TEntity>, IRepository<TEntity>

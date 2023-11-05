@@ -4,14 +4,14 @@
     <TargetFramework>net7.0</TargetFramework>
 	<ImplicitUsings>enable</ImplicitUsings>
 	<Nullable>enable</Nullable>
-	<RootNamespace>Zord.Repository</RootNamespace>
+	<RootNamespace>Zord</RootNamespace>
 	<AssemblyName>Zord.Repository.EntityFrameworkCore</AssemblyName>
 	<Title>Zord.Repository.EntityFrameworkCore</Title>
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	<Authors>minhvu</Authors>
 	<Description>EF Core plugin package containing combination of the Unit Of Work and Repository patterns.</Description>
 	<Summary>EF Core plugin package containing combination of the Unit Of Work and Repository patterns.</Summary>
-	<Version>7.0.0.3</Version>
+	<Version>7.0.0.5</Version>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	<PublishRepositoryUrl>true</PublishRepositoryUrl>
 	<EmbedUntrackedSources>true</EmbedUntrackedSources>
@@ -19,11 +19,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.12" />
+	<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.13" />
 	<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Extensions.Caching\Extensions.Caching.csproj" />
     <ProjectReference Include="..\Repository\Repository.csproj" />
   </ItemGroup>
 

@@ -1,4 +1,4 @@
-﻿namespace Zord.Repository;
+﻿namespace Zord.Repository.Cache;
 
 public interface ICacheRepository<TEntity, TContext> : ICacheRepository<TEntity>
     where TEntity : class

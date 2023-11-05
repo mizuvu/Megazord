@@ -1,4 +1,4 @@
-﻿namespace Zord.Repository;
+﻿namespace Zord.Repository.EntityFrameworkCore;
 
 /// <inheritdoc/>
 public class UnitOfWork<TContext> : UnitOfWorkBase, IUnitOfWork<TContext>

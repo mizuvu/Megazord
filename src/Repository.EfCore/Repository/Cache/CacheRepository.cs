@@ -1,6 +1,6 @@
 ﻿using Zord.Extensions.Caching;
 
-namespace Zord.Repository;
+namespace Zord.Repository.Cache;
 
 public class CacheRepository<TEntity, TContext> : CacheRepositoryBase<TEntity>, ICacheRepository<TEntity, TContext>
     where TEntity : class

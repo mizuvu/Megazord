@@ -1,6 +1,7 @@
 ﻿using Zord.Extensions.Caching;
+using Zord.Repository.EntityFrameworkCore;
 
-namespace Zord.Repository;
+namespace Zord.Repository.Cache;
 
 public abstract class CacheRepositoryBase<T> : RepositoryBase<T>, ICacheRepository<T>
     where T : class
@@ -14,13 +15,18 @@ public abstract class CacheRepositoryBase<T> : RepositoryBase<T>, ICacheReposito
         _cacheService = cacheService;
     }
 
-    public virtual string DatabaseName => _context.Database.GetDbConnection().Database;
-
-    public virtual string BuildCacheKey() => $"[{DatabaseName}]_[{typeof(T).Name}]";
+    public virtual string CacheKey
+    {
+        get
+        {
+            var databaseName = _context.Database.GetDbConnection().Database;
+            return $"[{databaseName}]_[{typeof(T).Name}]";
+        }
+    }
 
     private async Task<IEnumerable<T>> LoadDataToCacheAsync(CancellationToken cancellationToken = default)
     {
-        var key = BuildCacheKey();
+        var key = CacheKey;
 
         await _cacheService.RemoveAsync(key, cancellationToken);
 
@@ -35,7 +41,7 @@ public abstract class CacheRepositoryBase<T> : RepositoryBase<T>, ICacheReposito
 
     public override async Task<IEnumerable<T>> ToListAsync(CancellationToken cancellationToken = default)
     {
-        var key = BuildCacheKey();
+        var key = CacheKey;
 
         var data = await _cacheService.TryGetAsync<IEnumerable<T>>(key, cancellationToken);
 
@@ -65,7 +71,7 @@ public abstract class CacheRepositoryBase<T> : RepositoryBase<T>, ICacheReposito
 
     public virtual async Task RemoveCacheAsync(CancellationToken cancellationToken = default)
     {
-        var key = BuildCacheKey();
+        var key = CacheKey;
         await _cacheService.RemoveAsync(key, cancellationToken);
     }
 }

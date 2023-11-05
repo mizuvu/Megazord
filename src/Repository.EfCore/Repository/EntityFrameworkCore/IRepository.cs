@@ -1,4 +1,4 @@
-﻿namespace Zord.Repository;
+﻿namespace Zord.Repository.EntityFrameworkCore;
 
 /// <summary>
 ///     Can be used to query, add, update, remove instances of T with a specify DbContext
