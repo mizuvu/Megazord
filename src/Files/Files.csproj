@@ -8,8 +8,8 @@
 	<Title>Zord.Files</Title>
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	<Authors>minhvu</Authors>
-	<Description>Package for generate document files faster.</Description>
-	<Summary>Package for generate document files faster.</Summary>
+	<Description>Package for generate document files.</Description>
+	<Summary>Package for generate document files.</Summary>
 	<Version>0.0.0.1</Version>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	<PublishRepositoryUrl>true</PublishRepositoryUrl>
