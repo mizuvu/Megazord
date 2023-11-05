@@ -3,19 +3,19 @@ using StackExchange.Redis;
 
 namespace Zord.Extensions.DependencyInjection;
 
-public static class DependencyInjection
+public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddZordCache(this IServiceCollection services, Action<CacheOptions> action)
+    public static IServiceCollection AddCache(this IServiceCollection services, Action<CacheOptions> action)
     {
         var setup = new CacheOptions();
         action(setup); // bind action to setup
 
-        services.AddZordCache(setup);
+        services.AddCache(setup);
 
         return services;
     }
 
-    public static IServiceCollection AddZordCache(this IServiceCollection services, CacheOptions settings)
+    public static IServiceCollection AddCache(this IServiceCollection services, CacheOptions settings)
     {
         ArgumentNullException.ThrowIfNull(settings, nameof(CacheOptions));
 
@@ -53,7 +53,7 @@ public static class DependencyInjection
         return services;
     }
 
-    private static IServiceCollection AddZordDistributedCache(this IServiceCollection services)
+    private static IServiceCollection AddDistributedCache(this IServiceCollection services)
     {
         services.AddDistributedMemoryCache();
         services.AddTransient<ICacheService, DistributedCacheService>();

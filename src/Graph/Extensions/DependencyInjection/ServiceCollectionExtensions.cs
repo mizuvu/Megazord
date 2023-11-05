@@ -6,7 +6,7 @@ using Zord.Graph;
 
 namespace Zord.Extensions.DependencyInjection
 {
-    public static class Startup
+    public static class ServiceCollectionExtensions
     {
         public static IServiceCollection AddMicrosoftGraph(this IServiceCollection services, Action<GraphOptions> action)
         {

@@ -26,7 +26,7 @@ builder.Services.AddGraphMail(opt =>
 
 builder.Services.AddData(builder.Configuration);
 var settings = builder.Configuration.GetSection("Caching").Get<CacheOptions>();
-builder.Services.AddZordCache(opt =>
+builder.Services.AddCache(opt =>
 {
     opt.Provider = settings!.Provider;
     opt.RedisHost = settings.RedisHost;

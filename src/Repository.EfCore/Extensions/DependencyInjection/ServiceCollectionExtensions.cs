@@ -7,7 +7,7 @@ using Zord.Repository.EntityFrameworkCore;
 
 namespace Zord.Extensions.DependencyInjection;
 
-public static class DependencyInjection
+public static class ServiceCollectionExtensions
 {
     /// <summary>
     /// Use default Repositories & Unit Of Work

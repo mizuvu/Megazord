@@ -9,7 +9,7 @@
 	<Authors>minhvu</Authors>
 	<Description>Caching abstractions for in-memory cache and distributed cache.</Description>
 	<Summary>Caching abstractions for in-memory cache and distributed cache.</Summary>
-	<Version>0.0.0.5</Version>
+	<Version>1.1.0.1</Version>
 	<PackageReleaseNotes></PackageReleaseNotes>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	<PublishRepositoryUrl>true</PublishRepositoryUrl>

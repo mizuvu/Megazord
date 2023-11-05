@@ -3,7 +3,7 @@ using Zord.Files;
 
 namespace Zord.Extensions.DependencyInjection
 {
-    public static class DependencyInjection
+    public static class ServiceCollectionExtensions
     {
         public static IServiceCollection AddFiles(this IServiceCollection services)
         {
