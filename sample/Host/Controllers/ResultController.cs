@@ -23,7 +23,7 @@ namespace Host.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_list.ToPagedResult(1, _list.Count));
+            return Ok(_list.ToPagedResult(6, 5));
         }
 
         [HttpGet("mapper-list")]

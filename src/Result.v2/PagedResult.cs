@@ -8,6 +8,22 @@ namespace Zord.Result
     {
         public PagedResult() { }
 
+        public PagedResult(IEnumerable<T> data, PagedInfo pagedInfo)
+        {
+            if (data == null)
+            {
+                Code = ResultCode.NotFound;
+            }
+            else
+            {
+                Code = ResultCode.Ok;
+
+                PagedInfo = pagedInfo;
+
+                Data = data;
+            }
+        }
+
         public PagedResult(IEnumerable<T> data, int page, int pageSize, int count)
         {
             if (data == null)

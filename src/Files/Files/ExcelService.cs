@@ -10,6 +10,11 @@ namespace Zord.Files
 {
     public class ExcelService : IExcelService
     {
+        public bool AnySheet(string sheetName)
+        {
+            return new XLWorkbook().Worksheets.Contains(sheetName);
+        }
+        
         public Stream Export<T>(DataTable dataTable, string? sheetName = null)
         {
             using var wb = new XLWorkbook();

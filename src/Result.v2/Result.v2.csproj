@@ -9,7 +9,7 @@
 	<Authors>minhvu</Authors>
 	<Description>Package contains result models version 2 for services.</Description>
 	<Summary>Package contains result models version 2 for services.</Summary>
-	<Version>2.1.0.5</Version>
+	<Version>2.1.1.2</Version>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	<PublishRepositoryUrl>true</PublishRepositoryUrl>
 	<EmbedUntrackedSources>true</EmbedUntrackedSources>

@@ -10,7 +10,7 @@
 	<Authors>minhvu</Authors>
 	<Description>Application package containing common models, abstractions, etc.</Description>
 	<Summary>Application package containing common models, abstractions, etc.</Summary>
-	<Version>0.0.0.1</Version>
+	<Version>0.0.0.2</Version>
 	<PackageReleaseNotes></PackageReleaseNotes>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	<PublishRepositoryUrl>true</PublishRepositoryUrl>
