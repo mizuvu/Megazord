@@ -16,7 +16,7 @@ namespace Telegram
             services.AddHttpClient("telegram_bot_client")
                 .AddTypedClient<ITelegramBotClient>((httpClient, sp) =>
                 {
-                    TelegramBotClientOptions options = new("6377770286:AAHWcpDQ_4G8ycCB6xRd4KITnvNYHvYQPOk");
+                    TelegramBotClientOptions options = new TelegramBotClientOptions("6377770286:AAHWcpDQ_4G8ycCB6xRd4KITnvNYHvYQPOk");
                     return new TelegramBotClient(options, httpClient);
                 });
 

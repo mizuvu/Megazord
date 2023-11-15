@@ -1,4 +1,6 @@
-﻿namespace Telegram
+﻿using System.Threading.Tasks;
+
+namespace Telegram
 {
     public interface ITelegramService
     {
