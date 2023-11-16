@@ -10,7 +10,7 @@
 	<Authors>minhvu</Authors>
 	<Description>A simple package with a base Specification class.</Description>
 	<Summary>A simple package with a base Specification class.</Summary>
-	<Version>0.0.0.4</Version>
+	<Version>0.0.0.5</Version>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	<PublishRepositoryUrl>true</PublishRepositoryUrl>
 	<EmbedUntrackedSources>true</EmbedUntrackedSources>
@@ -18,7 +18,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-	<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+	<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
   </ItemGroup>
 
 </Project>
