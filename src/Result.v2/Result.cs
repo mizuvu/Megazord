@@ -37,20 +37,6 @@ namespace Zord.Result
 
         public IEnumerable<string> Errors { get; set; } = Array.Empty<string>();
 
-        public static Result ObjectNotFound(string objectName, object value)
-        {
-            var message = $"Query object {objectName} by {value} not found";
-
-            return new Result(ResultCode.NotFound, message, default);
-        }
-
-        public static Result ObjectNotFound<TObject>(object queryValue)
-        {
-            var message = $"Query object {typeof(TObject).Name} by {queryValue} not found";
-
-            return new Result(ResultCode.NotFound, message, default);
-        }
-
         public static Result Success(string message = "") => new Result(ResultCode.Ok, message, default);
 
         public static Result BadRequest(string message = "", IEnumerable<string> errors = default) =>
@@ -64,6 +50,13 @@ namespace Zord.Result
 
         public static Result NotFound(string message = "", IEnumerable<string> errors = default) =>
             new Result(ResultCode.NotFound, message, errors);
+
+        public static Result NotFound<TObject>(object queryValue)
+        {
+            var message = $"Query object {typeof(TObject).Name} by {queryValue} not found";
+
+            return new Result(ResultCode.NotFound, message, default);
+        }
 
         public static Result Conflict(string message = "", IEnumerable<string> errors = default) =>
             new Result(ResultCode.Conflict, message, errors);

@@ -45,17 +45,17 @@ namespace Zord.Result
 
         public T Data { get; set; }
 
-        public static Result<T> Object(T data, string message = "")
+        public static Result<T> Success(T data, string message = "")
             => new Result<T>(data, message);
 
-        public static Result<T> ObjectNotFound(string objectName, object queryValue)
+        public static Result<T> NotFound(string objectName, object queryValue)
         {
             var message = $"Query object {objectName} by {queryValue} not found";
 
             return new Result<T>(ResultCode.NotFound, message, default);
         }
 
-        public static Result<T> ObjectNotFound<TObject>(object queryValue)
+        public static Result<T> NotFound<TObject>(object queryValue)
         {
             var message = $"Query object {typeof(TObject).Name} by {queryValue} not found";
 
