@@ -51,6 +51,13 @@ namespace Zord.Result
         public static Result NotFound(string message = "", IEnumerable<string> errors = default) =>
             new Result(ResultCode.NotFound, message, errors);
 
+        public static Result NotFound(string objectName, object queryValue)
+        {
+            var message = $"Query object {objectName} by {queryValue} not found";
+
+            return new Result(ResultCode.NotFound, message, default);
+        }
+
         public static Result NotFound<TObject>(object queryValue)
         {
             var message = $"Query object {typeof(TObject).Name} by {queryValue} not found";
