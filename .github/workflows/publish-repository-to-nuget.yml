@@ -17,17 +17,17 @@ jobs:
     - name: Install dependencies
       run: |
         dotnet restore src/Repository/Repository.csproj
-        dotnet restore src/Repository.EntityFrameworkCore/Repository.EntityFrameworkCore.csproj
+        dotnet restore src/Repository.EfCore/Repository.EfCore.csproj
     - name: Build
       run: |
         dotnet build src/Repository/Repository.csproj --configuration Release --no-restore
-        dotnet build src/Repository.EntityFrameworkCore/Repository.EntityFrameworkCore.csproj --configuration Release --no-restore
+        dotnet build src/Repository.EfCore/Repository.EfCore.csproj --configuration Release --no-restore
 
     - name: Publish to Nuget.org
       run: |
         rm -rf nuget/
         
         dotnet pack --no-build src/Repository/Repository.csproj --configuration Release --output nuget
-        dotnet pack --no-build src/Repository.EntityFrameworkCore/Repository.EntityFrameworkCore.csproj --configuration Release --output nuget
+        dotnet pack --no-build src/Repository.EfCore/Repository.EfCore.csproj --configuration Release --output nuget
         
         dotnet nuget push nuget/*.nupkg -k '${{ secrets.NUGET_API_KEY }}' --skip-duplicate -s https://api.nuget.org/v3/index.json
