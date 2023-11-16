@@ -15,9 +15,9 @@ jobs:
       with:
           dotnet-version: '8.x'
     - name: Install dependencies
-      run: dotnet restore
+      run: dotnet restore src/Zord.Core/Zord.Core.csproj
     - name: Build
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build src/Zord.Core/Zord.Core.csproj --configuration Release --no-restore
 
     - name: Publish to Nuget.org
       run: |
