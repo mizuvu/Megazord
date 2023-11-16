@@ -1,4 +1,4 @@
-name: Publish Zord.EntityFrameworkCore to Nuget.org
+name: Publish EntityFrameworkCore to Nuget.org
 
 on:
   workflow_dispatch
