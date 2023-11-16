@@ -11,7 +11,7 @@
 	<Authors>minhvu</Authors>
 	<Description>EF Core plugin package containing combination of the Unit Of Work and Repository patterns.</Description>
 	<Summary>EF Core plugin package containing combination of the Unit Of Work and Repository patterns.</Summary>
-	<Version>7.1.0.2</Version>
+	<Version>8.0.0.0</Version>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	<PublishRepositoryUrl>true</PublishRepositoryUrl>
 	<EmbedUntrackedSources>true</EmbedUntrackedSources>
@@ -20,11 +20,10 @@
 
   <ItemGroup>
 	<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.0" />
-	<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+	<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Extensions.Caching\Extensions.Caching.csproj" />
     <ProjectReference Include="..\Repository\Repository.csproj" />
   </ItemGroup>
 

@@ -2,7 +2,6 @@
 
 using Microsoft.Extensions.DependencyInjection;
 using Zord.Repository;
-using Zord.Repository.Cache;
 using Zord.Repository.EntityFrameworkCore;
 
 namespace Zord.Extensions.DependencyInjection;
@@ -40,16 +39,6 @@ public static class ServiceCollectionExtensions
         where TImplement : class, TInterface
     {
         services.AddScoped(typeof(TInterface), typeof(TImplement));
-
-        return services;
-    }
-
-    /// <summary>
-    /// Use cache repository with multi DbContext
-    /// </summary>
-    public static IServiceCollection AddCacheRepository(this IServiceCollection services)
-    {
-        services.AddScoped(typeof(ICacheRepository<,>), typeof(CacheRepository<,>));
 
         return services;
     }

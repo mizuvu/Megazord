@@ -11,7 +11,7 @@ public abstract class UnitOfWorkBase : IUnitOfWork
     protected UnitOfWorkBase(DbContext context)
     {
         _context = context;
-        _repositories = new Dictionary<Type, object>();
+        _repositories = [];
     }
 
     /// <inheritdoc/>

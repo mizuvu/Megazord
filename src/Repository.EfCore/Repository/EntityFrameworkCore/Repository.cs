@@ -1,20 +1,18 @@
 ﻿namespace Zord.Repository.EntityFrameworkCore;
 
 /// <inheritdoc/>
-public class Repository<TEntity> : RepositoryBase<TEntity>, IRepository<TEntity>
+public class Repository<TEntity>(DbContext context) :
+    RepositoryBase<TEntity>(context),
+    IRepository<TEntity>
     where TEntity : class
 {
-    public Repository(DbContext context) : base(context)
-    {
-    }
 }
 
 /// <inheritdoc/>
-public class Repository<TEntity, TContext> : Repository<TEntity>, IRepository<TEntity, TContext>
+public class Repository<TEntity, TContext>(TContext context) :
+    Repository<TEntity>(context),
+    IRepository<TEntity, TContext>
     where TEntity : class
     where TContext : DbContext
 {
-    public Repository(TContext context) : base(context)
-    {
-    }
 }
