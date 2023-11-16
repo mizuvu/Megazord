@@ -21,7 +21,7 @@ public static class ResultExtensions
         CancellationToken cancellationToken = default)
     {
         var items = await queryable.ToListAsync(cancellationToken);
-        return Result<IEnumerable<T>>.Object(items);
+        return Result<IEnumerable<T>>.Success(items);
     }
 
     public static async Task<Result<T>> FirstResultAsync<T>(this IQueryable<T> queryable,
@@ -31,9 +31,9 @@ public static class ResultExtensions
         var entry = await queryable.FirstOrDefaultAsync(cancellationToken);
 
         if (entry == null)
-            return Result<T>.ObjectNotFound(objectName, queryValue);
+            return Result<T>.NotFound(objectName, queryValue);
 
-        return Result<T>.Object(entry);
+        return Result<T>.Success(entry);
     }
 
     public static async Task<Result<T>> LastResultAsync<T>(this IQueryable<T> queryable,
@@ -43,9 +43,9 @@ public static class ResultExtensions
         var entry = await queryable.LastOrDefaultAsync(cancellationToken);
 
         if (entry == null)
-            return Result<T>.ObjectNotFound(objectName, queryValue);
+            return Result<T>.NotFound(objectName, queryValue);
 
-        return Result<T>.Object(entry);
+        return Result<T>.Success(entry);
     }
 
     public static async Task<Result<T>> SingleResultAsync<T>(this IQueryable<T> queryable,
@@ -55,8 +55,8 @@ public static class ResultExtensions
         var entry = await queryable.SingleOrDefaultAsync(cancellationToken);
 
         if (entry == null)
-            return Result<T>.ObjectNotFound(objectName, queryValue);
+            return Result<T>.NotFound(objectName, queryValue);
 
-        return Result<T>.Object(entry);
+        return Result<T>.Success(entry);
     }
 }
