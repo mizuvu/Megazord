@@ -15,12 +15,12 @@ jobs:
       with:
           dotnet-version: '8.x'
     - name: Install dependencies
-      run: dotnet restore src/Zord.Core/Zord.Core.csproj
+      run: dotnet restore src/Core/Core.csproj
     - name: Build
-      run: dotnet build src/Zord.Core/Zord.Core.csproj --configuration Release --no-restore
+      run: dotnet build src/Core/Core.csproj --configuration Release --no-restore
 
     - name: Publish to Nuget.org
       run: |
         rm -rf nuget/
-        dotnet pack --no-build src/Zord.Core/Zord.Core.csproj --configuration Release --output nuget
+        dotnet pack --no-build src/Core/Core.csproj --configuration Release --output nuget
         dotnet nuget push nuget/*.nupkg -k '${{ secrets.NUGET_API_KEY }}' --skip-duplicate -s https://api.nuget.org/v3/index.json
