@@ -11,7 +11,7 @@
 	<Authors>minhvu</Authors>
 	<Description>Core package containing useful base interfaces, classes, enums, value objects.</Description>
 	<Summary>Core package containing useful base interfaces, classes, enums, value objects.</Summary>
-	<Version>1.2.0.1</Version>
+	<Version>8.0.0.0</Version>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	<PublishRepositoryUrl>true</PublishRepositoryUrl>
 	<EmbedUntrackedSources>true</EmbedUntrackedSources>
@@ -21,7 +21,7 @@
   <ItemGroup>
 	<PackageReference Include="MassTransit.Abstractions" Version="8.1.2" />
 	<PackageReference Include="MediatR" Version="12.1.1" />
-	<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+	<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
   </ItemGroup>
 
 </Project>
