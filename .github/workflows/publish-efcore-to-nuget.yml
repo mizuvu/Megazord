@@ -15,11 +15,11 @@ jobs:
       with:
           dotnet-version: '8.x'
     - name: Install dependencies
-      run: 
+      run: |
         dotnet restore src/EfCore/EfCore.csproj
         dotnet restore src/EfCore.Extensions/EfCore.Extensions.csproj
     - name: Build
-      run:
+      run: |
         dotnet build src/EfCore/EfCore.csproj --configuration Release --no-restore
         dotnet build src/EfCore.Extensions/EfCore.Extensions.csproj --configuration Release --no-restore
 
