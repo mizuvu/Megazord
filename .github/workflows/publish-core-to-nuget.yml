@@ -1,4 +1,4 @@
-name: Publish Zord.Core to Nuget.org
+name: Publish Core to Nuget.org
 
 on:
   workflow_dispatch
