@@ -9,6 +9,8 @@ public class RequestLoggingMiddleware(RequestDelegate next,
 {
     private readonly RequestDelegate _next = next;
     private readonly ILogger _logger = logger; // must use Microsoft Logger because only Singleton services can be resolved by constructor injection in Middleware
+    private readonly string[] _excludePath = ["hangfire", "swagger"];
+
 
     public async Task InvokeAsync(HttpContext context)
     {
@@ -27,7 +29,7 @@ public class RequestLoggingMiddleware(RequestDelegate next,
 
         var requestBody = await ReadBodyAsync(request);
 
-        bool notWriteFrom = new[] { "hangfire", "swagger" }.Any(c => requestPath.ToString().Contains(c));
+        bool notWriteFrom = _excludePath.Any(c => requestPath.ToString().Contains(c));
 
         if (notWriteFrom)
         {
