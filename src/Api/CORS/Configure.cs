@@ -41,7 +41,7 @@ public static class Configure
                 if (!string.IsNullOrEmpty(mvc))
                     origins.AddRange(mvc.Split(';', StringSplitOptions.RemoveEmptyEntries));
 
-                if (origins.Any())
+                if (origins.Count > 0)
                 {
                     services.AddCors(opt =>
                         opt.AddPolicy(_corsPolicies, policy =>

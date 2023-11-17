@@ -1,22 +1,15 @@
 ﻿using Host.Data;
+using Host.Data.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Host.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class CacheDataController : ControllerBase
+    public class CacheDataController(
+        ICacheRepository<RetailLocation, AlphaDbContext> cacheRepository) : ControllerBase
     {
-        private readonly ICacheRepository<RetailLocation, AlphaDbContext> _cacheRepository;
-        private readonly Serilog.ILogger _logger;
-
-        public CacheDataController(
-            ICacheRepository<RetailLocation, AlphaDbContext> cacheRepository,
-            Serilog.ILogger logger)
-        {
-            _cacheRepository = cacheRepository;
-            _logger = logger;
-        }
+        private readonly ICacheRepository<RetailLocation, AlphaDbContext> _cacheRepository = cacheRepository;
 
         [HttpGet]
         public async Task<IActionResult> GetAsync(CancellationToken cancellationToken)

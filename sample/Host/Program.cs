@@ -3,15 +3,15 @@ global using Zord.Result;
 using Host.Data;
 using Host.TestOption;
 using Serilog;
-using Telegram;
+using Zord.Api.Middlewares;
 using Zord.Extensions.Caching;
 using Zord.Extensions.DependencyInjection;
-using Zord.Extensions.Logging;
+using Zord.Serilog;
 using Zord.SmtpMail;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Host.UseSerilog(Serilogger.Configure);
+builder.Host.UseSerilog(Zord.Serilog.Startup.Configure);
 
 // Add services to the container.
 
@@ -39,7 +39,7 @@ builder.Services.AddFiles();
 
 builder.Services.AddTestOptions(builder.Configuration);
 
-builder.Services.AddTelegram();
+//builder.Services.AddTelegram();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -54,6 +54,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddlewares(builder.Configuration);
 
 app.UseHttpsRedirection();
 

@@ -10,7 +10,7 @@
 	<Authors>minhvu</Authors>
 	<Description>Application package containing common models, abstractions, etc.</Description>
 	<Summary>Application package containing common models, abstractions, etc.</Summary>
-	<Version>0.0.0.2</Version>
+	<Version>0.0.0.3</Version>
 	<PackageReleaseNotes></PackageReleaseNotes>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	<PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -19,7 +19,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-	<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+	<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
   </ItemGroup>
 
 </Project>

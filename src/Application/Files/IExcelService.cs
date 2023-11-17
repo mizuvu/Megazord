@@ -8,11 +8,6 @@ namespace Zord.Files
     public interface IExcelService
     {
         /// <summary>
-        /// Check WorkSheet exists
-        /// </summary>
-        bool AnySheet(string sheetName);
-
-        /// <summary>
         /// Export a DataTable to file
         /// </summary>
         public Stream Export<T>(DataTable dataTable, string? sheetName = null);

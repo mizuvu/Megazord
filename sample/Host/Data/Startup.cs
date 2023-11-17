@@ -1,4 +1,5 @@
 ﻿using Host.Data.Persistence;
+using Host.Data.Repository;
 using Microsoft.EntityFrameworkCore;
 using Zord.Extensions.DependencyInjection;
 
@@ -27,7 +28,7 @@ public static class Startup
 
         services.AddUnitOfWork();
 
-        services.AddCacheRepository();
+        services.AddScoped(typeof(ICacheRepository<,>), typeof(CacheRepository<,>));
         //services.AddScoped(typeof(ICacheRepository<>), typeof(CustomCacheRepository));
 
         services.AddUnitOfWork<AlphaDbContext>();

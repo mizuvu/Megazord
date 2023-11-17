@@ -5,14 +5,9 @@ namespace Host.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class ExcelController : ControllerBase
+    public class ExcelController(IExcelService excelService) : ControllerBase
     {
-        private readonly IExcelService _excelService;
-
-        public ExcelController(IExcelService excelService)
-        {
-            _excelService = excelService;
-        }
+        private readonly IExcelService _excelService = excelService;
 
         [HttpGet]
         public IActionResult Export()

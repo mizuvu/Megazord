@@ -4,14 +4,9 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Zord.Api.Swagger
 {
-    public class TitleFilter : IDocumentFilter
+    public class TitleFilter(IConfiguration configuration) : IDocumentFilter
     {
-        private readonly IConfiguration _configuration;
-
-        public TitleFilter(IConfiguration configuration)
-        {
-            _configuration = configuration;
-        }
+        private readonly IConfiguration _configuration = configuration;
 
         public void Apply(OpenApiDocument doc, DocumentFilterContext context)
         {

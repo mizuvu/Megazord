@@ -7,17 +7,11 @@ using Zord.Result;
 
 namespace Zord.Api.Middlewares;
 
-public class ExceptionHandlerMiddleware
+public class ExceptionHandlerMiddleware(RequestDelegate next,
+    ILogger<ExceptionHandlerMiddleware> logger)
 {
-    private readonly RequestDelegate _next;
-    private readonly ILogger _logger; // must use Microsoft Logger because only Singleton services can be resolved by constructor injection in Middleware
-
-    public ExceptionHandlerMiddleware(RequestDelegate next,
-        ILogger<ExceptionHandlerMiddleware> logger)
-    {
-        _next = next;
-        _logger = logger;
-    }
+    private readonly RequestDelegate _next = next;
+    private readonly ILogger _logger = logger; // must use Microsoft Logger because only Singleton services can be resolved by constructor injection in Middleware
 
     public async Task InvokeAsync(HttpContext context)
     {

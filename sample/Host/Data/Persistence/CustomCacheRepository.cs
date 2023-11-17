@@ -1,5 +1,5 @@
-﻿using Zord.Extensions.Caching;
-using Zord.Repository.Cache;
+﻿using Host.Data.Repository;
+using Zord.Extensions.Caching;
 
 namespace Host.Data.Persistence;
 

@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Telegram;
-
+﻿/*
 namespace Host.Controllers
 {
     [Route("[controller]")]
@@ -23,3 +21,4 @@ namespace Host.Controllers
         }
     }
 }
+*/

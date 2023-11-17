@@ -24,7 +24,7 @@ namespace Host.Controllers
         [HttpGet("null-checker")]
         public IActionResult NullCheck()
         {
-            Result result = default;
+            Result? result = default;
 
             result.ThrowIfNull();
 

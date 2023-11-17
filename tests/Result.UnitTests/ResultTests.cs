@@ -55,8 +55,8 @@ namespace Result.UnitTests
         [InlineData(3)]
         public void Should_Return_Correct_Data(int id)
         {
-            var intId = Result<int>.Object(id);
-            var stringId = Result<string>.Object($"ID-{id}");
+            var intId = Result<int>.Success(id);
+            var stringId = Result<string>.Success($"ID-{id}");
 
             intId.Data.Should().Be(id);
             stringId.Data.Should().Be($"ID-{id}");
