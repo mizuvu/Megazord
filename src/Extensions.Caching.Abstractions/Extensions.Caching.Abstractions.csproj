@@ -9,7 +9,7 @@
 	<Authors>minhvu</Authors>
 	<Description>Caching abstractions for in-memory cache and distributed cache.</Description>
 	<Summary>Caching abstractions for in-memory cache and distributed cache.</Summary>
-	<Version>1.1.0.1</Version>
+	<Version>1.2.0.0</Version>
 	<PackageReleaseNotes></PackageReleaseNotes>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	<PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -18,7 +18,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-	<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+	<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
   </ItemGroup>
 
 </Project>

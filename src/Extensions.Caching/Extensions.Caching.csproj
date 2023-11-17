@@ -1,9 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-	<ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>disable</Nullable>
+    <TargetFramework>netstandard2.0</TargetFramework>
 	<RootNamespace>Zord.Extensions</RootNamespace>
 	<AssemblyName>Zord.Extensions.Caching</AssemblyName>
 	<Title>Zord.Extensions.Caching</Title>
@@ -11,7 +9,7 @@
 	<Authors>minhvu</Authors>
 	<Description>Cache package services using Memory, Distributed, Redis.</Description>
 	<Summary>Cache package services using Memory, Distributed, Redis.</Summary>
-	<Version>7.1.0.1</Version>
+	<Version>1.2.0.0</Version>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	<PublishRepositoryUrl>true</PublishRepositoryUrl>
 	<EmbedUntrackedSources>true</EmbedUntrackedSources>
@@ -21,15 +19,12 @@
   <ItemGroup>
 	<PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="8.0.0" />
 	<PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="8.0.0" />
-	<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+	<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
+	<PackageReference Include="System.Text.Json" Version="8.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Extensions.Caching.Abstractions\Extensions.Caching.Abstractions.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-	<Using Include="Zord.Extensions.Caching" />
   </ItemGroup>
 
 </Project>
