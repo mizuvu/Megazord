@@ -6,7 +6,6 @@ using Serilog;
 using Zord.Api.Middlewares;
 using Zord.Extensions.Caching;
 using Zord.Extensions.DependencyInjection;
-using Zord.Serilog;
 using Zord.SmtpMail;
 
 var builder = WebApplication.CreateBuilder(args);

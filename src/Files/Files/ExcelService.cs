@@ -111,7 +111,8 @@ namespace Zord.Files
                 {
                     return list;
                 }
-                
+
+                // get first sheet if not specify sheet name
                 var worksheet = !string.IsNullOrEmpty(sheetName)
                     ? workbook.Worksheet(sheetName)
                     : workbook.Worksheet(1);
