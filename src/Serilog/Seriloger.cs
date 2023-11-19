@@ -9,7 +9,7 @@ using System;
 
 namespace Zord.Serilog
 {
-    public static class Startup
+    public static class Seriloger
     {
         public static void EnsureInitialized()
         {

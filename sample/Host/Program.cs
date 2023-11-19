@@ -10,7 +10,7 @@ using Zord.SmtpMail;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Host.UseSerilog(Zord.Serilog.Startup.Configure);
+builder.Host.UseSerilog(Zord.Serilog.Seriloger.Configure);
 
 // Add services to the container.
 
