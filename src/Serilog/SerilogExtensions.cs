@@ -1,19 +1,19 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Serilog;
-using Serilog.Core;
 using Serilog.Events;
 using Serilog.Sinks.Elasticsearch;
 using Serilog.Sinks.MSSqlServer;
 using System;
+using Serilogger = Serilog.Core.Logger;
 
 namespace Zord.Serilog
 {
-    public static class StaticLogger
+    public static class SerilogExtensions
     {
         public static void EnsureInitialized()
         {
-            if (Log.Logger.GetType() != typeof(Logger))
+            if (Log.Logger.GetType() != typeof(Serilogger))
             {
                 Log.Logger = new LoggerConfiguration()
                     .Enrich.FromLogContext()
