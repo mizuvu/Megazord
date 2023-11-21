@@ -2,15 +2,16 @@ global using Zord.Repository;
 global using Zord.Result;
 using Host.Data;
 using Host.TestOption;
-using Serilog;
+using Zord.Api.JwtAuth;
 using Zord.Api.Middlewares;
 using Zord.Extensions.Caching;
 using Zord.Extensions.DependencyInjection;
+using Zord.Serilog;
 using Zord.SmtpMail;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Host.UseSerilog(Zord.Serilog.StaticLogger.Configure);
+builder.Host.ConfigureSerilog();
 
 // Add services to the container.
 
@@ -38,6 +39,11 @@ builder.Services.AddFiles();
 
 builder.Services.AddTestOptions(builder.Configuration);
 
+// Overide by BindConfiguration
+var issuer = builder.Configuration.GetValue<string>("JWT:Issuer");
+var key = builder.Configuration.GetValue<string>("JWT:SecretKey");
+builder.Services.AddJwtAuth(issuer!, key!);
+
 //builder.Services.AddTelegram();
 
 builder.Services.AddControllers();
@@ -58,6 +64,7 @@ app.UseMiddlewares(builder.Configuration);
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

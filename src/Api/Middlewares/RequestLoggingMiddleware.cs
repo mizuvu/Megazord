@@ -11,7 +11,6 @@ public class RequestLoggingMiddleware(RequestDelegate next,
     private readonly ILogger _logger = logger; // must use Microsoft Logger because only Singleton services can be resolved by constructor injection in Middleware
     private readonly string[] _excludePath = ["hangfire", "swagger"];
 
-
     public async Task InvokeAsync(HttpContext context)
     {
         HttpRequest request = context.Request;
@@ -55,7 +54,8 @@ public class RequestLoggingMiddleware(RequestDelegate next,
                 // Log the response body
                 var resource = $"[{request.Method}] {requestPath}{requestQuery}";
                 var statusCode = context.Response.StatusCode;
-                var logContent = $"{Minify(requestBody)}\r\nStatus Code: {statusCode}\r\nTrace ID: {traceId}\r\n{responseText}";
+                var contentType = context.Response.Headers.ContentType.ToString();
+                var logContent = $"{Minify(requestBody)}\r\nStatus Code: {statusCode}\r\nTrace ID: {traceId}\r\n{contentType}\r\n{responseText}";
                 MiddlewareLogger.Write(clientIp, resource, logContent);
 
                 // Copy the response body back to the original stream
