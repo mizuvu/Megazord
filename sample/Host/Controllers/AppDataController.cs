@@ -1,10 +1,12 @@
-﻿using Host.Data;
+﻿using Asp.Versioning;
+using Host.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Host.Controllers
 {
     [Route("[controller]")]
     [ApiController]
+    [ApiVersion("2.0")]
     public class AppDataController : ControllerBase
     {
         private readonly IUnitOfWork _uow;

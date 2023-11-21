@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using Swashbuckle.AspNetCore.SwaggerUI;
 using Zord.Api.Swagger;
 
 namespace Zord.Api.Swagger;
@@ -21,7 +22,7 @@ public static class Startup
         return settings;
     }
 
-    public static IServiceCollection AddSwagger(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddSwagger(this IServiceCollection services, IConfiguration configuration, bool versionDefinition = false)
     {
         services.Configure<SwaggerSettings>(configuration.GetSection(_sectionName));
 
@@ -29,74 +30,46 @@ public static class Startup
 
         if (settings.Enable)
         {
-            services.AddSwaggerGen(opt => opt.CustomSchemaIds(x => x.FullName));
+            if (versionDefinition)
+            {
+                services.AddTransient<IConfigureOptions<SwaggerGenOptions>, CustomSwaggerOptions>();
+            }
+
+            services.AddSwaggerGen(opt => opt.AddJwtSecurityScheme());
+
+            services.AddTransient<IConfigureOptions<SwaggerUIOptions>, CustomSwaggerUIOptions>();
         }
 
         return services;
     }
 
-    public static IApplicationBuilder UseSwagger(this IApplicationBuilder app, IConfiguration configuration)
+    public static IApplicationBuilder UseSwagger(this IApplicationBuilder app, IConfiguration configuration, bool versionDefinition = false)
     {
         var settings = GetSettings(configuration);
 
         if (settings.Enable)
         {
             app.UseSwagger();
-            app.UseSwaggerUI(options =>
+
+            if (versionDefinition)
             {
-                if (!string.IsNullOrEmpty(settings.Title))
+                var provider = app.ApplicationServices.GetRequiredService<IApiVersionDescriptionProvider>();
+
+                app.UseSwaggerUI(options =>
                 {
-                    options.DocumentTitle = settings.Title;
-                }
-            });
-        }
-
-        return app;
-    }
-
-    public static IServiceCollection AddSwaggerWithVersion(this IServiceCollection services, IConfiguration configuration)
-    {
-        services.Configure<SwaggerSettings>(configuration.GetSection(_sectionName));
-
-        var settings = GetSettings(configuration);
-
-        if (settings.Enable)
-        {
-            services.AddTransient<IConfigureOptions<SwaggerGenOptions>, CustomSwaggerOptions>();
-            services.AddSwaggerGen(options =>
+                    // build a swagger endpoint for each discovered API version
+                    foreach (var description in provider.ApiVersionDescriptions)
+                    {
+                        options
+                            .SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json",
+                                description.GroupName.ToUpperInvariant());
+                    }
+                });
+            }
+            else
             {
-                options.OperationFilter<SwaggerDefaultValues>();
-                options.CustomSchemaIds(x => x.FullName);
-            });
-        }
-
-        return services;
-    }
-
-    public static IApplicationBuilder UseSwaggerWithVersion(this IApplicationBuilder app, IConfiguration configuration)
-    {
-        var settings = GetSettings(configuration);
-
-        if (settings.Enable)
-        {
-            var provider = app.ApplicationServices.GetRequiredService<IApiVersionDescriptionProvider>();
-
-            app.UseSwagger();
-            app.UseSwaggerUI(options =>
-            {
-                if (!string.IsNullOrEmpty(settings.Title))
-                {
-                    options.DocumentTitle = settings.Title;
-                }
-
-                // build a swagger endpoint for each discovered API version
-                foreach (var description in provider.ApiVersionDescriptions)
-                {
-                    options
-                        .SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json",
-                            description.GroupName.ToUpperInvariant());
-                }
-            });
+                app.UseSwaggerUI();
+            }
         }
 
         return app;

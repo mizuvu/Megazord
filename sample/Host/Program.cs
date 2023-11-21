@@ -2,8 +2,10 @@ global using Zord.Repository;
 global using Zord.Result;
 using Host.Data;
 using Host.TestOption;
+using Zord.Api;
 using Zord.Api.JwtAuth;
 using Zord.Api.Middlewares;
+using Zord.Api.Swagger;
 using Zord.Extensions.Caching;
 using Zord.Extensions.DependencyInjection;
 using Zord.Serilog;
@@ -47,17 +49,16 @@ builder.Services.AddJwtAuth(issuer!, key!);
 //builder.Services.AddTelegram();
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+builder.Services.AddApiVersion(1);
+builder.Services.AddSwagger(builder.Configuration, true);
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwagger(builder.Configuration, true);
 }
 
 app.UseMiddlewares(builder.Configuration);

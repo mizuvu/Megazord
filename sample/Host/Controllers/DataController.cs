@@ -1,4 +1,5 @@
-﻿using Host.Data;
+﻿using Asp.Versioning;
+using Host.Data;
 using Microsoft.AspNetCore.Mvc;
 using Zord.Extensions;
 using Zord.Repository.EntityFrameworkCore;
@@ -7,6 +8,7 @@ namespace Host.Controllers
 {
     [Route("[controller]")]
     [ApiController]
+    [ApiVersion("1.0")]
     public class DataController : ControllerBase
     {
         private readonly IUnitOfWork<AlphaDbContext> _unitOfWork;
@@ -38,13 +40,16 @@ namespace Host.Controllers
         }
 
         [HttpPut("locations")]
-        public async Task<IActionResult> PutAsync(CancellationToken cancellationToken)
+        public async Task<IActionResult> PutAsync(RetailLocation location, CancellationToken cancellationToken)
         {
-            var data = await _unitOfWork.Repository<RetailLocation>().FindByKeyAsync("111", cancellationToken);
-            data!.Name = "---111----";
+            var data = await _unitOfWork.Repository<RetailLocation>().FindByKeyAsync(location.Code, cancellationToken);
+            data!.Name = location.Name;
+            data.Phone = location.Phone;
+            data.Address = location.Address;
+            data.City = location.City;
 
-            var data2 = await _locationRepo.FindByKeyAsync("222", cancellationToken);
-            data2!.Name = "----222";
+            //var data2 = await _locationRepo.FindByKeyAsync("222", cancellationToken);
+            //data2!.Name = "----222";
 
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 
