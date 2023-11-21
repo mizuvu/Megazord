@@ -34,7 +34,7 @@ namespace UnitTests.ExtensionsTests
         public void Should_Return_Correct_Attribute()
         {
             var type = typeof(TestObject);
-            
+
             var displayName = type.GetDisplayName();
             displayName.Should().Be("Test DisplayName");
 

@@ -28,6 +28,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Extensions\Extensions.csproj" />
     <ProjectReference Include="..\..\src\Result.v2\Result.v2.csproj" />
+    <ProjectReference Include="..\..\src\Specification\Specification.csproj" />
   </ItemGroup>
 
 </Project>
