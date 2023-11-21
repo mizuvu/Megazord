@@ -1,27 +1,27 @@
 using Zord.Result;
 
-namespace Result.UnitTests
+namespace UnitTests.ResultTests
 {
     public class ResultTests
     {
         [Fact]
         public void Should_True_When_Success()
         {
-            var success = Zord.Result.Result.Success();
-            var error = Zord.Result.Result.Error();
+            var success = Result.Success();
+            var error = Result.Error();
 
-            success.Succeeded.Should().Be(true);
-            error.Succeeded.Should().Be(false);
+            success.Succeeded.Should().BeTrue();
+            error.Succeeded.Should().BeFalse();
         }
 
         [Fact]
         public void Should_Return_Correct_Code()
         {
-            var success = Zord.Result.Result.Success();
-            var error = Zord.Result.Result.Error();
-            var badRequest = Zord.Result.Result.BadRequest();
-            var unauthorized = Zord.Result.Result.Unauthorized();
-            var notFound = Zord.Result.Result.NotFound();
+            var success = Result.Success();
+            var error = Result.Error();
+            var badRequest = Result.BadRequest();
+            var unauthorized = Result.Unauthorized();
+            var notFound = Result.NotFound();
 
             success.Code.Should().Be(ResultCode.Ok);
             error.Code.Should().Be(ResultCode.Error);
@@ -38,7 +38,7 @@ namespace Result.UnitTests
         [InlineData(ResultCode.NotFound, "NotFound message")]
         public void Should_Return_Correct_Result(ResultCode code, string message)
         {
-            var result = new Zord.Result.Result
+            var result = new Result
             {
                 Code = code,
                 Message = message,

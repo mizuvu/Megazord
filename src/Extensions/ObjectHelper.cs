@@ -14,9 +14,9 @@ namespace Zord.Extensions
         /// <summary>
         /// Get [DisplayName] attribute of property
         /// </summary>
-        public static string? GetDisplayName(this Type type)
+        public static string? GetDisplayName(this MemberInfo memberInfo)
         {
-            var displayName = type
+            var displayName = memberInfo
               .GetCustomAttributes(typeof(DisplayNameAttribute), true)
               .FirstOrDefault() as DisplayNameAttribute;
 
@@ -26,9 +26,9 @@ namespace Zord.Extensions
         /// <summary>
         /// Get [Description] attribute of property
         /// </summary>
-        public static string? GetDescription(this Type type)
+        public static string? GetDescription(this MemberInfo memberInfo)
         {
-            var displayName = type
+            var displayName = memberInfo
               .GetCustomAttributes(typeof(DescriptionAttribute), true)
               .FirstOrDefault() as DescriptionAttribute;
 
@@ -36,11 +36,11 @@ namespace Zord.Extensions
         }
 
         /// <summary>
-        /// Get [Display(Name={value})] attribute of property
+        /// Get [Display(Name={value})] attribute of Type
         /// </summary>
-        public static string? GetNameOfDisplay(this FieldInfo type)
+        public static string? GetNameInDisplay(this MemberInfo memberInfo)
         {
-            DisplayAttribute? displayAttr = type
+            DisplayAttribute? displayAttr = memberInfo
                 .GetCustomAttributes(typeof(DisplayAttribute), true)
                 .FirstOrDefault() as DisplayAttribute;
 
@@ -48,39 +48,15 @@ namespace Zord.Extensions
         }
 
         /// <summary>
-        /// Get [Display(Name={Description})] attribute of property
+        /// Get [Display(Name={Description})] attribute of Type
         /// </summary>
-        public static string? GetDescriptionOfDisplay(this FieldInfo type)
+        public static string? GetDescriptionInDisplay(this MemberInfo memberInfo)
         {
-            DisplayAttribute? displayAttr = type
+            DisplayAttribute? displayAttr = memberInfo
                 .GetCustomAttributes(typeof(DisplayAttribute), true)
                 .FirstOrDefault() as DisplayAttribute;
 
             return displayAttr?.Description;
-        }
-
-        /// <summary>
-        /// Get all names of property in class
-        /// </summary>
-        public static IEnumerable<string> GetPropertyNames(this Type typeOfObj)
-        {
-            // get props in class
-            var fields = typeOfObj.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy);
-
-            var list = new List<string>();
-
-            foreach (FieldInfo fi in fields)
-            {
-                var propertyValue = fi.GetValue(null);
-
-                if (propertyValue != null)
-                {
-                    list.Add(propertyValue.ToString() ?? string.Empty);
-                }
-                //TODO - take descriptions from description attribute
-            }
-
-            return list;
         }
 
         /// <summary>

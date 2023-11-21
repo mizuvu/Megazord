@@ -41,7 +41,7 @@ namespace Host.Controllers
                 CreatedOn = DateTime.Now,
             };
 
-            var stringData = obj.ToStringData();
+            var stringData = obj.ToJsonString();
 
             return Ok(stringData);
         }
@@ -49,7 +49,7 @@ namespace Host.Controllers
         [HttpGet("read-string-as-obj")]
         public IActionResult StringToObj(string value)
         {
-            var obj = value.ReadAs<TestModel>();
+            var obj = value.ReadJsonAs<TestModel>();
 
             return Ok(obj);
         }
