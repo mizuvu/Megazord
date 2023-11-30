@@ -1,9 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Serilog;
-using Serilog.Events;
 using Serilog.Sinks.Elasticsearch;
-using Serilog.Sinks.MSSqlServer;
 using System;
 using Serilogger = Serilog.Core.Logger;
 
@@ -68,7 +66,7 @@ namespace Zord.Serilog
 
             return logger;
         }
-
+        /*
         private static LoggerConfiguration WriteToMSSQL(this LoggerConfiguration logger, IConfiguration configuration)
         {
             var settings = configuration.GetSection("Serilog:MSSQL").Get<MSSQLOptions>();
@@ -110,7 +108,7 @@ namespace Zord.Serilog
 
             return logger;
         }
-
+        */
         private static LoggerConfiguration WriteToElasticsearch(this LoggerConfiguration logger, IConfiguration configuration, string applicationName, string environment)
         {
             var settings = configuration.GetSection("Serilog:Elasticsearch").Get<ElasticsearchOptions>();
@@ -141,7 +139,7 @@ namespace Zord.Serilog
                 configuration
                     .BaseConfig()
                     .WriteToFile(context.Configuration, applicationName, environment)
-                    .WriteToMSSQL(context.Configuration)
+                    //.WriteToMSSQL(context.Configuration)
                     .WriteToElasticsearch(context.Configuration, applicationName, environment)
                     .Enrich.FromLogContext()
                     .Enrich.WithMachineName()
