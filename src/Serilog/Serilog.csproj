@@ -11,7 +11,7 @@
 	<Authors>minhvu</Authors>
 	<Description>Logging package using Serilog.</Description>
 	<Summary>Logging package using Serilog.</Summary>
-	<Version>0.0.0.5</Version>
+	<Version>0.0.0.6</Version>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	<PackageReleaseNotes></PackageReleaseNotes>
 	<PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -26,9 +26,9 @@
 	<PackageReference Include="Serilog.Enrichers.Environment" Version="2.3.0" />
 	<PackageReference Include="Serilog.Expressions" Version="4.0.0" />
 	<PackageReference Include="Serilog.Sinks.Async" Version="1.5.0" />
-	<PackageReference Include="Serilog.Sinks.Console" Version="5.0.0" />
+	<PackageReference Include="Serilog.Sinks.Console" Version="5.0.1" />
 	<PackageReference Include="Serilog.Sinks.Elasticsearch" Version="9.0.3" />
-	<PackageReference Include="Serilog.Sinks.MSSqlServer" Version="6.3.0" />
+	<PackageReference Include="Serilog.Sinks.MSSqlServer" Version="6.4.0" />
 	<PackageReference Include="Serilog.Sinks.Seq" Version="6.0.0" />
   </ItemGroup>
 

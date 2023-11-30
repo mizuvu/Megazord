@@ -5,5 +5,7 @@
         public bool Enable { get; set; }
 
         public string? Title { get; set; }
+
+        public string? AuthMode { get; set; }
     }
 }

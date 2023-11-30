@@ -7,9 +7,6 @@ namespace Zord.Api.Swagger
 {
     internal static class SwaggerGenOptionsExtensions
     {
-        /// <summary>
-        /// Common SwaggerGen Options configure
-        /// </summary>
         internal static SwaggerGenOptions AddJwtSecurityScheme(this SwaggerGenOptions swaggerGenOptions)
         {
             // Include 'SecurityScheme' to use JWT Authentication
@@ -36,8 +33,33 @@ namespace Zord.Api.Swagger
                 { jwtSecurityScheme, Array.Empty<string>() }
             });
 
-            // fix Swagger when contain multi model, dto has same name
-            swaggerGenOptions.CustomSchemaIds(x => x.FullName);
+            return swaggerGenOptions;
+        }
+
+        internal static SwaggerGenOptions AddBasicSecurityScheme(this SwaggerGenOptions swaggerGenOptions)
+        {
+            // Include 'SecurityScheme' to use Basic Authentication
+            var jwtSecurityScheme = new OpenApiSecurityScheme
+            {
+                Scheme = "basic",
+                Name = "Basic Authentication",
+                In = ParameterLocation.Header,
+                Type = SecuritySchemeType.Http,
+                Description = "Put your basic Authentication on textbox below!",
+
+                Reference = new OpenApiReference
+                {
+                    Id = "basic",
+                    Type = ReferenceType.SecurityScheme
+                }
+            };
+
+            swaggerGenOptions.AddSecurityDefinition(jwtSecurityScheme.Reference.Id, jwtSecurityScheme);
+
+            swaggerGenOptions.AddSecurityRequirement(new OpenApiSecurityRequirement
+            {
+                { jwtSecurityScheme, Array.Empty<string>() }
+            });
 
             return swaggerGenOptions;
         }

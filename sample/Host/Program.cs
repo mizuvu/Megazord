@@ -51,14 +51,14 @@ builder.Services.AddJwtAuth(issuer!, key!);
 builder.Services.AddControllers();
 
 builder.Services.AddApiVersion(1);
-builder.Services.AddSwagger(builder.Configuration, true);
+builder.Services.AddSwagger(builder.Configuration, false);
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger(builder.Configuration, true);
+    app.UseSwagger(builder.Configuration, false);
 }
 
 app.UseMiddlewares(builder.Configuration);

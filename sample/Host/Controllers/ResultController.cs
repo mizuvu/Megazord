@@ -1,6 +1,8 @@
 ﻿using Mapster;
 using Microsoft.AspNetCore.Mvc;
+using System.Text;
 using System.Text.Json;
+using Zord.Api.Authorization;
 
 namespace Host.Controllers
 {
@@ -23,6 +25,9 @@ namespace Host.Controllers
         [HttpGet]
         public IActionResult Get()
         {
+            var auth = HttpContext.Request.ReadAuthorizationValue();
+            Console.WriteLine(auth);
+
             return Ok(_list.ToPagedResult(6, 5));
         }
 

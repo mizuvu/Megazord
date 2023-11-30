@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Swashbuckle.AspNetCore.SwaggerUI;
+using System.Linq.Expressions;
 using Zord.Api.Swagger;
 
 namespace Zord.Api.Swagger;
@@ -35,7 +36,23 @@ public static class Startup
                 services.AddTransient<IConfigureOptions<SwaggerGenOptions>, CustomSwaggerOptions>();
             }
 
-            services.AddSwaggerGen(opt => opt.AddJwtSecurityScheme());
+            services.AddSwaggerGen(opt =>
+            {
+                switch (settings.AuthMode)
+                {
+                    case "JWT":
+                        opt.AddJwtSecurityScheme();
+                        break;
+                    case "basic":
+                        opt.AddBasicSecurityScheme();
+                        break;
+                    default:
+                        // code block
+                        break;
+                }
+                
+                opt.CustomSchemaIds(x => x.FullName); // fix Swagger when contain multi model, dto has same name
+            });
 
             services.AddTransient<IConfigureOptions<SwaggerUIOptions>, CustomSwaggerUIOptions>();
         }
