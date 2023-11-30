@@ -25,7 +25,7 @@ namespace Host.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var auth = HttpContext.Request.ReadAuthorizationValue();
+            var auth = HttpContext.Request.ReadBasicAuthorization();
             Console.WriteLine(auth);
 
             return Ok(_list.ToPagedResult(6, 5));

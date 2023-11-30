@@ -5,7 +5,7 @@ namespace Zord.Api.Authorization;
 
 public static class BasicAuthorizationExtensions
 {
-    public static string ReadAuthorizationValue(this HttpRequest httpRequest)
+    public static string ReadBasicAuthorization(this HttpRequest httpRequest)
     {
         // read Authorization from request header
         // Authorization value from header looks similar to this "Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ=="
