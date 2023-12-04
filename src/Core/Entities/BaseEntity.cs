@@ -8,7 +8,7 @@ namespace Zord.Entities;
 /// </summary>
 public abstract class BaseEntity : IEntity, IEvent
 {
-    private readonly List<DomainEvent> _domainEvents = new();
+    private readonly List<DomainEvent> _domainEvents = [];
 
     [NotMapped]
     public IReadOnlyCollection<DomainEvent> DomainEvents => _domainEvents.AsReadOnly();

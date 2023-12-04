@@ -38,20 +38,29 @@ namespace Zord.Serilog
 
         private static LoggerConfiguration WriteToFile(this LoggerConfiguration logger, IConfiguration configuration, string applicationName, string environment)
         {
-            var settings = configuration.GetSection("Serilog:File").Get<FileOptions>();
+            var elementName = "FileAsync";
 
-            if (settings == null)
+            var options = SerilogOptionsExtensions.GetWriteToOptions(configuration, elementName);
+
+            if (options == null)
             {
                 return logger;
+            }
+
+            // custom settings
+            string? configPath = null;
+            string? configTemplate = null;
+
+            // get options values
+            if (options.Args != null)
+            {
+                options.Args.TryGetValue("Path", out configPath);
+                options.Args.TryGetValue("Template", out configTemplate);
             }
 
             // default settings
             var defaultPath = "logs"; // default save logs files to [current directory]/logs
             var defaultTemplate = "[{Timestamp:HH:mm:ss} {Level:u3}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}";
-
-            // custom settings
-            var configPath = settings.Path;
-            var configTemplate = settings.Template;
 
             //var template = "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}";
             //var template = "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj} <s:{SourceContext}>{NewLine}{Exception}";
@@ -111,20 +120,31 @@ namespace Zord.Serilog
         */
         private static LoggerConfiguration WriteToElasticsearch(this LoggerConfiguration logger, IConfiguration configuration, string applicationName, string environment)
         {
-            var settings = configuration.GetSection("Serilog:Elasticsearch").Get<ElasticsearchOptions>();
+            var elementName = "ElasticsearchAsync";
 
-            if (settings != null && !string.IsNullOrEmpty(settings.Endpoint))
+            var options = SerilogOptionsExtensions.GetWriteToOptions(configuration, elementName);
+
+            if (options != null && options.Args != null)
             {
-                var serviceName = settings.ServiceName ?? applicationName;
+                // get Elasticsearch configuration in WriteTo Args
+                options.Args.TryGetValue("ServiceName", out string? serviceName);
+                options.Args.TryGetValue("Endpoint", out string? endpoint);
+                options.Args.TryGetValue("Username", out string? username);
+                options.Args.TryGetValue("Password", out string? password);
 
-                logger.WriteTo.Async(w => w.Elasticsearch(new ElasticsearchSinkOptions(new Uri(settings.Endpoint))
+                if (!string.IsNullOrEmpty(endpoint) && !string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password))
                 {
-                    IndexFormat = $"{serviceName}-{environment}-{DateTime.UtcNow:yyyy-MM-dd}",
-                    AutoRegisterTemplate = true,
-                    NumberOfReplicas = 1,
-                    NumberOfShards = 2,
-                    ModifyConnectionSettings = x => x.BasicAuthentication(settings.Username, settings.Password)
-                }));
+                    serviceName ??= applicationName;
+
+                    logger.WriteTo.Async(w => w.Elasticsearch(new ElasticsearchSinkOptions(new Uri(endpoint))
+                    {
+                        IndexFormat = $"{serviceName}-{environment}-{DateTime.UtcNow:yyyy-MM-dd}",
+                        AutoRegisterTemplate = true,
+                        NumberOfReplicas = 1,
+                        NumberOfShards = 2,
+                        ModifyConnectionSettings = x => x.BasicAuthentication(username, password)
+                    }));
+                }
             }
 
             return logger;
