@@ -10,7 +10,7 @@ using Zord.Host.Extensions;
 
 namespace Zord.Host;
 
-public static class ApiModule
+public static class ConfigureExtensions
 {
     /// <summary>
     /// add API version
@@ -37,10 +37,6 @@ public static class ApiModule
         var env = builder.Environment.EnvironmentName;
         var configuration = builder.Configuration;
 
-        configuration
-            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-            .AddJsonFile($"appsettings.{env}.json", optional: true, reloadOnChange: true);
-
         if (paths is not null)
         {
             // combine paths to string
@@ -59,6 +55,11 @@ public static class ApiModule
                 }
             }
         }
+
+        // load after add json files for can override values at root configurations
+        configuration
+            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+            .AddJsonFile($"appsettings.{env}.json", optional: true, reloadOnChange: true);
 
         configuration.AddEnvironmentVariables();
 

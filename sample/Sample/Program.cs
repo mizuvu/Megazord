@@ -13,8 +13,8 @@ using Zord.SmtpMail;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//builder.AddConfigurations(["configurations"]);
-builder.AddConfigurations(["D:", "configurations"]);
+builder.AddConfigurations(["configurations"]);
+//builder.AddConfigurations(["D:", "configurations"]);
 //builder.AddConfigurations(null);
 builder.Host.ConfigureSerilog();
 
