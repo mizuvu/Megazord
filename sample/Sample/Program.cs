@@ -13,9 +13,10 @@ using Zord.SmtpMail;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.AddConfigurations(["configurations"]);
+//builder.AddConfigurations(["configurations"]);
 //builder.AddConfigurations(["D:", "configurations"]);
 //builder.AddConfigurations(null);
+builder.AddJsonFiles();
 builder.Host.ConfigureSerilog();
 
 // Add services to the container.

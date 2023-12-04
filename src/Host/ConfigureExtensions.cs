@@ -32,27 +32,34 @@ public static class ConfigureExtensions
     /// <summary>
     /// Add configuration files *.json from folder
     /// </summary>
-    public static WebApplicationBuilder AddConfigurations(this WebApplicationBuilder builder, string[]? paths)
+    public static WebApplicationBuilder AddJsonFiles(this WebApplicationBuilder builder, string[]? paths = null)
     {
-        var env = builder.Environment.EnvironmentName;
         var configuration = builder.Configuration;
 
-        if (paths is not null)
+        // If not configure paths
+        //      get default configuration paths in "ConfigurationPaths" section
+        paths ??= builder.Configuration.GetSection("ConfigurationPaths").Get<string[]>();
+
+        if (paths is null)
         {
-            // combine paths to string
-            var path = Path.Combine(paths);
+            return builder; // use default config
+        }
 
-            // get directory info
-            var dInfo = new DirectoryInfo(path);
-            if (dInfo.Exists)
+        var env = builder.Environment.EnvironmentName;
+
+        // combine paths to string
+        var path = Path.Combine(paths);
+
+        // get directory info
+        var dInfo = new DirectoryInfo(path);
+        if (dInfo.Exists)
+        {
+            var files = dInfo.GetFiles("*.json").Where(x => !x.Name.Contains("appsettings"));
+
+            foreach (var file in files)
             {
-                var files = dInfo.GetFiles("*.json").Where(x => !x.Name.Contains("appsettings"));
-
-                foreach (var file in files)
-                {
-                    configuration
-                        .AddJsonFile(Path.Combine(path, file.Name), optional: false, reloadOnChange: true);
-                }
+                configuration
+                    .AddJsonFile(Path.Combine(path, file.Name), optional: false, reloadOnChange: true);
             }
         }
 
