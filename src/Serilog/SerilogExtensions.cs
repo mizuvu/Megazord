@@ -134,7 +134,10 @@ namespace Zord.Serilog
 
                 if (!string.IsNullOrEmpty(endpoint) && !string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password))
                 {
-                    serviceName ??= applicationName;
+                    if (string.IsNullOrEmpty(serviceName))
+                    {
+                        serviceName = applicationName;
+                    }
 
                     logger.WriteTo.Async(w => w.Elasticsearch(new ElasticsearchSinkOptions(new Uri(endpoint))
                     {
