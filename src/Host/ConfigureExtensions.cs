@@ -32,13 +32,13 @@ public static class ConfigureExtensions
     /// <summary>
     /// Add configuration files *.json from folder
     /// </summary>
-    public static WebApplicationBuilder AddJsonFiles(this WebApplicationBuilder builder, string[]? paths = null)
+    public static WebApplicationBuilder LoadJsonConfigurations(this WebApplicationBuilder builder, string[]? paths = null)
     {
         var configuration = builder.Configuration;
 
         // If not configure paths
-        //      get default configuration paths in "ConfigurationPaths" section
-        paths ??= builder.Configuration.GetSection("ConfigurationPaths").Get<string[]>();
+        //      get default configuration paths in "JsonConfigurationPaths" section
+        paths ??= builder.Configuration.GetSection("JsonConfigurationPaths").Get<string[]>();
 
         if (paths is null)
         {

@@ -53,5 +53,14 @@ namespace Sample.Controllers
 
             return Ok(obj);
         }
+
+        [HttpGet("set-if-null")]
+        public IActionResult SetIfNull()
+        {
+            string? value = null;
+            value.SetIfNullOrEmpty("Value");
+            
+            return Ok(value);
+        }
     }
 }
