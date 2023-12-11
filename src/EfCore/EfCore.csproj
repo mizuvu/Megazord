@@ -11,7 +11,7 @@
 	<Authors>minhvu</Authors>
 	<Description>EF Core plugin package containing EF Core evaluator.</Description>
 	<Summary>EF Core plugin package containing EF Core evaluator.</Summary>
-	<Version>8.0.0.1</Version>
+	<Version>8.0.0.2</Version>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	<PublishRepositoryUrl>true</PublishRepositoryUrl>
 	<EmbedUntrackedSources>true</EmbedUntrackedSources>

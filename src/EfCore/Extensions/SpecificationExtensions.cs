@@ -10,13 +10,13 @@ public static class SpecificationExtensions
     /// <summary>
     ///     build a queryable filter by specification & tracking behaviour
     /// </summary>
-    private static IQueryable<T> BuildQuery<T>(this DbSet<T> dbSet,
+    private static IQueryable<T> Where<T>(this DbSet<T> dbSet,
         ISpecification<T> specification,
         bool tracking = true)
         where T : class
     {
         // filter by specification
-        var query = dbSet.Where(specification);
+        var query = dbSet.AsQueryable().Where(specification);
 
         // check Tracking
         if (tracking is false)
@@ -26,15 +26,6 @@ public static class SpecificationExtensions
 
         return query;
     }
-
-    /// <summary>
-    ///     build a queryable filter by specification & tracking behaviour
-    /// </summary>
-    public static IQueryable<T> Where<T>(this DbSet<T> dbSet,
-        ISpecification<T> specification,
-        bool tracking = true)
-        where T : class
-        => dbSet.BuildQuery(specification, tracking);
 
     /// <summary>
     ///     Get list instances of T by specification
@@ -142,7 +133,7 @@ public static class SpecificationExtensions
         ISpecification<T> specification,
         bool tracking = true)
         where T : class
-        => context.Set<T>().BuildQuery(specification, tracking);
+        => context.Set<T>().Where(specification, tracking);
 
     /// <summary>
     ///     Get list instances of T by specification
