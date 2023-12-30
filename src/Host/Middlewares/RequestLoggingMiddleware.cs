@@ -1,15 +1,19 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
 
 namespace Zord.Host.Middlewares;
 
 public class RequestLoggingMiddleware(RequestDelegate next,
+    IConfiguration configuration,
     ILogger<RequestLoggingMiddleware> logger)
 {
-    private readonly RequestDelegate _next = next;
-    private readonly ILogger _logger = logger; // must use Microsoft Logger because only Singleton services can be resolved by constructor injection in Middleware
     private readonly string[] _excludePath = ["hangfire", "swagger"];
+
+    private readonly RequestDelegate _next = next;
+    private readonly bool _responseLogging = configuration.GetValue<bool>("ResponseLogging");
+    private readonly ILogger _logger = logger; // must use Microsoft Logger because only Singleton services can be resolved by constructor injection in Middleware
 
     public async Task InvokeAsync(HttpContext context)
     {
@@ -47,20 +51,26 @@ public class RequestLoggingMiddleware(RequestDelegate next,
                 // Continue processing the request
                 await _next(context);
 
-                // Read the response body
-                responseBody.Seek(0, SeekOrigin.Begin);
-                string responseText = new StreamReader(responseBody).ReadToEnd();
-
                 // Log the response body
                 var resource = $"[{request.Method}] {requestPath}{requestQuery}";
                 var statusCode = context.Response.StatusCode;
                 var contentType = context.Response.Headers.ContentType.ToString();
-                var logContent = $"{Minify(requestBody)}\r\nStatus Code: {statusCode}\r\nTrace ID: {traceId}\r\n{contentType}\r\n{responseText}";
-                MiddlewareLogger.Write(clientIp, resource, logContent);
+                var logContent = $"{Minify(requestBody)}\r\nStatus Code: {statusCode}\r\nTrace ID: {traceId}\r\n{contentType}";
+                
+                if (_responseLogging) // write response log if enable
+                {
+                    // Read the response body
+                    responseBody.Seek(0, SeekOrigin.Begin);
+                    string responseText = new StreamReader(responseBody).ReadToEnd();
 
-                // Copy the response body back to the original stream
-                responseBody.Seek(0, SeekOrigin.Begin);
-                await responseBody.CopyToAsync(originalBody);
+                    logContent += $"\r\n{responseText}";
+
+                    // Copy the response body back to the original stream
+                    responseBody.Seek(0, SeekOrigin.Begin);
+                    await responseBody.CopyToAsync(originalBody);
+                }
+                
+                MiddlewareLogger.Write(clientIp, resource, logContent);
             }
             catch (Exception ex)
             {
