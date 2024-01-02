@@ -64,12 +64,12 @@ public class RequestLoggingMiddleware(RequestDelegate next,
                     string responseText = new StreamReader(responseBody).ReadToEnd();
 
                     logContent += $"\r\n{responseText}";
-
-                    // Copy the response body back to the original stream
-                    responseBody.Seek(0, SeekOrigin.Begin);
-                    await responseBody.CopyToAsync(originalBody);
                 }
-                
+
+                // Copy the response body back to the original stream
+                responseBody.Seek(0, SeekOrigin.Begin);
+                await responseBody.CopyToAsync(originalBody);
+
                 MiddlewareLogger.Write(clientIp, resource, logContent);
             }
             catch (Exception ex)
