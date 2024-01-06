@@ -11,7 +11,7 @@ public abstract class AuditableEntity : BaseEntity, IAuditableEntity
 
     public string? CreatedBy { get; set; }
 
-    public DateTimeOffset? LastModifiedOn { get; set; }
+    public DateTimeOffset LastModifiedOn { get; set; }
 
     public string? LastModifiedBy { get; set; }
 }
