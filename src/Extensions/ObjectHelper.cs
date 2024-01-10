@@ -12,7 +12,7 @@ namespace Zord.Extensions
     public static class ObjectHelper
     {
         /// <summary>
-        /// Get [DisplayName] attribute of property
+        /// Get value from [DisplayName] attribute
         /// </summary>
         public static string? GetDisplayName(this MemberInfo memberInfo)
         {
@@ -24,7 +24,7 @@ namespace Zord.Extensions
         }
 
         /// <summary>
-        /// Get [Description] attribute of property
+        /// Get value from [Description] attribute
         /// </summary>
         public static string? GetDescription(this MemberInfo memberInfo)
         {
@@ -36,9 +36,9 @@ namespace Zord.Extensions
         }
 
         /// <summary>
-        /// Get [Display(Name={value})] attribute of Type
+        /// Get value of Name from [Display(Name={value})] attribute
         /// </summary>
-        public static string? GetNameInDisplay(this MemberInfo memberInfo)
+        public static string? GetNameOfDisplay(this MemberInfo memberInfo)
         {
             DisplayAttribute? displayAttr = memberInfo
                 .GetCustomAttributes(typeof(DisplayAttribute), true)
@@ -48,9 +48,9 @@ namespace Zord.Extensions
         }
 
         /// <summary>
-        /// Get [Display(Name={Description})] attribute of Type
+        /// Get value of Description from [Display(Name={Description})] attribute
         /// </summary>
-        public static string? GetDescriptionInDisplay(this MemberInfo memberInfo)
+        public static string? GetDescriptionOfDisplay(this MemberInfo memberInfo)
         {
             DisplayAttribute? displayAttr = memberInfo
                 .GetCustomAttributes(typeof(DisplayAttribute), true)
@@ -84,6 +84,31 @@ namespace Zord.Extensions
                 if (value != null)
                 {
                     result[name] = value;
+                }
+            }
+
+            return result;
+        }
+
+
+        /// <summary>
+        /// Get all values from const or static props of object
+        /// </summary>
+        public static IDictionary<string, object> GetStaticValues(this Type typeOfObj)
+        {
+            // get props in class
+            var fields = typeOfObj.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy);
+
+            var result = new Dictionary<string, object>();
+
+            foreach (FieldInfo fi in fields)
+            {
+                var propName = fi.Name;
+                var propValue = fi.GetValue(null);
+
+                if (propValue != null)
+                {
+                    result[propName] = propValue;
                 }
             }
 

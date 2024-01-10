@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Zord.Extensions
 {
@@ -50,15 +49,6 @@ namespace Zord.Extensions
             return value.Length <= length
                    ? value
                    : value[(value.Length - length)..];
-        }
-
-        /// <summary>
-        ///     Get substring of specified number of characters on the right.
-        /// </summary>
-        public static void SetIfNullOrEmpty(this string? value, string newValue)
-        {
-            if (string.IsNullOrEmpty(value))
-                value = newValue;
         }
     }
 }

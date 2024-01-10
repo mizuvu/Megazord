@@ -41,10 +41,10 @@ namespace UnitTests.ExtensionsTests
             var description = type.GetDescription();
             description.Should().Be("Test Description");
 
-            var nameInDisplay = type.GetNameInDisplay();
+            var nameInDisplay = type.GetNameOfDisplay();
             nameInDisplay.Should().Be("Test Name in Display");
 
-            var descInDisplay = type.GetDescriptionInDisplay();
+            var descInDisplay = type.GetDescriptionOfDisplay();
             descInDisplay.Should().Be("Test Description in Display");
 
             var nameOfId = ObjectHelper.GetPropertyName<TestObject, int>(x => x.Id);

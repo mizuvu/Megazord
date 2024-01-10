@@ -5,18 +5,18 @@ using System.Text.Json;
 
 namespace Zord.Extensions
 {
-    public static class JsonConverter
+    public static class JsonHelper
     {
-        /// <summary>
-        /// Convert an instance of T to string (json as UTF8)
-        /// </summary>
-        public static string ToJsonString<T>(this T obj)
+        private static readonly JsonSerializerOptions options = new JsonSerializerOptions
         {
-            var options = new JsonSerializerOptions
-            {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-            };
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        };
 
+        /// <summary>
+        /// Convert an instance of T to Json as Base64 (UTF8)
+        /// </summary>
+        public static string ToBase64Json<T>(this T obj)
+        {
             var json = JsonSerializer.Serialize(obj, options);
 
             var bytes = Encoding.UTF8.GetBytes(json);
@@ -25,16 +25,11 @@ namespace Zord.Extensions
         }
 
         /// <summary>
-        /// Read string data as an instance of T
+        /// Read Base64 (UTF8) data as an instance of T
         /// </summary>
         [return: MaybeNull]
-        public static T ReadJsonAs<T>(this string value)
+        public static T ReadBase64JsonAs<T>(this string value)
         {
-            var options = new JsonSerializerOptions
-            {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-            };
-
             var bytes = Convert.FromBase64String(value);
 
             var json = Encoding.UTF8.GetString(bytes);
