@@ -11,7 +11,7 @@
 	<Authors>minhvu</Authors>
 	<Description>EF Core extensions package.</Description>
 	<Summary>EF Core extensions package.</Summary>
-	<Version>8.0.0.2</Version>
+	<Version>8.0.0.3</Version>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	<PublishRepositoryUrl>true</PublishRepositoryUrl>
 	<EmbedUntrackedSources>true</EmbedUntrackedSources>
@@ -20,7 +20,7 @@
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.1.28" />
-	<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.0" />
+	<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.1" />
 	<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
   </ItemGroup>
 
