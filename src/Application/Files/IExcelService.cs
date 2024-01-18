@@ -10,26 +10,31 @@ namespace Zord.Files
         /// <summary>
         /// Export a DataTable to file
         /// </summary>
-        public Stream Export<T>(DataTable dataTable, string? sheetName = null);
+        Stream Export<T>(DataTable dataTable, string? sheetName = null);
 
         /// <summary>
         /// Export a list data to file
         /// </summary>
-        public Stream Export<T>(IList<T> data, string? sheetName = null);
+        Stream Export<T>(IList<T> data, string? sheetName = null);
 
         /// <summary>
         /// Export multi list data to file
         /// </summary>
-        public Stream Export(ExportExcelDataRequest[] request);
+        Stream Export(ExportExcelDataRequest[] request);
 
         /// <summary>
         /// Load excel file to DataTable
         /// </summary>
-        public DataTable Read(Stream streamData, string? sheetName = null);
+        DataTable Read(Stream streamData, string? sheetName = null);
 
         /// <summary>
         /// Load excel file to list object with manual set column names
         /// </summary>
-        public IEnumerable<T> Read<T>(Stream streamData, string? sheetName = null, ColumnOptions<T>? options = null);
+        IEnumerable<T> Read<T>(Stream streamData, string? sheetName = null, ColumnOptions<T>? options = null);
+
+        /// <summary>
+        /// Load excel file to objects list
+        /// </summary>
+        List<Dictionary<string, object>> ReadAsObject(Stream streamData, string? sheetName = null);
     }
 }

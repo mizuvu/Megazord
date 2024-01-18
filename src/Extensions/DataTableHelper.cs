@@ -54,5 +54,49 @@ namespace Zord.Extensions
 
             return table;
         }
+
+        public static List<Dictionary<string, object>> ConvertToObjects(DataTable dt)
+        {
+            var objects = new List<Dictionary<string, object>>();
+
+            var intType = "(int)";
+            var dateTimeType = "(date)";
+            var boolType = "(bool)";
+
+            foreach (DataRow row in dt.Rows)
+            {
+                var obj = new Dictionary<string, object>();
+
+                foreach (DataColumn column in dt.Columns)
+                {
+                    var propName = column.ColumnName;
+                    var propValue = row[column];
+
+                    if (propName.Contains(intType))
+                    {
+                        propName = propName.Replace(intType, "");
+                        obj[propName] = Convert.ToInt64(propValue);
+                    }
+                    else if (propName.Contains(dateTimeType))
+                    {
+                        propName = propName.Replace(dateTimeType, "");
+                        obj[propName] = Convert.ToDateTime(propValue);
+                    }
+                    else if (propName.Contains(boolType))
+                    {
+                        propName = propName.Replace(boolType, "");
+                        obj[propName] = Convert.ToBoolean(propValue);
+                    }
+                    else
+                    {
+                        obj[propName] = propValue;
+                    }
+                }
+
+                objects.Add(obj);
+            }
+
+            return objects;
+        }
     }
 }

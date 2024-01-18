@@ -1,4 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Data;
+using Zord.Extensions;
 using Zord.Files;
 
 namespace Sample.Controllers
@@ -48,23 +51,40 @@ namespace Sample.Controllers
 
             Stream stream = new MemoryStream(bytes);
 
-            var list = _excelService.Read<ImportTemp>(stream);
+            var dt = _excelService.Read(stream);
 
-            return Ok(list);
+            var obj = DataTableHelper.ConvertToObjects(dt);
+
+            return Ok(obj);
+        }
+
+        [HttpGet("test")]
+        public IActionResult Test()
+        {
+            int[] list = [1, 2, 3, 4];
+
+            foreach (var item in list.Select((value, i) => new { i, value }))
+            {
+                var value = item.value;
+                var index = item.i;
+                Console.WriteLine($"[{item.i}] - {item.value}");
+            }
+
+            return Ok();
         }
     }
+}
 
-    public enum ImportType
-    {
-        None,
-        New,
-        Update,
-        Delete
-    }
+public enum ImportType
+{
+    None,
+    New,
+    Update,
+    Delete
+}
 
-    public class ImportTemp
-    {
-        public int Id { get; set; }
-        public ImportType Type { get; set; }
-    }
+public class ImportTemp
+{
+    public int Id { get; set; }
+    public ImportType Type { get; set; }
 }

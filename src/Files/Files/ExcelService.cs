@@ -60,37 +60,43 @@ namespace Zord.Files
             using IXLWorkbook workbook = new XLWorkbook(streamData);
 
             // set worksheet
-            //var worksheet = workbook.Worksheets.Where(w => w.Name == sheetName).First();
             var worksheet = !string.IsNullOrEmpty(sheetName)
                 ? workbook.Worksheet(sheetName)
                 : workbook.Worksheet(1);
 
+            // read rows with index
+            var rowsWithIndex = worksheet.Rows().Select((data, i) => new { i, data });
+
             // Create a new DataTable.
             var dt = new DataTable();
+            int columnsCount = 0;
 
             // Loop through the Worksheet rows.
-            bool firstRow = true;
-
-            foreach (IXLRow row in worksheet.Rows()) // Skip first row which is used for column header texts
+            foreach (var row in rowsWithIndex) // Skip first row which is used for column header texts
             {
+                IXLRow rowData = row.data;
+                int rowIndex = row.i;
+                
                 // Use the first row to add columns to DataTable.
-                if (firstRow)
+                if (rowIndex == 0)
                 {
-                    foreach (IXLCell cell in row.Cells())
+                    foreach (IXLCell cell in rowData.Cells())
                     {
                         dt.Columns.Add(cell.Value.ToString());
                     }
-                    firstRow = false;
+
+                    columnsCount = dt.Columns.Count;
                 }
                 else
                 {
                     // Add rows to DataTable.
                     dt.Rows.Add();
-                    int i = 0;
-                    foreach (IXLCell cell in row.Cells())
+
+                    for (var i = 0; i < columnsCount; i++)
                     {
+                        var cell = rowData.Cell(i + 1); // because ClosedXML start with 1
+
                         dt.Rows[^1][i] = cell.Value.ToString();
-                        i++;
                     }
                 }
             }
@@ -167,6 +173,71 @@ namespace Zord.Files
             }
 
             return list;
+        }
+
+        public List<Dictionary<string, object>> ReadAsObject(Stream streamData, string? sheetName = null)
+        {
+            using IXLWorkbook workbook = new XLWorkbook(streamData);
+
+            // set worksheet
+            var worksheet = !string.IsNullOrEmpty(sheetName)
+                ? workbook.Worksheet(sheetName)
+                : workbook.Worksheet(1);
+
+            // read rows with index
+            var rowsWithIndex = worksheet.Rows().Select((data, i) => new { i, data });
+
+            // new objects list with prop name is dictionary key and prop value is dictionary value
+            var objects = new List<Dictionary<string, object>>();
+
+            // hold columns name in excel file for define prop names
+            var propNamesInObject = new List<string>();
+
+            // Loop through the Worksheet rows.
+            foreach (var row in rowsWithIndex) // Skip first row which is used for column header texts
+            {
+                IXLRow rowData = row.data;
+                int rowIndex = row.i;
+
+                // Use first row for define prop names in object.
+                if (rowIndex == 0)
+                {
+                    propNamesInObject = rowData.Cells().Select(s => s.Value.ToString()).ToList();
+                }
+                else
+                {
+                    var obj = new Dictionary<string, object>();
+
+                    for (var i = 0; i < propNamesInObject.Count; i++)
+                    {
+                        var cell = rowData.Cell(i + 1);
+                        var propName = propNamesInObject[i];
+                        var propValue = cell.Value.ToString();
+
+                        // convert prop value to correct type
+                        if (cell.Value.IsNumber)
+                        {
+                            obj[propName] = Convert.ToInt64(propValue);
+                        }
+                        else if (cell.Value.IsDateTime)
+                        {
+                            obj[propName] = Convert.ToDateTime(propValue);
+                        }
+                        else if (cell.Value.IsBoolean)
+                        {
+                            obj[propName] = Convert.ToBoolean(propValue);
+                        }
+                        else
+                        {
+                            obj[propName] = propValue;
+                        }
+                    }
+
+                    objects.Add(obj);
+                }
+            }
+
+            return objects;
         }
     }
 }
