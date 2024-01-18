@@ -57,6 +57,12 @@ public class ExceptionHandlerMiddleware(RequestDelegate next,
                     message = $"Not Found with Trace ID: {traceId}";
                     break;
 
+                case Exception e:
+                    response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                    message = $"Not Found with Trace ID: {traceId}";
+                    errors.Add(e.Message);
+                    break;
+
                 default:
                     response.StatusCode = (int)HttpStatusCode.InternalServerError;
                     message = $"Internal Server Error with Trace ID: {traceId}";
