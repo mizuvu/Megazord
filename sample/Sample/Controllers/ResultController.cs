@@ -53,16 +53,16 @@ namespace Sample.Controllers
         [HttpGet("error")]
         public IActionResult Error()
         {
-            IEnumerable<int>? list = null;
+            var error = Result.Error("Error1", "Error2", "Error3", "Error4");
+            var errorT = Result<string>.Error("Error1", "Error2", "Error3", "Error4");
 
-            var result = Result.Error("Error");
-            var resultOfT = Result<int>.Error("Error of T");
+            return Ok(new { error, errorT });
+        }
 
-
-            var resultOfList = list.ToPagedResult(1, 5);
-
-
-            return Ok(new { result, resultOfT, resultOfList });
+        [HttpGet("success")]
+        public IActionResult GetSuccess()
+        {
+            return Ok(Result.Success());
         }
     }
 }

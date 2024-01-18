@@ -31,18 +31,9 @@ namespace Sample.Controllers
         }
 
         [HttpGet("dis")]
-        public async Task<IActionResult> GetDisAsync()
+        public IActionResult GetDisAsync()
         {
-            var memObj = await distributedCache.GetAsync(_cacheKey,
-                async factory =>
-                {
-                    var data = await context.RetailCategories.FirstAsync();
-                    Console.WriteLine("Get data from DB");
-                    return data;
-                },
-                default);
-
-            return Ok(memObj);
+            return Ok();
         }
     }
 }

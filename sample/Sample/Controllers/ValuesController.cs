@@ -30,37 +30,5 @@ namespace Sample.Controllers
 
             return Ok();
         }
-
-        [HttpGet("obj-to-string")]
-        public IActionResult ObjToString()
-        {
-            var obj = new TestModel
-            {
-                Id = 1,
-                Name = "Test",
-                CreatedOn = DateTime.Now,
-            };
-
-            var stringData = obj.ToJsonString();
-
-            return Ok(stringData);
-        }
-
-        [HttpGet("read-string-as-obj")]
-        public IActionResult StringToObj(string value)
-        {
-            var obj = value.ReadJsonAs<TestModel>();
-
-            return Ok(obj);
-        }
-
-        [HttpGet("set-if-null")]
-        public IActionResult SetIfNull()
-        {
-            string? value = null;
-            value.SetIfNullOrEmpty("Value");
-            
-            return Ok(value);
-        }
     }
 }

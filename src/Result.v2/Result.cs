@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Zord.Result
 {
@@ -18,10 +17,15 @@ namespace Zord.Result
             Code = code;
         }
 
-        protected internal Result(ResultCode code, string message, IEnumerable<string> errors)
+        protected internal Result(ResultCode code, string message)
         {
             Code = code;
             Message = message;
+        }
+
+        protected internal Result(ResultCode code, IEnumerable<string> errors)
+        {
+            Code = code;
 
             if (errors != null)
             {
@@ -35,40 +39,40 @@ namespace Zord.Result
 
         public string Message { get; set; } = "";
 
-        public IEnumerable<string> Errors { get; set; } = Array.Empty<string>();
+        public IEnumerable<string> Errors { get; set; } = new List<string>();
 
-        public static Result Success(string message = "") => new Result(ResultCode.Ok, message, default);
+        public static Result Success(string message = "") => new Result(ResultCode.Ok, message);
 
-        public static Result BadRequest(string message = "", IEnumerable<string> errors = default) =>
-            new Result(ResultCode.BadRequest, message, errors);
+        public static Result BadRequest(params string[] errors) =>
+            new Result(ResultCode.BadRequest, errors);
 
-        public static Result Forbidden(string message = "", IEnumerable<string> errors = default) =>
-            new Result(ResultCode.Forbidden, message, errors);
+        public static Result Forbidden(params string[] errors) =>
+            new Result(ResultCode.Forbidden, errors);
 
-        public static Result Unauthorized(string message = "", IEnumerable<string> errors = default) =>
-            new Result(ResultCode.Unauthorized, message, errors);
+        public static Result Unauthorized(params string[] errors) =>
+            new Result(ResultCode.Unauthorized, errors);
 
-        public static Result NotFound(string message = "", IEnumerable<string> errors = default) =>
-            new Result(ResultCode.NotFound, message, errors);
+        public static Result NotFound(params string[] errors) =>
+            new Result(ResultCode.NotFound, errors);
 
         public static Result NotFound(string objectName, object queryValue)
         {
             var message = $"Query object {objectName} by {queryValue} not found";
 
-            return new Result(ResultCode.NotFound, message, default);
+            return new Result(ResultCode.NotFound, new List<string> { message });
         }
 
         public static Result NotFound<TObject>(object queryValue)
         {
             var message = $"Query object {typeof(TObject).Name} by {queryValue} not found";
 
-            return new Result(ResultCode.NotFound, message, default);
+            return new Result(ResultCode.NotFound, new List<string> { message });
         }
 
-        public static Result Conflict(string message = "", IEnumerable<string> errors = default) =>
-            new Result(ResultCode.Conflict, message, errors);
+        public static Result Conflict(params string[] errors) =>
+            new Result(ResultCode.Conflict, errors);
 
-        public static Result Error(string message = "", IEnumerable<string> errors = default) =>
-            new Result(ResultCode.Error, message, errors);
+        public static Result Error(params string[] errors) =>
+            new Result(ResultCode.Error, errors);
     }
 }

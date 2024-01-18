@@ -24,10 +24,9 @@ namespace Zord.Result
             }
         }
 
-        protected internal Result(ResultCode code, string message, IEnumerable<string> errors)
+        protected internal Result(ResultCode code, IEnumerable<string> errors)
         {
             Code = code;
-            Message = message;
 
             if (errors != null)
             {
@@ -45,27 +44,27 @@ namespace Zord.Result
 
         public T Data { get; set; }
 
-        public static Result<T> Success(T data, string message = "")
-            => new Result<T>(data, message);
+        public static Result<T> Success(T data, string message = "") =>
+            new Result<T>(data, message);
 
         public static Result<T> NotFound(string objectName, object queryValue)
         {
             var message = $"Query object {objectName} by {queryValue} not found";
 
-            return new Result<T>(ResultCode.NotFound, message, default);
+            return new Result<T>(ResultCode.NotFound, new List<string> { message });
         }
 
         public static Result<T> NotFound<TObject>(object queryValue)
         {
             var message = $"Query object {typeof(TObject).Name} by {queryValue} not found";
 
-            return new Result<T>(ResultCode.NotFound, message, default);
+            return new Result<T>(ResultCode.NotFound, new List<string> { message });
         }
 
-        public static Result<T> BadRequest(string message = "", IEnumerable<string> errors = default)
-            => new Result<T>(ResultCode.BadRequest, message, errors);
+        public static Result<T> BadRequest(params string[] errors) =>
+            new Result<T>(ResultCode.BadRequest, errors);
 
-        public static Result<T> Error(string message = "", IEnumerable<string> errors = default)
-            => new Result<T>(ResultCode.Error, message, errors);
+        public static Result<T> Error(params string[] errors) =>
+            new Result<T>(ResultCode.Error, errors);
     }
 }
