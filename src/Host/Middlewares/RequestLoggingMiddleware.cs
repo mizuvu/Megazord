@@ -56,7 +56,7 @@ public class RequestLoggingMiddleware(RequestDelegate next,
                 var statusCode = context.Response.StatusCode;
                 var contentType = context.Response.Headers.ContentType.ToString();
                 var logContent = $"{Minify(requestBody)}\r\nStatus Code: {statusCode}\r\nTrace ID: {traceId}\r\n{contentType}";
-                
+
                 if (_responseLogging) // write response log if enable
                 {
                     // Read the response body

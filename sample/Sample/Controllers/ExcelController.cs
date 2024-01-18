@@ -51,7 +51,7 @@ namespace Sample.Controllers
 
             Stream stream = new MemoryStream(bytes);
 
-            var dt = _excelService.Read(stream);
+            var dt = _excelService.ReadAsDataTable(stream);
 
             var obj = DataTableHelper.ConvertToObjects(dt);
 
