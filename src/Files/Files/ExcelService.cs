@@ -55,7 +55,7 @@ namespace Zord.Files
             return wb.AsStream();
         }
 
-        public DataTable Read(Stream streamData, string? sheetName = null)
+        public DataTable ReadAsDataTable(Stream streamData, string? sheetName = null)
         {
             using IXLWorkbook workbook = new XLWorkbook(streamData);
 
@@ -104,7 +104,7 @@ namespace Zord.Files
             return dt;
         }
 
-        public IEnumerable<T> Read<T>(Stream streamData, string? sheetName = null, ColumnOptions<T>? options = null)
+        public IEnumerable<T> ReadAs<T>(Stream streamData, string? sheetName = null, ColumnOptions<T>? options = null)
         {
             var list = new List<T>();
 
@@ -175,7 +175,7 @@ namespace Zord.Files
             return list;
         }
 
-        public List<Dictionary<string, object>> ReadAsObject(Stream streamData, string? sheetName = null)
+        public List<Dictionary<string, object>> ReadAsObjects(Stream streamData, string? sheetName = null)
         {
             using IXLWorkbook workbook = new XLWorkbook(streamData);
 

@@ -25,16 +25,16 @@ namespace Zord.Files
         /// <summary>
         /// Load excel file to DataTable
         /// </summary>
-        DataTable Read(Stream streamData, string? sheetName = null);
+        DataTable ReadAsDataTable(Stream streamData, string? sheetName = null);
 
         /// <summary>
         /// Load excel file to list object with manual set column names
         /// </summary>
-        IEnumerable<T> Read<T>(Stream streamData, string? sheetName = null, ColumnOptions<T>? options = null);
+        IEnumerable<T> ReadAs<T>(Stream streamData, string? sheetName = null, ColumnOptions<T>? options = null);
 
         /// <summary>
         /// Load excel file to objects list
         /// </summary>
-        List<Dictionary<string, object>> ReadAsObject(Stream streamData, string? sheetName = null);
+        List<Dictionary<string, object>> ReadAsObjects(Stream streamData, string? sheetName = null);
     }
 }
