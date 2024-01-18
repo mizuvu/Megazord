@@ -66,5 +66,8 @@ namespace Zord.Result
 
         public static Result<T> Error(params string[] errors) =>
             new Result<T>(ResultCode.Error, errors);
+
+        public static Result<T> Error(IEnumerable<string> errors) =>
+            new Result<T>(ResultCode.Error, errors);
     }
 }

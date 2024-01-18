@@ -74,5 +74,8 @@ namespace Zord.Result
 
         public static Result Error(params string[] errors) =>
             new Result(ResultCode.Error, errors);
+
+        public static Result Error(IEnumerable<string> errors) =>
+            new Result(ResultCode.Error, errors);
     }
 }
