@@ -11,7 +11,7 @@
 	<Authors>minhvu</Authors>
 	<Description>EF Core extensions package.</Description>
 	<Summary>EF Core extensions package.</Summary>
-	<Version>8.0.0.3</Version>
+	<Version>8.0.0.4</Version>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	<PublishRepositoryUrl>true</PublishRepositoryUrl>
 	<EmbedUntrackedSources>true</EmbedUntrackedSources>

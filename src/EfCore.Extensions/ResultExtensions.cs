@@ -17,6 +17,13 @@ public static class ResultExtensions
         return new PagedResult<T>(items, pageNumber, pageSize, count);
     }
 
+    public static Task<PagedResult<T>> ToPagedResultAsync<T>(this IQueryable<T> queryable,
+        PageLookup lookup,
+        CancellationToken cancellationToken = default)
+    {
+        return queryable.ToPagedResultAsync(lookup.Page, lookup.PageSize, cancellationToken);
+    }
+
     public static async Task<Result<IEnumerable<T>>> ToListResultAsync<T>(this IQueryable<T> queryable,
         CancellationToken cancellationToken = default)
     {
