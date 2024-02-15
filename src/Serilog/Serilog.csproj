@@ -11,7 +11,7 @@
 	<Authors>minhvu</Authors>
 	<Description>Logging package using Serilog.</Description>
 	<Summary>Logging package using Serilog.</Summary>
-	<Version>0.0.0.10</Version>
+	<Version>0.0.0.11</Version>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	<PackageReleaseNotes></PackageReleaseNotes>
 	<PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -22,7 +22,7 @@
   <ItemGroup>
 	<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
 	<PackageReference Include="Serilog" Version="3.1.1" />
-	<PackageReference Include="Serilog.AspNetCore" Version="8.0.0" />
+	<PackageReference Include="Serilog.AspNetCore" Version="8.0.1" />
 	<PackageReference Include="Serilog.Enrichers.Environment" Version="2.3.0" />
 	<PackageReference Include="Serilog.Expressions" Version="4.0.0" />
 	<PackageReference Include="Serilog.Sinks.Async" Version="1.5.0" />

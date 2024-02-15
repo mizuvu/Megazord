@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -15,21 +16,72 @@ namespace Zord.Extensions
 
     public static class EnumHelper
     {
+        private static string RegexReplace(string value)
+        {
+            value = Regex.Replace(value, "([a-z])([A-Z])", "$1 $2");
+            value = Regex.Replace(value, "([A-Za-z])([0-9])", "$1 $2");
+            value = Regex.Replace(value, "([0-9])([A-Za-z])", "$1 $2");
+            value = Regex.Replace(value, "(?<!^)(?<! )([A-Z][a-z])", " $1");
+
+            return value;
+        }
+
+        public static string DefaultName(this Enum enumValue)
+        {
+            string result = enumValue.ToString();
+            return RegexReplace(result);
+        }
+
         /// <summary>
-        /// Get description of a value of Enum
+        /// Get description attribute value of Enum
         /// </summary>
         public static string GetDescription(this Enum enumValue)
         {
             object[] attr = enumValue.GetType().GetField(enumValue.ToString())
                 .GetCustomAttributes(typeof(DescriptionAttribute), false);
+
             if (attr.Length > 0)
                 return ((DescriptionAttribute)attr[0]).Description;
-            string result = enumValue.ToString();
-            result = Regex.Replace(result, "([a-z])([A-Z])", "$1 $2");
-            result = Regex.Replace(result, "([A-Za-z])([0-9])", "$1 $2");
-            result = Regex.Replace(result, "([0-9])([A-Za-z])", "$1 $2");
-            result = Regex.Replace(result, "(?<!^)(?<! )([A-Z][a-z])", " $1");
-            return result;
+
+            return enumValue.DefaultName();
+        }
+
+        /// <summary>
+        /// Get name value from display attribute of Enum
+        /// </summary>
+        public static string GetNameOfDisplay(this Enum enumValue)
+        {
+            object[] attr = enumValue.GetType().GetField(enumValue.ToString())
+                .GetCustomAttributes(typeof(DisplayAttribute), false);
+
+            if (attr.Length > 0)
+            {
+                var value = ((DisplayAttribute)attr[0]).Name;
+
+                if (!string.IsNullOrEmpty(value))
+                    return value;
+            }
+
+            return enumValue.DefaultName();
+        }
+
+        /// <summary>
+        /// Get description value from display attribute of Enum
+        /// </summary>
+        public static string GetDescriptionOfDisplay(this Enum enumValue)
+        {
+            object[] attr = enumValue.GetType().GetField(enumValue.ToString())
+                .GetCustomAttributes(typeof(DisplayAttribute), false);
+
+            if (attr.Length > 0)
+            {
+                var value = ((DisplayAttribute)attr[0]).Description;
+
+                if (!string.IsNullOrEmpty(value))
+                    return value;
+            }
+
+            return enumValue.DefaultName();
         }
 
         /// <summary>

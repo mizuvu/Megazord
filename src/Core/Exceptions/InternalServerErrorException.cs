@@ -1,17 +1,5 @@
 using System.Net;
 
-namespace Zord.Exceptions
-{
-    public class InternalServerErrorException : ExceptionBase
-    {
-        public InternalServerErrorException(string message)
-            : base(message, null, HttpStatusCode.InternalServerError)
-        {
-        }
+namespace Zord.Exceptions;
 
-        public InternalServerErrorException(IEnumerable<string> messages)
-            : base("", messages, HttpStatusCode.InternalServerError)
-        {
-        }
-    }
-}
+public class InternalServerErrorException(string message) : ExceptionBase(message, HttpStatusCode.InternalServerError);

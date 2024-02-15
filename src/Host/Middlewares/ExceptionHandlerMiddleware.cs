@@ -46,10 +46,6 @@ public class ExceptionHandlerMiddleware(RequestDelegate next,
                 case ExceptionBase e:
                     response.StatusCode = (int)e.StatusCode;
                     message = $"{ex.Message.Trim()} with Trace ID: {traceId}";
-                    if (e.ErrorMessages is not null)
-                    {
-                        errors.AddRange(e.ErrorMessages);
-                    }
                     break;
 
                 case KeyNotFoundException:
@@ -59,7 +55,7 @@ public class ExceptionHandlerMiddleware(RequestDelegate next,
 
                 case Exception e:
                     response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                    message = $"Not Found with Trace ID: {traceId}";
+                    message = $"Error with Trace ID: {traceId}";
                     errors.Add(e.Message);
                     break;
 

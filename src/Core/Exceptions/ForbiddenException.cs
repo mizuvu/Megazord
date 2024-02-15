@@ -1,12 +1,5 @@
 using System.Net;
 
-namespace Zord.Exceptions
-{
-    public class ForbiddenException : ExceptionBase
-    {
-        public ForbiddenException(string message)
-            : base(message, null, HttpStatusCode.Forbidden)
-        {
-        }
-    }
-}
+namespace Zord.Exceptions;
+
+public class ForbiddenException(string message) : ExceptionBase(message, HttpStatusCode.Forbidden);

@@ -1,18 +1,8 @@
 using System.Net;
 
-namespace Zord.Exceptions
+namespace Zord.Exceptions;
+
+public abstract class ExceptionBase(string message, HttpStatusCode statusCode = HttpStatusCode.InternalServerError) : Exception(message)
 {
-    public class ExceptionBase : Exception
-    {
-        public IEnumerable<string>? ErrorMessages { get; }
-
-        public HttpStatusCode StatusCode { get; }
-
-        public ExceptionBase(string message, IEnumerable<string>? errors = null, HttpStatusCode statusCode = HttpStatusCode.InternalServerError)
-            : base(message)
-        {
-            ErrorMessages = errors;
-            StatusCode = statusCode;
-        }
-    }
+    public HttpStatusCode StatusCode { get; } = statusCode;
 }
