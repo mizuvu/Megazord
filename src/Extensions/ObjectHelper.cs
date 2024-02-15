@@ -2,71 +2,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Xml.Linq;
 
 namespace Zord.Extensions
 {
     public static class ObjectHelper
     {
         /// <summary>
-        /// Get value from [DisplayName] attribute
-        /// </summary>
-        public static string? GetDisplayName(this MemberInfo memberInfo)
-        {
-            var displayName = memberInfo
-              .GetCustomAttributes(typeof(DisplayNameAttribute), true)
-              .FirstOrDefault() as DisplayNameAttribute;
-
-            return displayName?.DisplayName;
-        }
-
-        /// <summary>
-        /// Get value from [Description] attribute
-        /// </summary>
-        public static string? GetDescription(this MemberInfo memberInfo)
-        {
-            var displayName = memberInfo
-              .GetCustomAttributes(typeof(DescriptionAttribute), true)
-              .FirstOrDefault() as DescriptionAttribute;
-
-            return displayName?.Description;
-        }
-
-        /// <summary>
-        /// Get value of Name from [Display(Name={value})] attribute
-        /// </summary>
-        public static string? GetNameOfDisplay(this MemberInfo memberInfo)
-        {
-            DisplayAttribute? displayAttr = memberInfo
-                .GetCustomAttributes(typeof(DisplayAttribute), true)
-                .FirstOrDefault() as DisplayAttribute;
-
-            return displayAttr?.Name;
-        }
-
-        /// <summary>
-        /// Get value of Description from [Display(Name={Description})] attribute
-        /// </summary>
-        public static string? GetDescriptionOfDisplay(this MemberInfo memberInfo)
-        {
-            DisplayAttribute? displayAttr = memberInfo
-                .GetCustomAttributes(typeof(DisplayAttribute), true)
-                .FirstOrDefault() as DisplayAttribute;
-
-            return displayAttr?.Description;
-        }
-
-        /// <summary>
         /// Get Name of Property in an Object
         /// </summary>
-        public static string GetPropertyName<T, TResult>(Expression<Func<T, TResult>> expr)
+        public static string GetPropertyName<T>(Expression<Func<T, object?>> expr)
         {
-            if (!(expr.Body is MemberExpression memberExpression))
-                throw new ArgumentException($"The provided expression contains a {expr.GetType().Name} which is not supported. Only simple member accessors (fields, properties) of an object are supported.");
-            return memberExpression.Member.Name;
+            if (expr.Body is MemberExpression memberExpression)
+            {
+                return memberExpression.Member.Name;
+            }
+            else if (expr.Body is UnaryExpression unaryExpression && unaryExpression.Operand is MemberExpression unaryMemberExpression)
+            {
+                return unaryMemberExpression.Member.Name;
+            }
+
+            throw new ArgumentException($"The provided expression contains a {expr.GetType().Name} which is not supported. Only simple member accessors (fields, properties) of an object are supported.");
         }
 
         /// <summary>

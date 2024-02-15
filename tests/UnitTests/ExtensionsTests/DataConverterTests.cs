@@ -47,12 +47,15 @@ namespace UnitTests.ExtensionsTests
             var descInDisplay = type.GetDescriptionOfDisplay();
             descInDisplay.Should().Be("Test Description in Display");
 
-            var nameOfId = ObjectHelper.GetPropertyName<TestObject, int>(x => x.Id);
+            var nameOfId = ObjectHelper.GetPropertyName<TestObject>(x => x.Id);
             nameOfId.Should().Be("Id");
+
+            var nameOfValue = ObjectHelper.GetPropertyName<TestObject>(x => x.Value);
+            nameOfValue.Should().Be("Value");
         }
 
         [Fact]
-        public void Should_Return_Correct_Value()
+        public void Should_Return_Correct_Values()
         {
             var model = new TestObject
             {

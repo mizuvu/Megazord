@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace Zord.Extensions
@@ -26,7 +25,7 @@ namespace Zord.Extensions
             return value;
         }
 
-        public static string DefaultName(this Enum enumValue)
+        private static string DefaultName(this Enum enumValue)
         {
             string result = enumValue.ToString();
             return RegexReplace(result);
@@ -35,7 +34,7 @@ namespace Zord.Extensions
         /// <summary>
         /// Get description attribute value of Enum
         /// </summary>
-        public static string GetDescription(this Enum enumValue)
+        public static string? GetDescription(this Enum enumValue)
         {
             object[] attr = enumValue.GetType().GetField(enumValue.ToString())
                 .GetCustomAttributes(typeof(DescriptionAttribute), false);
@@ -43,13 +42,14 @@ namespace Zord.Extensions
             if (attr.Length > 0)
                 return ((DescriptionAttribute)attr[0]).Description;
 
-            return enumValue.DefaultName();
+            return default;
         }
 
         /// <summary>
         /// Get name value from display attribute of Enum
         /// </summary>
-        public static string GetNameOfDisplay(this Enum enumValue)
+        
+        public static string? GetNameOfDisplay(this Enum enumValue)
         {
             object[] attr = enumValue.GetType().GetField(enumValue.ToString())
                 .GetCustomAttributes(typeof(DisplayAttribute), false);
@@ -62,13 +62,13 @@ namespace Zord.Extensions
                     return value;
             }
 
-            return enumValue.DefaultName();
+            return default;
         }
 
         /// <summary>
         /// Get description value from display attribute of Enum
         /// </summary>
-        public static string GetDescriptionOfDisplay(this Enum enumValue)
+        public static string? GetDescriptionOfDisplay(this Enum enumValue)
         {
             object[] attr = enumValue.GetType().GetField(enumValue.ToString())
                 .GetCustomAttributes(typeof(DisplayAttribute), false);
@@ -81,16 +81,7 @@ namespace Zord.Extensions
                     return value;
             }
 
-            return enumValue.DefaultName();
-        }
-
-        /// <summary>
-        /// Get all description of Enum
-        /// </summary>
-        public static List<string> GetDescriptionList(this Enum enumValue)
-        {
-            string result = enumValue.GetDescription();
-            return result.Split(',').ToList();
+            return default;
         }
 
         /// <summary>

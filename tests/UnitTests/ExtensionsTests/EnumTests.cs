@@ -16,6 +16,16 @@ namespace UnitTests.ExtensionsTests
             var enumDescriptionOfDisplay1 = TestEnum.Value1.GetDescriptionOfDisplay();
             enumDescriptionOfDisplay1.Should().Be("Description of Display 1");
 
+            var enumNameOfDisplay2 = TestEnum.Value2.GetNameOfDisplay();
+            enumNameOfDisplay2.Should().Be(null);
+
+            var enumDescriptionOfDisplay2 = TestEnum.Value2.GetDescriptionOfDisplay();
+            enumDescriptionOfDisplay2.Should().Be(null);
+        }
+
+        [Fact]
+        public void Should_Correct_Options()
+        {
             var enumOptions = EnumHelper.GetOptions<TestEnum>();
             foreach (var option in enumOptions)
             {
