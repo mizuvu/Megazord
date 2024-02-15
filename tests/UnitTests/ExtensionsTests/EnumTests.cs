@@ -10,6 +10,12 @@ namespace UnitTests.ExtensionsTests
             var enumDesciption1 = TestEnum.Value1.GetDescription();
             enumDesciption1.Should().Be("Description 1");
 
+            var enumNameOfDisplay1 = TestEnum.Value1.GetNameOfDisplay();
+            enumNameOfDisplay1.Should().Be("Name of Display 1");
+
+            var enumDescriptionOfDisplay1 = TestEnum.Value1.GetDescriptionOfDisplay();
+            enumDescriptionOfDisplay1.Should().Be("Description of Display 1");
+
             var enumOptions = EnumHelper.GetOptions<TestEnum>();
             foreach (var option in enumOptions)
             {
