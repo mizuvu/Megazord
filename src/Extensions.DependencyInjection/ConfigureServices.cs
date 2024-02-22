@@ -4,13 +4,13 @@ using System.Linq;
 
 namespace Zord.Extensions.DependencyInjection
 {
-    public static class AutoAddServices
+    public static class ConfigureServices
     {
-        public static IServiceCollection AddFreeDependencies(this IServiceCollection services)
-            => services
-            .AddServices(typeof(ITransientDependency), ServiceLifetime.Transient)
-            .AddServices(typeof(IScopedDependency), ServiceLifetime.Scoped)
-            .AddServices(typeof(ISingletonDependency), ServiceLifetime.Singleton);
+        public static IServiceCollection AutoAddDependencies(this IServiceCollection services) =>
+            services
+                .AddServices(typeof(ITransientDependency), ServiceLifetime.Transient)
+                .AddServices(typeof(IScopedDependency), ServiceLifetime.Scoped)
+                .AddServices(typeof(ISingletonDependency), ServiceLifetime.Singleton);
 
         private static IServiceCollection AddServices(this IServiceCollection services, Type interfaceType, ServiceLifetime lifetime)
         {
