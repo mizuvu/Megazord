@@ -18,10 +18,10 @@ public static class ResultExtensions
     }
 
     public static Task<PagedResult<T>> ToPagedResultAsync<T>(this IQueryable<T> queryable,
-        PageLookup lookup,
+        IPage page,
         CancellationToken cancellationToken = default)
     {
-        return queryable.ToPagedResultAsync(lookup.Page, lookup.PageSize, cancellationToken);
+        return queryable.ToPagedResultAsync(page.Page, page.PageSize, cancellationToken);
     }
 
     public static async Task<Result<IEnumerable<T>>> ToListResultAsync<T>(this IQueryable<T> queryable,

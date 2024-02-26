@@ -14,5 +14,8 @@ namespace UnitTests.ExtensionsTests
         public int Id { get; set; }
 
         public string? Value { get; set; }
+
+        [Description("Color Description")]
+        public const string Color = "RGB";
     }
 }

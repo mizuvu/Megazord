@@ -1,17 +1,13 @@
 ﻿namespace Zord.Result
 {
-    public interface IPagedInfo
+    public interface IPagedInfo : IPage
     {
-        bool HasNextPage { get; }
-
-        bool HasPreviousPage { get; }
-
-        int Page { get; }
-
-        int PageSize { get; }
-
         int TotalPages { get; }
 
         int TotalRecords { get; }
+
+        bool HasNextPage { get; }
+
+        bool HasPreviousPage { get; }
     }
 }

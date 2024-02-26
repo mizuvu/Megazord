@@ -3,7 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Caching.Memory;
 using Sample.Data;
+using Sample.Models;
 using Zord.Exceptions;
+using Zord.Extensions;
 
 namespace Sample.Controllers
 {
@@ -11,7 +13,6 @@ namespace Sample.Controllers
     [ApiController]
     public class TestController(
         IMemoryCache memoryCache,
-        IDistributedCache distributedCache,
         AlphaDbContext context) : ControllerBase
     {
         private readonly string _cacheKey = "Key";
@@ -34,6 +35,12 @@ namespace Sample.Controllers
         public IActionResult GetDisAsync()
         {
             return Ok();
+        }
+
+        [HttpGet("throw")]
+        public IActionResult ThrowAsync()
+        {
+            throw new InternalServerErrorException("Server error");
         }
     }
 }

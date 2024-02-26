@@ -1,5 +1,7 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Reflection;
 
 namespace Zord.Extensions
@@ -7,47 +9,34 @@ namespace Zord.Extensions
     public static class AttributeExtensions
     {
         /// <summary>
+        /// Get first value from attribute
+        /// </summary>
+        public static T? GetAttribute<T>(this MemberInfo memberInfo)
+            where T : Attribute =>
+            memberInfo.GetCustomAttributes(typeof(T), true).FirstOrDefault() as T;
+
+        /// <summary>
         /// Get value from [DisplayName] attribute
         /// </summary>
-        public static string? GetDisplayName(this MemberInfo memberInfo)
-        {
-            var displayName = memberInfo
-              .GetCustomAttributes(typeof(DisplayNameAttribute), true)[0] as DisplayNameAttribute;
-
-            return displayName?.DisplayName;
-        }
+        public static string? GetDisplayName(this MemberInfo memberInfo) =>
+            memberInfo.GetAttribute<DisplayNameAttribute>()?.DisplayName;
 
         /// <summary>
         /// Get value from [Description] attribute
         /// </summary>
-        public static string? GetDescription(this MemberInfo memberInfo)
-        {
-            var displayName = memberInfo
-              .GetCustomAttributes(typeof(DescriptionAttribute), true)[0] as DescriptionAttribute;
-
-            return displayName?.Description;
-        }
+        public static string? GetDescription(this MemberInfo memberInfo) =>
+            memberInfo.GetAttribute<DescriptionAttribute>()?.Description;
 
         /// <summary>
         /// Get value of Name from [Display(Name={value})] attribute
         /// </summary>
-        public static string? GetNameOfDisplay(this MemberInfo memberInfo)
-        {
-            DisplayAttribute? displayAttr = memberInfo
-                .GetCustomAttributes(typeof(DisplayAttribute), true)[0] as DisplayAttribute;
-
-            return displayAttr?.Name;
-        }
+        public static string? GetNameOfDisplay(this MemberInfo memberInfo) =>
+            memberInfo.GetAttribute<DisplayAttribute>()?.Name;
 
         /// <summary>
         /// Get value of Description from [Display(Name={Description})] attribute
         /// </summary>
-        public static string? GetDescriptionOfDisplay(this MemberInfo memberInfo)
-        {
-            DisplayAttribute? displayAttr = memberInfo
-                .GetCustomAttributes(typeof(DisplayAttribute), true)[0] as DisplayAttribute;
-
-            return displayAttr?.Description;
-        }
+        public static string? GetDescriptionOfDisplay(this MemberInfo memberInfo) =>
+            memberInfo.GetAttribute<DisplayAttribute>()?.Description;
     }
 }

@@ -1,5 +1,9 @@
-﻿namespace Sample.Models
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+
+namespace Sample.Models
 {
+    [DisplayName("Test Model Display Name")]
     public class TestModel
     {
         public int Id { get; set; }

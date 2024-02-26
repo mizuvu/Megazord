@@ -20,9 +20,9 @@ namespace Zord.Result
             return new PagedResult<T>(data, page, pageSize, count);
         }
 
-        public static PagedResult<T> ToPagedResult<T>(this IEnumerable<T> list, PageLookup lookup)
+        public static PagedResult<T> ToPagedResult<T>(this IEnumerable<T> list, IPage page)
         {
-            return list.ToPagedResult(lookup.Page, lookup.PageSize);
+            return list.ToPagedResult(page.Page, page.PageSize);
         }
     }
 }

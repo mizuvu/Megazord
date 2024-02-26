@@ -56,6 +56,8 @@ builder.Services.AddControllers();
 builder.Services.AddApiVersion(1);
 builder.Services.AddSwagger(builder.Configuration, false);
 
+builder.Services.AddGlobalExceptionHandler();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -64,7 +66,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger(builder.Configuration, false);
 }
 
-app.UseMiddlewares(builder.Configuration);
+//app.UseMiddlewares(builder.Configuration);
+app.UseExceptionHandler();
 
 app.UseHttpsRedirection();
 
