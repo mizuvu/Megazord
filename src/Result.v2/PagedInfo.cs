@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Zord.Result
+namespace Zord
 {
     public class PagedInfo : IPagedInfo
     {

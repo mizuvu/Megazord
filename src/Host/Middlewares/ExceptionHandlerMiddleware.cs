@@ -3,7 +3,6 @@ using Microsoft.Extensions.Logging;
 using System.Net;
 using System.Text.Json;
 using Zord.Exceptions;
-using Zord.Result;
 
 namespace Zord.Host.Middlewares;
 
@@ -75,7 +74,7 @@ public class ExceptionHandlerMiddleware(RequestDelegate next,
             {
                 response.ContentType = "application/json";
 
-                var result = new Result.Result
+                var result = new Result
                 {
                     Code = (ResultCode)response.StatusCode,
                     Message = message,

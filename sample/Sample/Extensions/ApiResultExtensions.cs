@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Zord;
 
 namespace Sample.Extensions
 {
     public static class ApiResultExtensions
     {
-        public static ObjectResult ToResponse(this Zord.Result.IResult result)
+        public static ObjectResult ToResponse(this Zord.IResult result)
         {
             if (result.Succeeded)
             {

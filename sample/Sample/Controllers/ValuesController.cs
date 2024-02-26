@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Sample.Models;
+using Zord;
 using Zord.Extensions;
 
 namespace Sample.Controllers

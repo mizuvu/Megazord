@@ -1,4 +1,4 @@
-using Zord.Result;
+using Zord;
 
 namespace UnitTests.ResultTests
 {

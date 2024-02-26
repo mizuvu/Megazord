@@ -2,7 +2,7 @@
 
   <PropertyGroup>
 	<TargetFramework>netstandard2.0</TargetFramework>
-	<RootNamespace>Zord.Result</RootNamespace>
+	<RootNamespace>Zord</RootNamespace>
 	<AssemblyName>Zord.Result</AssemblyName>
 	<Title>Zord.Result</Title>
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>

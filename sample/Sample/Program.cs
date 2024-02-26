@@ -1,13 +1,12 @@
 global using Zord.Repository;
-global using Zord.Result;
 using Sample.Data;
 using Sample.TestOption;
+using Zord.Extensions.Caching;
+using Zord.Extensions.DependencyInjection;
 using Zord.Host;
 using Zord.Host.JwtAuth;
 using Zord.Host.Middlewares;
 using Zord.Host.Swagger;
-using Zord.Extensions.Caching;
-using Zord.Extensions.DependencyInjection;
 using Zord.Serilog;
 using Zord.SmtpMail;
 

@@ -1,5 +1,4 @@
-﻿using Sample.Data;
-using Sample.Data.Repository;
+﻿using Sample.Data.Repository;
 using Zord.Extensions.Caching;
 
 namespace Sample.Data.Persistence;

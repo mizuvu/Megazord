@@ -48,7 +48,7 @@ namespace Zord.Extensions
         /// <summary>
         /// Get name value from display attribute of Enum
         /// </summary>
-        
+
         public static string? GetNameOfDisplay(this Enum enumValue)
         {
             object[] attr = enumValue.GetType().GetField(enumValue.ToString())

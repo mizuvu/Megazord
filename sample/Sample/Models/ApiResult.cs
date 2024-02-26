@@ -1,4 +1,6 @@
-﻿namespace Sample.Models;
+﻿using Zord;
+
+namespace Sample.Models;
 
 public class ApiResult : Result
 {

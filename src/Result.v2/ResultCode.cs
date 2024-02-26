@@ -1,4 +1,4 @@
-﻿namespace Zord.Result
+﻿namespace Zord
 {
     public enum ResultCode
     {

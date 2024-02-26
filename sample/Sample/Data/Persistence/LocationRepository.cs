@@ -1,5 +1,4 @@
-﻿using Sample.Data;
-using Zord.Repository.EntityFrameworkCore;
+﻿using Zord.Repository.EntityFrameworkCore;
 
 namespace Sample.Data.Persistence;
 

@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using IResult = Zord.Result.IResult;
 
 namespace Zord.Host.Extensions;
 

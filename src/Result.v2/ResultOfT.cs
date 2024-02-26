@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Zord.Result
+namespace Zord
 {
     public class Result<T> : IResult<T>
     {

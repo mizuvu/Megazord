@@ -111,7 +111,7 @@ public static class ConfigureExtensions
                     .SelectMany(key => context.ModelState[key]!.Errors.Select(x => $"{key}: {x.ErrorMessage}"))
                     .ToArray();
 
-                var apiError = Result.Result.BadRequest(errors);
+                var apiError = Result.BadRequest(errors);
 
                 var result = new ObjectResult(apiError)
                 {

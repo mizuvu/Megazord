@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Zord.Result
+namespace Zord
 {
     public interface IResult
     {

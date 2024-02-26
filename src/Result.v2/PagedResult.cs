@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Zord.Result
+namespace Zord
 {
     public class PagedResult<T> : IResult<IEnumerable<T>>
     {

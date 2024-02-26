@@ -76,7 +76,7 @@ namespace Zord.Files
             {
                 IXLRow rowData = row.data;
                 int rowIndex = row.i;
-                
+
                 // Use the first row to add columns to DataTable.
                 if (rowIndex == 0)
                 {

@@ -1,6 +1,4 @@
-﻿using Zord.Result;
-
-namespace Zord.EntityFrameworkCore.Extensions;
+﻿namespace Zord.EntityFrameworkCore.Extensions;
 
 public static class ResultExtensions
 {
