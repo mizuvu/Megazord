@@ -36,5 +36,16 @@ namespace Zord.Extensions
 
             return JsonSerializer.Deserialize<T>(json, options);
         }
+
+        /// <summary>
+        /// Convert an instance of T to Json
+        /// </summary>
+        public static string ToJson<T>(this T obj) => JsonSerializer.Serialize(obj, options);
+
+        /// <summary>
+        /// Read json as an instance of T
+        /// </summary>
+        [return: MaybeNull]
+        public static T ReadJsonAs<T>(this string json) => JsonSerializer.Deserialize<T>(json, options);
     }
 }
