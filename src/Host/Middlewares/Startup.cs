@@ -6,6 +6,8 @@ namespace Zord.Host.Middlewares;
 
 public static class Startup
 {
+    private const string inboundLoggingSection = "InboundLogging";
+
     public static IServiceCollection AddGlobalExceptionHandler(this IServiceCollection services)
     {
         services.AddExceptionHandler<ExceptionHandler>();
@@ -14,15 +16,29 @@ public static class Startup
         return services;
     }
 
-    public static IApplicationBuilder UseMiddlewares(this IApplicationBuilder app, IConfiguration configuration)
+    public static IServiceCollection AddInboundLogging(this IServiceCollection services)
     {
-        var enableRequestLogging = configuration.GetValue<bool>("RequestLogging");
-        if (enableRequestLogging)
+        services.AddOptions<InboundLoggingOptions>().BindConfiguration(inboundLoggingSection);
+
+        return services;
+    }
+
+    public static IApplicationBuilder UseInboundLoggingMiddleware(this IApplicationBuilder app, IConfiguration configuration)
+    {
+        var settings = configuration.GetSection(inboundLoggingSection).Get<InboundLoggingOptions>();
+        if (settings is not null && settings.Enable)
         {
             app.UseMiddleware<RequestLoggingMiddleware>();
         }
 
-        app.UseMiddleware<ExceptionHandlerMiddleware>();
+        return app;
+    }
+
+    public static IApplicationBuilder UseMiddlewares(this IApplicationBuilder app, IConfiguration configuration)
+    {
+        app.UseRequestLoggingMiddleware(configuration);
+
+        app.UseExceptionHandlerMiddleware();
 
         return app;
     }
@@ -38,7 +54,7 @@ public static class Startup
         return app;
     }
 
-    public static IApplicationBuilder UseExceptionHandlerMiddleware(this IApplicationBuilder app, IConfiguration configuration)
+    public static IApplicationBuilder UseExceptionHandlerMiddleware(this IApplicationBuilder app)
     {
         app.UseMiddleware<ExceptionHandlerMiddleware>();
 

@@ -57,6 +57,8 @@ builder.Services.AddSwagger(builder.Configuration, false);
 
 builder.Services.AddGlobalExceptionHandler();
 
+builder.Services.AddInboundLogging();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -67,6 +69,7 @@ if (app.Environment.IsDevelopment())
 
 //app.UseMiddlewares(builder.Configuration);
 app.UseExceptionHandler();
+app.UseInboundLoggingMiddleware(builder.Configuration);
 
 app.UseHttpsRedirection();
 

@@ -1,18 +1,20 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using System.Text.Json;
 
 namespace Zord.Host.Middlewares;
 
 public class RequestLoggingMiddleware(RequestDelegate next,
-    IConfiguration configuration,
+    IOptions<InboundLoggingOptions> options,
     ILogger<RequestLoggingMiddleware> logger)
 {
     private readonly string[] _excludePath = ["hangfire", "swagger"];
 
+    private readonly InboundLoggingOptions _settings = options.Value;
+
     private readonly RequestDelegate _next = next;
-    private readonly bool _responseLogging = configuration.GetValue<bool>("ResponseLogging");
+
     private readonly ILogger _logger = logger; // must use Microsoft Logger because only Singleton services can be resolved by constructor injection in Middleware
 
     public async Task InvokeAsync(HttpContext context)
@@ -34,7 +36,10 @@ public class RequestLoggingMiddleware(RequestDelegate next,
 
         bool notWriteFrom = _excludePath.Any(c => requestPath.ToString().Contains(c));
 
-        if (notWriteFrom)
+        bool notWriteFromCustomPaths = _settings.ExcludePaths is not null
+            && _settings.ExcludePaths.Any(c => requestPath.ToString().Contains(c));
+
+        if (notWriteFrom || notWriteFromCustomPaths)
         {
             await _next(context);
         }
@@ -57,7 +62,7 @@ public class RequestLoggingMiddleware(RequestDelegate next,
                 var contentType = context.Response.Headers.ContentType.ToString();
                 var logContent = $"{Minify(requestBody)}\r\nStatus Code: {statusCode}\r\nTrace ID: {traceId}\r\n{contentType}";
 
-                if (_responseLogging) // write response log if enable
+                if (_settings.IncludeResponse) // write response log if enable
                 {
                     // Read the response body
                     responseBody.Seek(0, SeekOrigin.Begin);
