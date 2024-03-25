@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using Sample.Data;
+using Sample.Services;
 using Zord.Exceptions;
 
 namespace Sample.Controllers
@@ -10,7 +11,12 @@ namespace Sample.Controllers
     [ApiController]
     public class TestController(
         IMemoryCache memoryCache,
-        AlphaDbContext context) : ControllerBase
+        AlphaDbContext context,
+        IDateTimeService dateTimeService,
+        DataService dataService,
+        IData1Service data1Service,
+        IData2Service data2Service,
+        IData3Service data3Service) : ControllerBase
     {
         private readonly string _cacheKey = "Key";
 
@@ -38,6 +44,25 @@ namespace Sample.Controllers
         public IActionResult ThrowAsync()
         {
             throw new InternalServerErrorException("Server error");
+        }
+
+        [HttpGet("now")]
+        public IActionResult GetNowAsync()
+        {
+            return Ok(dateTimeService.Now);
+        }
+
+        [HttpGet("new_id")]
+        public IActionResult GetNewIdAsync()
+        {
+            var obj = new
+            {
+                Id1 = data1Service.NewId,
+                Id2 = data2Service.NewId,
+                Id3 = data3Service.NewId,
+            };
+            
+            return Ok(obj);
         }
     }
 }

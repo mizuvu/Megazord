@@ -59,6 +59,8 @@ builder.Services.AddGlobalExceptionHandler();
 
 builder.Services.AddInboundLogging();
 
+builder.Services.AutoAddDependencies();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -68,8 +70,9 @@ if (app.Environment.IsDevelopment())
 }
 
 //app.UseMiddlewares(builder.Configuration);
-app.UseExceptionHandler();
 app.UseInboundLoggingMiddleware(builder.Configuration);
+app.UseExceptionHandler();
+//app.UseExceptionHandlerMiddleware();
 
 app.UseHttpsRedirection();
 

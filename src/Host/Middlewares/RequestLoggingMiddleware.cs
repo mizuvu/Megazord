@@ -81,12 +81,10 @@ public class RequestLoggingMiddleware(RequestDelegate next,
             {
                 _logger.LogError("Unhandler exception with error {error}.", ex.Message);
             }
-            /*
             finally
             {
                 context.Response.Body = originalBody;
             }
-            */
         }
     }
 
