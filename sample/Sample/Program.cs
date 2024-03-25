@@ -71,7 +71,7 @@ if (app.Environment.IsDevelopment())
 
 //app.UseMiddlewares(builder.Configuration);
 app.UseInboundLoggingMiddleware(builder.Configuration);
-app.UseExceptionHandler();
+app.UseExceptionHandler(); // must inject after Inbound Logging
 //app.UseExceptionHandlerMiddleware();
 
 app.UseHttpsRedirection();
