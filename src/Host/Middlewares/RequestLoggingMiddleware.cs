@@ -30,7 +30,7 @@ public class RequestLoggingMiddleware(RequestDelegate next,
         var requestQuery = request.QueryString.ToString();
         //var requestScheme = request.Scheme;
         //var requestHost = request.Host.ToString();
-        //var requestContentType = request.ContentType;
+        var requestContentType = request.ContentType;
 
         var requestBody = await ReadBodyAsync(request);
 
@@ -39,7 +39,13 @@ public class RequestLoggingMiddleware(RequestDelegate next,
         bool notWriteFromCustomPaths = _settings.ExcludePaths is not null
             && _settings.ExcludePaths.Any(c => requestPath.ToString().Contains(c));
 
-        if (notWriteFrom || notWriteFromCustomPaths)
+        // not write inbound logs if path contains exclude setup strings
+        bool canWriteLog = notWriteFrom is false && notWriteFromCustomPaths is false;
+
+        // only write inbound logs with JSON content
+        bool isJsonContent = requestContentType is not null && requestContentType.Contains("json");
+
+        if (canWriteLog && isJsonContent)
         {
             await _next(context);
         }
