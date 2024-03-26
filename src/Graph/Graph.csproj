@@ -10,7 +10,7 @@
 	<Authors>minhvu</Authors>
 	<Description>Package using Microsoft Graph.</Description>
 	<Summary>Package using Microsoft Graph.</Summary>
-	<Version>0.0.0.9</Version>
+	<Version>0.0.0.10</Version>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	<PackageReleaseNotes></PackageReleaseNotes>
 	<PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -21,7 +21,7 @@
   <ItemGroup>
 	<PackageReference Include="Azure.Identity" Version="1.10.4" />
 	<PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="8.0.0" />
-	<PackageReference Include="Microsoft.Graph" Version="5.44.0" />
+	<PackageReference Include="Microsoft.Graph" Version="5.45.0" />
 	<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
   </ItemGroup>
 

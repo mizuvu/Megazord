@@ -28,6 +28,8 @@ builder.Services.AddGraphMail(opt =>
 });
 */
 
+
+
 builder.Services.AddData(builder.Configuration);
 var settings = builder.Configuration.GetSection("Caching").Get<CacheOptions>();
 builder.Services.AddCache(opt =>
@@ -61,6 +63,8 @@ builder.Services.AddInboundLogging();
 
 builder.Services.AutoAddDependencies();
 
+builder.Services.AutoConfigureModuleServices(builder.Configuration);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -78,6 +82,8 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.AutoConfigureModulePipelines(builder.Configuration);
 
 app.MapControllers();
 
