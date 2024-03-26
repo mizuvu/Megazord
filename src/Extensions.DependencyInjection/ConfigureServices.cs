@@ -18,7 +18,7 @@ namespace Zord.Extensions.DependencyInjection
             var allAssignableFromDependency = AppDomain.CurrentDomain
                 .GetAssemblies()
                 .SelectMany(s => s.GetTypes())
-                .Where(x => 
+                .Where(x =>
                     typeOfDependency.IsAssignableFrom(x)
                     && x.IsClass && !x.IsAbstract);
 
@@ -87,7 +87,7 @@ namespace Zord.Extensions.DependencyInjection
 
             return services;
         }
-            
+
     }
 }
 

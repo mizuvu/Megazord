@@ -61,7 +61,7 @@ namespace Sample.Controllers
                 Id2 = data2Service.NewId,
                 Id3 = data3Service.NewId,
             };
-            
+
             return Ok(obj);
         }
     }

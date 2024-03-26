@@ -8,7 +8,7 @@ namespace UnitTests.ResultTests
         private readonly int pageSize = 5;
 
         private readonly IEnumerable<int> listValues;
-        
+
         public PagedTests()
         {
             var list = new List<int>();

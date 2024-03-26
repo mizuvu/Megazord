@@ -9,7 +9,7 @@ public class OrderConfigServices : ModuleServiceCollection
     {
         services.AddSingleton<OrderMiddleware>();
         services.AddSingleton<OrderModuleService>();
-        
+
         return services;
     }
 }
